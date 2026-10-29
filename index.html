@@ -855,6 +855,9 @@
       margin: 0 0 6px;
       font-size: 1.45rem;
       font-weight: 900;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
     }
     .results-top .sub {
       margin: 0;
@@ -1171,14 +1174,9 @@
       display: grid;
       grid-template-columns: 110px 1fr;
       box-shadow: var(--shadow);
-      animation: fadeIn 0.4s ease both;
       margin: 0;
       min-width: 0;
     }
-    .listing:nth-child(2) { animation-delay: 0.05s; }
-    .listing:nth-child(3) { animation-delay: 0.1s; }
-    .listing:nth-child(4) { animation-delay: 0.15s; }
-    .listing:nth-child(5) { animation-delay: 0.2s; }
     .listing-media {
       background: var(--bg-soft);
       min-height: 120px;
@@ -1613,12 +1611,9 @@
         min-height: 40px;
       }
       .results-top h1 {
-        font-size: 1.05rem;
+        font-size: 1rem;
         line-height: 1.25;
         margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
       .results-top .sub {
         display: none;
@@ -3134,6 +3129,7 @@
         normalizeDistanceState();
 
         els.resultsTitle.textContent = "Student rentals near " + campus.name;
+        els.resultsTitle.style.fontSize = "";
         els.resultsSub.textContent = "Showing sample listings within " + formatDistanceLabel(state.distance);
         els.mapCampusName.textContent = campus.name;
         els.mapRadius.textContent = formatDistanceLabel(state.distance);
@@ -3170,7 +3166,7 @@
         function listingCard(l) {
           return (
             '<article class="listing">' +
-              '<div class="listing-media"><img src="' + l.img + '" alt="" loading="lazy" /></div>' +
+              '<div class="listing-media"><img src="' + l.img + '" alt="" /></div>' +
               '<div class="listing-body">' +
                 '<div class="listing-badges"><span class="badge ' + l.badgeClass + '">' + l.badge + "</span></div>" +
                 "<h3>" + l.title + "</h3>" +
@@ -3201,7 +3197,23 @@
 
         renderMapPins(listings);
         if (show) showView("results");
+        requestAnimationFrame(fitResultsTitle);
       }
+
+      function fitResultsTitle() {
+        const el = els.resultsTitle;
+        if (!el || !el.textContent) return;
+        el.style.fontSize = "";
+        const base = parseFloat(window.getComputedStyle(el).fontSize) || 16;
+        let size = base;
+        const min = 11;
+        while (el.scrollWidth > el.clientWidth + 1 && size > min) {
+          size -= 0.5;
+          el.style.fontSize = size + "px";
+        }
+      }
+
+      let resultsLayoutMode = window.matchMedia("(min-width: 900px)").matches ? "desktop" : "mobile";
 
       function renderResults() {
         syncDraftFromState();
@@ -3364,8 +3376,14 @@
         clearTimeout(resultsResizeTimer);
         resultsResizeTimer = setTimeout(() => {
           syncCtaClearance();
-          if (els.results.classList.contains("is-active") && state.campusId) {
+          fitResultsTitle();
+          const mode = window.matchMedia("(min-width: 900px)").matches ? "desktop" : "mobile";
+          /* Only rebuild listings when crossing desktop/mobile — avoids scroll chrome resize flicker */
+          if (mode !== resultsLayoutMode && els.results.classList.contains("is-active") && state.campusId) {
+            resultsLayoutMode = mode;
             refreshResultsView(false);
+          } else {
+            resultsLayoutMode = mode;
           }
         }, 160);
       });
