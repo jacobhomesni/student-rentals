@@ -1336,23 +1336,22 @@
       }
 
       .site-header .inner {
-        gap: 10px;
-        padding: 10px 0;
-        min-height: 56px;
+        gap: 8px;
+        padding: 8px 0;
+        min-height: 48px;
         align-items: center;
       }
       .brand-logo {
-        width: 38px;
-        height: 38px;
-        overflow: hidden;
         flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        height: 1.15em;
+        line-height: 1;
       }
       .brand-logo img {
-        height: 38px;
+        height: 22px;
         width: auto;
-        max-width: none;
-        /* Crop landscape wordmark to the HomesNI house mark */
-        transform: translateX(calc(-100% + 38px));
+        display: block;
       }
       .site-nav {
         display: flex;
@@ -1360,18 +1359,20 @@
         min-width: 0;
         justify-content: space-between;
         align-items: center;
-        gap: 0 6px;
+        gap: 0 5px;
         flex-wrap: nowrap;
         overflow: visible;
       }
       .site-nav > a,
       .nav-dropdown > .nav-trigger {
-        font-size: 0.78rem;
-        padding: 10px 0;
-        border-bottom-width: 0;
+        font-size: 0.68rem;
+        line-height: 1.15;
+        padding: 2px 0 3px;
+        border-bottom-width: 2px;
       }
-      .site-nav .nav-student {
-        display: none;
+      .site-nav > a.is-active {
+        color: var(--selected);
+        border-bottom-color: var(--selected);
       }
       .nav-dropdown-menu {
         left: auto;
