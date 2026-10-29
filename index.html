@@ -70,13 +70,18 @@
       flex-shrink: 0;
       text-decoration: none;
     }
-    .brand-logo img {
+    .brand-logo .logo-wordmark {
       height: 36px;
       width: auto;
       display: block;
     }
+    .brand-logo .logo-mark {
+      display: none;
+      height: 36px;
+      width: 36px;
+    }
     @media (min-width: 900px) {
-      .brand-logo img { height: 42px; }
+      .brand-logo .logo-wordmark { height: 42px; }
     }
     .site-nav {
       display: flex;
@@ -1336,30 +1341,39 @@
       }
 
       .site-header .inner {
-        gap: 12px;
+        position: relative;
+        gap: 0;
         padding: 10px 0;
         min-height: 52px;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
       }
       .brand-logo {
         flex-shrink: 0;
         display: flex;
         align-items: center;
+        z-index: 2;
       }
-      .brand-logo img {
-        height: 28px;
-        width: auto;
+      .brand-logo .logo-wordmark {
+        display: none;
+      }
+      .brand-logo .logo-mark {
         display: block;
+        height: 34px;
+        width: 34px;
       }
       .site-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
         display: flex;
-        flex: 0 0 auto;
-        min-width: 0;
-        justify-content: flex-end;
         align-items: center;
-        gap: 0;
-        margin-left: auto;
+        justify-content: center;
+        pointer-events: none;
+        margin: 0;
+        z-index: 1;
       }
       .site-nav > a,
       .site-nav > .nav-dropdown {
@@ -1368,7 +1382,8 @@
       .site-nav > a.nav-student {
         display: inline-flex;
         align-items: center;
-        font-size: 0.9rem;
+        pointer-events: auto;
+        font-size: 0.95rem;
         line-height: 1.2;
         padding: 4px 0;
         color: var(--selected);
@@ -1733,7 +1748,8 @@
   <header class="site-header">
     <div class="inner">
       <a class="brand-logo" href="#" id="brand-home" aria-label="HomesNI home">
-        <img src="https://homesni.com/images/logo-landscape-white.svg?ver=1.1" alt="HomesNI" width="180" height="35" />
+        <img class="logo-wordmark" src="https://homesni.com/images/logo-landscape-white.svg?ver=1.1" alt="HomesNI" width="180" height="35" />
+        <img class="logo-mark" src="assets/heart-home-icon.svg" alt="HomesNI" width="36" height="36" />
       </a>
       <nav class="site-nav" aria-label="Primary">
         <a href="https://homesni.com/property-for-sale" target="_blank" rel="noopener">For Sale</a>
