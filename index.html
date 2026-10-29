@@ -1322,8 +1322,44 @@
       display: block;
     }
 
-    .results-actions {
-      margin: 12px 0 10px;
+    .results-head-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 0 10px;
+    }
+    .results-head-row #btn-back {
+      margin: 0;
+    }
+    .btn-refine {
+      appearance: none;
+      border: 1.5px solid var(--brand);
+      background: var(--white);
+      color: var(--brand);
+      border-radius: var(--radius);
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      display: none;
+    }
+    .btn-refine[aria-expanded="true"] {
+      background: var(--brand);
+      color: var(--white);
+    }
+    @media (min-width: 900px) {
+      .btn-refine {
+        display: none !important;
+      }
+      .results-head-row {
+        margin: 0 0 8px;
+      }
+      .results-filters {
+        display: flex !important;
+      }
     }
 
     .proto-note {
@@ -1559,33 +1595,45 @@
         font-size: 1rem;
       }
 
-      /* Results */
+      /* Results — map + listings first; filters behind Refine */
       .results-top {
-        padding: 14px 0 12px;
+        padding: 8px 0 6px;
       }
-      .results-top h1 {
-        font-size: 1.2rem;
-        line-height: 1.25;
+      .results-head-row {
+        margin: 0 0 6px;
       }
-      .results-top .sub {
-        font-size: 0.86rem;
-      }
-      .results-actions {
-        margin: 10px 0 8px;
-      }
-      .results-actions .btn {
+      .results-head-row #btn-back {
         min-height: 40px;
         padding: 8px 12px;
         font-size: 0.86rem;
       }
-
+      .btn-refine {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+      }
+      .results-top h1 {
+        font-size: 1.05rem;
+        line-height: 1.25;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .results-top .sub {
+        display: none;
+      }
       .results-filters {
-        display: grid;
+        display: none;
         grid-template-columns: 1fr;
         gap: 12px;
         padding: 12px;
         overflow: visible;
         align-items: stretch;
+        margin-top: 10px;
+      }
+      .results-filters.is-open {
+        display: grid;
       }
       .results-filter-block,
       .results-filter-block--campus,
@@ -1647,18 +1695,18 @@
       }
 
       .results-layout {
-        padding: 14px 0 calc(28px + env(safe-area-inset-bottom));
+        padding: 10px 0 calc(28px + env(safe-area-inset-bottom));
       }
       .results-count {
-        font-size: 1rem;
-        margin-bottom: 10px;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
       }
       .results-flow {
         gap: 10px;
       }
       .map-stub {
-        min-height: 200px;
-        aspect-ratio: 16 / 10;
+        min-height: 160px;
+        aspect-ratio: 16 / 9;
         height: auto;
       }
       .map-label {
@@ -1863,11 +1911,14 @@
   <main id="view-results" class="view" aria-label="Student rental results">
     <div class="results-top">
       <div class="inner">
+        <div class="results-head-row">
+          <button type="button" class="btn btn-ghost" id="btn-back">← Back</button>
+          <button type="button" class="btn-refine" id="btn-refine-toggle" aria-expanded="false" aria-controls="results-filters">
+            Refine
+          </button>
+        </div>
         <h1 id="results-title">Student rentals</h1>
         <p class="sub" id="results-sub">Prototype results — sample listings only</p>
-        <div class="results-actions">
-          <button type="button" class="btn btn-ghost" id="btn-back">← Back to campus pick</button>
-        </div>
         <div class="results-filters" id="results-filters" aria-label="Refine search">
           <div class="results-filter-block results-filter-block--campus">
             <label for="results-campus">Campus</label>
@@ -2391,6 +2442,8 @@
         btnSearch: document.getElementById("btn-search"),
         btnSkip: document.getElementById("btn-skip-prefs"),
         btnBack: document.getElementById("btn-back"),
+        btnRefineToggle: document.getElementById("btn-refine-toggle"),
+        resultsFilters: document.getElementById("results-filters"),
         btnResultsSearch: document.getElementById("btn-results-search"),
         brandHome: document.getElementById("brand-home"),
         ctaMeta: document.getElementById("cta-meta"),
@@ -3152,6 +3205,7 @@
 
       function renderResults() {
         syncDraftFromState();
+        setRefineOpen(false);
         refreshResultsView(true);
       }
 
@@ -3226,10 +3280,24 @@
         showView("onboard");
       });
 
+      function setRefineOpen(open) {
+        if (!els.resultsFilters || !els.btnRefineToggle) return;
+        els.resultsFilters.classList.toggle("is-open", open);
+        els.btnRefineToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        els.btnRefineToggle.textContent = open ? "Hide filters" : "Refine";
+      }
+
+      if (els.btnRefineToggle) {
+        els.btnRefineToggle.addEventListener("click", () => {
+          setRefineOpen(!els.resultsFilters.classList.contains("is-open"));
+        });
+      }
+
       if (els.btnResultsSearch) {
         els.btnResultsSearch.addEventListener("click", () => {
           applyDraftToState();
           saveState();
+          setRefineOpen(false);
           refreshResultsView(false);
         });
       }
