@@ -1451,10 +1451,40 @@
       cursor: pointer;
       white-space: nowrap;
       display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition:
+        background 0.28s ease,
+        color 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease,
+        transform 0.2s ease;
+    }
+    .btn-refine:hover {
+      box-shadow: 0 0 0 3px rgba(0, 100, 224, 0.12);
+    }
+    .btn-refine:active {
+      transform: scale(0.97);
     }
     .btn-refine[aria-expanded="true"] {
       background: var(--brand);
       color: var(--white);
+      box-shadow: 0 0 0 3px rgba(0, 100, 224, 0.18);
+    }
+    .btn-refine-caret {
+      width: 5px;
+      height: 5px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      box-sizing: content-box;
+      transform: rotate(45deg);
+      transform-origin: center;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      flex-shrink: 0;
+    }
+    .btn-refine[aria-expanded="true"] .btn-refine-caret {
+      transform: rotate(225deg);
     }
     @media (min-width: 900px) {
       .btn-refine {
@@ -1462,6 +1492,9 @@
       }
       .results-head-row {
         margin: 0 0 6px;
+      }
+      .results-filters-collapse {
+        display: contents;
       }
       .results-filters {
         display: flex !important;
@@ -1478,16 +1511,27 @@
 
     /* —— Mobile header (HomesNI ≤980px topbar height) —— */
     @media (max-width: 980px) {
+      .site-header {
+        height: auto;
+        min-height: var(--topbar-height);
+      }
+      .site-header .topbar {
+        height: auto;
+        min-height: var(--topbar-height);
+      }
       .site-header .topbar > .inner {
         position: relative;
+        height: auto;
+        min-height: var(--topbar-height);
       }
       .top-container {
         gap: 0;
         position: relative;
+        height: var(--topbar-height);
       }
       .logo-container {
         flex: 0 0 auto;
-        z-index: 2;
+        z-index: 1;
       }
       .brand-logo .logo-wordmark {
         display: none;
@@ -1499,35 +1543,281 @@
         max-height: 50px;
         margin-top: -7.5px;
       }
+      .site-header.is-nav-open {
+        overflow: visible;
+      }
+      .site-header.is-nav-open .topbar,
+      .site-header.is-nav-open .topbar > .inner,
+      .site-header.is-nav-open .top-container {
+        overflow: visible;
+      }
       .navigation-container {
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
-        bottom: 0;
+        height: var(--topbar-height);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        box-sizing: border-box;
+        /* Keep trigger vertically centred; shell grows downward when open */
+        padding-top: calc((var(--topbar-height) - 51px) / 2);
+        pointer-events: none;
+        z-index: 20;
+        overflow: visible;
+      }
+      .site-nav-shell {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content;
+        max-width: calc(100vw - 24px);
+        pointer-events: auto;
+        z-index: 10060;
+        overflow: hidden;
+        background: transparent;
+        border-radius: 8px;
+        box-shadow: none;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+      }
+      .site-header.is-nav-open .site-nav-shell {
+        background: var(--brand);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+      }
+      .site-nav-trigger {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin: 0;
+        padding: 12px 14px;
+        pointer-events: auto;
+        color: var(--selected);
+        background: none;
+        border: none;
+        border-bottom: 1px solid transparent;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.5;
+        white-space: nowrap;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+      }
+      .site-header.is-nav-open .site-nav-trigger {
+        border-bottom-color: rgba(255, 255, 255, 0.28);
+      }
+      .site-nav-trigger-caret {
+        width: 5px;
+        height: 5px;
+        margin-left: 2px;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        box-sizing: content-box;
+        transform: rotate(45deg);
+        transform-origin: center;
+        transition: transform 0.28s ease;
+        flex-shrink: 0;
+      }
+      .site-header.is-nav-open .site-nav-trigger-caret {
+        transform: rotate(225deg);
+      }
+      .site-nav {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        display: grid;
+        grid-template-rows: 0fr;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        pointer-events: none;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          grid-template-rows 0.3s ease,
+          opacity 0.2s ease;
+        z-index: 1;
+      }
+      .site-header.is-nav-open .site-nav {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .site-nav-body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        overflow: hidden;
+        padding: 0 0 6px;
+      }
+      .site-nav-body > a,
+      .site-nav-body > .nav-dropdown {
+        display: flex;
+        width: 100%;
+        pointer-events: auto;
+      }
+      .site-nav-body > a.nav-student {
+        display: none;
+      }
+      .site-nav-body > a,
+      .nav-dropdown > .nav-trigger {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 14px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+        box-sizing: border-box;
+      }
+      .site-nav-body > a:last-child {
+        border-bottom: none;
+      }
+      .site-nav-body > a:hover,
+      .site-nav-body > a:focus,
+      .site-nav-body > a:active,
+      .nav-dropdown-menu a:hover,
+      .nav-dropdown-menu a:focus,
+      .nav-dropdown-menu a:active {
+        text-decoration: none;
+      }
+      .site-nav-body > a.is-active,
+      .site-nav-body > a:hover,
+      .nav-dropdown > .nav-trigger:hover,
+      .nav-dropdown.is-open > .nav-trigger {
+        color: var(--selected);
+      }
+      .nav-dropdown {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+      .nav-dropdown-menu {
+        position: static;
+        display: grid;
+        grid-template-rows: 0fr;
+        min-width: 0;
+        width: 100%;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition:
+          grid-template-rows 0.3s ease,
+          opacity 0.2s ease;
+      }
+      .nav-dropdown-menu::before {
+        display: none;
+      }
+      .nav-dropdown-menu-body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu {
+        grid-template-rows: 0fr;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .nav-dropdown.is-open .nav-dropdown-menu,
+      .nav-dropdown.is-open:hover .nav-dropdown-menu,
+      .nav-dropdown.is-open:focus-within .nav-dropdown-menu {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-dropdown-menu a {
+        display: flex;
+        color: var(--white);
+        font-size: 16px;
+        padding: 12px 14px;
+        text-align: center;
+        justify-content: center;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+      }
+      .nav-dropdown-menu a:last-child {
+        border-bottom: none;
+      }
+      .nav-dropdown-menu a:hover {
+        color: var(--selected);
+      }
+      .site-nav-myhomes {
         display: flex;
         align-items: center;
         justify-content: center;
-        pointer-events: none;
-        z-index: 1;
-      }
-      .site-nav {
-        gap: 0;
-        pointer-events: none;
-      }
-      .site-nav > a,
-      .site-nav > .nav-dropdown {
-        display: none;
-      }
-      .site-nav > a.nav-student {
-        display: inline-flex;
-        pointer-events: auto;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 14px;
+        color: var(--white);
+        text-decoration: none !important;
         font-size: 18px;
         font-weight: 500;
-        color: var(--selected);
+        box-sizing: border-box;
+        border-bottom: none;
+      }
+      .site-nav-myhomes img {
+        display: none;
       }
       .search-btns-container {
         display: none;
+      }
+      .nav-backdrop {
+        display: block;
+        position: fixed;
+        top: var(--topbar-height);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 42, 0.35);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 900;
+      }
+      .site-header.is-nav-open ~ .nav-backdrop,
+      body.is-nav-open .nav-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 981px) {
+      .site-nav-shell {
+        display: contents;
+      }
+      .site-nav-body {
+        display: contents;
+      }
+      .nav-dropdown-menu-body {
+        display: contents;
+      }
+      .site-nav-trigger,
+      .site-nav-myhomes,
+      .nav-backdrop {
+        display: none !important;
       }
     }
 
@@ -1566,8 +1856,47 @@
         height: auto;
       }
       #view-onboard.is-active .prefs-panel {
-        margin-top: 4px;
-        gap: 14px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: var(--cta-bar-h, 112px);
+        z-index: 49;
+        margin: 0;
+        gap: 12px;
+        padding: 12px max(12px, calc((100% - var(--inner)) / 2)) 14px;
+        background: rgba(255, 255, 255, 0.97);
+        border-top: 1px solid var(--neutral);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        max-height: none;
+        overflow: visible;
+        transform: translate3d(0, 110%, 0);
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        transition:
+          transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.28s ease,
+          visibility 0.38s;
+      }
+      #view-onboard.is-active.has-campus .prefs-panel {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+      }
+      #view-onboard.is-active .prefs-panel .chips-distance {
+        align-items: stretch;
+      }
+      #view-onboard.is-active .prefs-panel .custom-miles {
+        height: var(--tap);
+        min-height: var(--tap);
+      }
+      #view-onboard.is-active .prefs-panel .section-head {
+        margin-bottom: 6px;
+      }
+      #view-onboard.is-active .prefs-panel .section-head h2 {
+        font-size: 0.92rem;
       }
       #view-onboard.is-active .section-head {
         margin-bottom: 8px;
@@ -1782,17 +2111,35 @@
       .results-top .sub {
         display: none;
       }
+      .results-filters-collapse {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        margin-top: 0;
+        transition:
+          grid-template-rows 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.28s ease,
+          margin-top 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .results-filters-collapse.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        margin-top: 10px;
+      }
+      .results-filters-collapse > .results-filters {
+        min-height: 0;
+        overflow: hidden;
+      }
+      .results-filters-collapse.is-open > .results-filters {
+        overflow: visible;
+      }
       .results-filters {
-        display: none;
+        display: grid;
         grid-template-columns: 1fr;
         gap: 12px;
         padding: 12px;
-        overflow: visible;
         align-items: stretch;
-        margin-top: 10px;
-      }
-      .results-filters.is-open {
-        display: grid;
+        margin-top: 0;
       }
       .results-filter-block + .results-filter-block,
       .results-filter-actions {
@@ -1969,19 +2316,40 @@
             </a>
           </div>
           <div class="navigation-container">
-            <nav class="site-nav navigation" aria-label="Primary">
-              <a href="https://homesni.com/property-for-sale" target="_blank" rel="noopener">For Sale</a>
-              <a href="https://homesni.com/property-for-rent" target="_blank" rel="noopener">For Rent</a>
-              <div class="nav-dropdown" id="nav-commercial">
-                <button type="button" class="nav-trigger" id="nav-commercial-btn" aria-expanded="false" aria-haspopup="true">Commercial</button>
-                <div class="nav-dropdown-menu" role="menu">
-                  <a href="https://homesni.com/commercial-sales" target="_blank" rel="noopener" role="menuitem">Sales</a>
-                  <a href="https://homesni.com/commercial-rentals" target="_blank" rel="noopener" role="menuitem">Rent</a>
+            <div class="site-nav-shell" id="site-nav-shell">
+              <button
+                type="button"
+                class="site-nav-trigger"
+                id="site-nav-trigger"
+                aria-expanded="false"
+                aria-controls="site-nav"
+                aria-label="Open site navigation"
+              >
+                <span>Student Rentals</span>
+                <span class="site-nav-trigger-caret" aria-hidden="true"></span>
+              </button>
+              <nav class="site-nav navigation" id="site-nav" aria-label="Primary">
+                <div class="site-nav-body">
+                  <a href="https://homesni.com/property-for-sale" target="_blank" rel="noopener">For Sale</a>
+                  <a href="https://homesni.com/property-for-rent" target="_blank" rel="noopener">For Rent</a>
+                  <div class="nav-dropdown" id="nav-commercial">
+                    <button type="button" class="nav-trigger" id="nav-commercial-btn" aria-expanded="false" aria-haspopup="true">Commercial</button>
+                    <div class="nav-dropdown-menu" role="menu">
+                      <div class="nav-dropdown-menu-body">
+                        <a href="https://homesni.com/commercial-sales" target="_blank" rel="noopener" role="menuitem">Sales</a>
+                        <a href="https://homesni.com/commercial-rentals" target="_blank" rel="noopener" role="menuitem">Rent</a>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#" class="nav-student is-active" aria-current="page">Student Rentals</a>
+                  <a href="https://homesni.com/area-guides/" target="_blank" rel="noopener">Area Guides</a>
+                  <a class="site-nav-myhomes" href="https://homesni.com/members" target="_blank" rel="noopener">
+                    <img class="heart-home-icon" src="assets/heart-home-icon.svg" alt="" width="24" height="24" />
+                    <span>My Homes</span>
+                  </a>
                 </div>
-              </div>
-              <a href="#" class="nav-student is-active" aria-current="page">Student Rentals</a>
-              <a href="https://homesni.com/area-guides/" target="_blank" rel="noopener">Area Guides</a>
-            </nav>
+              </nav>
+            </div>
           </div>
           <div class="search-btns-container">
             <a class="my-homes" href="https://homesni.com/members" target="_blank" rel="noopener">
@@ -1993,6 +2361,7 @@
       </div>
     </div>
   </header>
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
 
   <!-- ONBOARDING -->
   <main id="view-onboard" class="view is-active" aria-label="Student search onboarding">
@@ -2031,7 +2400,7 @@
         <div class="no-campus-match" id="no-campus-match">No universities match that search.</div>
       </section>
 
-      <div class="prefs-panel">
+      <div class="prefs-panel" id="prefs-panel">
         <!-- 2. Stay type -->
         <section class="section" aria-labelledby="type-heading">
           <div class="section-head">
@@ -2086,11 +2455,13 @@
         <div class="results-head-row">
           <button type="button" class="btn btn-ghost" id="btn-back">← Back</button>
           <button type="button" class="btn-refine" id="btn-refine-toggle" aria-expanded="false" aria-controls="results-filters">
-            Refine
+            <span>Refine</span>
+            <span class="btn-refine-caret" aria-hidden="true"></span>
           </button>
         </div>
         <h1 id="results-title">Student rentals</h1>
         <p class="sub" id="results-sub">Prototype results — sample listings only</p>
+        <div class="results-filters-collapse" id="results-filters-collapse">
         <div class="results-filters" id="results-filters" aria-label="Refine search">
           <div class="results-filter-block results-filter-block--campus">
             <label for="results-campus">Campus</label>
@@ -2117,6 +2488,7 @@
           <div class="results-filter-actions">
             <button type="button" class="btn btn-primary" id="btn-results-search">Search</button>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -2616,6 +2988,7 @@
         btnBack: document.getElementById("btn-back"),
         btnRefineToggle: document.getElementById("btn-refine-toggle"),
         resultsFilters: document.getElementById("results-filters"),
+        resultsFiltersCollapse: document.getElementById("results-filters-collapse"),
         btnResultsSearch: document.getElementById("btn-results-search"),
         brandHome: document.getElementById("brand-home"),
         ctaMeta: document.getElementById("cta-meta"),
@@ -3106,6 +3479,7 @@
         }
 
         const campus = campusById(state.campusId);
+        els.onboard.classList.toggle("has-campus", !!campus);
         els.btnSearch.disabled = !campus;
         if (campus) {
           els.ctaMeta.innerHTML = "Searching near <strong>" + campus.name + "</strong> · " + formatDistanceLabel(state.distance);
@@ -3115,16 +3489,33 @@
         if (state.originLabel && els.locationInput && !els.locationInput.matches(":focus")) {
           els.locationInput.value = state.originLabel;
         }
-        requestAnimationFrame(syncCtaClearance);
+        requestAnimationFrame(() => {
+          syncCtaClearance();
+          requestAnimationFrame(syncCtaClearance);
+        });
       }
 
       function syncCtaClearance() {
         const bar = document.querySelector("#view-onboard.is-active .cta-bar");
         if (!bar) {
           document.documentElement.style.removeProperty("--cta-h");
+          document.documentElement.style.removeProperty("--cta-bar-h");
           return;
         }
-        document.documentElement.style.setProperty("--cta-h", Math.ceil(bar.getBoundingClientRect().height) + "px");
+        const barH = Math.ceil(bar.getBoundingClientRect().height);
+        document.documentElement.style.setProperty("--cta-bar-h", barH + "px");
+
+        let prefsH = 0;
+        const panel = document.getElementById("prefs-panel");
+        const dockPrefs =
+          window.matchMedia("(max-width: 1023px)").matches &&
+          els.onboard.classList.contains("is-active") &&
+          els.onboard.classList.contains("has-campus") &&
+          panel;
+        if (dockPrefs) {
+          prefsH = Math.ceil(panel.getBoundingClientRect().height || panel.scrollHeight);
+        }
+        document.documentElement.style.setProperty("--cta-h", barH + prefsH + "px");
       }
 
       function showView(name) {
@@ -3400,23 +3791,95 @@
       }
 
       /* Events */
-      (function setupCommercialNav() {
+      (function setupSiteNav() {
+        const header = document.getElementById("top");
+        const trigger = document.getElementById("site-nav-trigger");
+        const backdrop = document.getElementById("nav-backdrop");
+        const nav = document.getElementById("site-nav");
         const wrap = document.getElementById("nav-commercial");
-        const btn = document.getElementById("nav-commercial-btn");
-        if (!wrap || !btn) return;
-        function setOpen(open) {
-          wrap.classList.toggle("is-open", open);
-          btn.setAttribute("aria-expanded", open ? "true" : "false");
+        const commercialBtn = document.getElementById("nav-commercial-btn");
+        if (!header || !trigger || !nav) return;
+
+        function isMobileNav() {
+          return window.matchMedia("(max-width: 980px)").matches;
         }
-        btn.addEventListener("click", (e) => {
+
+        function setCommercialOpen(open) {
+          if (!wrap || !commercialBtn) return;
+          wrap.classList.toggle("is-open", open);
+          commercialBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
+        function setNavOpen(open) {
+          const mobile = isMobileNav();
+          header.classList.toggle("is-nav-open", open);
+          document.body.classList.toggle("is-nav-open", open && mobile);
+          trigger.setAttribute("aria-expanded", open ? "true" : "false");
+          trigger.setAttribute("aria-label", open ? "Close site navigation" : "Open site navigation");
+          if (backdrop) backdrop.hidden = !(open && mobile);
+          if (mobile) {
+            nav.setAttribute("aria-hidden", open ? "false" : "true");
+            if (open) nav.removeAttribute("inert");
+            else nav.setAttribute("inert", "");
+          } else {
+            nav.removeAttribute("aria-hidden");
+            nav.removeAttribute("inert");
+          }
+          document.body.style.overflow = open && mobile ? "hidden" : "";
+          if (!open) setCommercialOpen(false);
+        }
+
+        if (isMobileNav()) {
+          nav.setAttribute("aria-hidden", "true");
+          nav.setAttribute("inert", "");
+        }
+
+        trigger.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          setOpen(!wrap.classList.contains("is-open"));
+          if (!isMobileNav()) return;
+          setNavOpen(!header.classList.contains("is-nav-open"));
         });
-        wrap.addEventListener("mouseenter", () => setOpen(true));
-        wrap.addEventListener("mouseleave", () => setOpen(false));
+
+        if (backdrop) {
+          backdrop.addEventListener("click", () => setNavOpen(false));
+        }
+
+        if (commercialBtn && wrap) {
+          commercialBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setCommercialOpen(!wrap.classList.contains("is-open"));
+          });
+          wrap.addEventListener("mouseenter", () => {
+            if (!isMobileNav()) setCommercialOpen(true);
+          });
+          wrap.addEventListener("mouseleave", () => {
+            if (!isMobileNav()) setCommercialOpen(false);
+          });
+        }
+
+        nav.addEventListener("click", (e) => {
+          const link = e.target.closest("a");
+          if (!link || !isMobileNav()) return;
+          setNavOpen(false);
+        });
+
         document.addEventListener("click", (e) => {
-          if (!wrap.contains(e.target)) setOpen(false);
+          if (!header.contains(e.target)) {
+            setNavOpen(false);
+            setCommercialOpen(false);
+          } else if (wrap && !wrap.contains(e.target) && !isMobileNav()) {
+            setCommercialOpen(false);
+          }
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setNavOpen(false);
+        });
+
+        window.addEventListener("resize", () => {
+          if (!isMobileNav()) setNavOpen(false);
         });
       })();
 
@@ -3476,13 +3939,18 @@
       function setRefineOpen(open) {
         if (!els.resultsFilters || !els.btnRefineToggle) return;
         els.resultsFilters.classList.toggle("is-open", open);
+        if (els.resultsFiltersCollapse) {
+          els.resultsFiltersCollapse.classList.toggle("is-open", open);
+        }
         els.btnRefineToggle.setAttribute("aria-expanded", open ? "true" : "false");
-        els.btnRefineToggle.textContent = open ? "Hide filters" : "Refine";
       }
 
       if (els.btnRefineToggle) {
         els.btnRefineToggle.addEventListener("click", () => {
-          setRefineOpen(!els.resultsFilters.classList.contains("is-open"));
+          const open = els.resultsFiltersCollapse
+            ? !els.resultsFiltersCollapse.classList.contains("is-open")
+            : !els.resultsFilters.classList.contains("is-open");
+          setRefineOpen(open);
         });
       }
 
