@@ -128,6 +128,7 @@
       padding: 0;
     }
     .site-nav > a,
+    .site-nav-body > a,
     .nav-dropdown > .nav-trigger {
       color: var(--white);
       text-decoration: none;
@@ -146,8 +147,19 @@
       align-items: center;
     }
     .site-nav > a:hover,
+    .site-nav-body > a:hover,
     .nav-dropdown > .nav-trigger:hover { color: var(--selected); }
-    .site-nav > a.is-active {
+    .site-nav > a.is-active,
+    .site-nav-body > a.is-active {
+      color: var(--selected);
+    }
+    .site-nav-body > a:focus,
+    .site-nav-body > a:active {
+      color: var(--white);
+      text-decoration: none;
+    }
+    .site-nav-body > a.is-active:focus,
+    .site-nav-body > a.is-active:active {
       color: var(--selected);
     }
     .nav-dropdown {
@@ -1826,6 +1838,66 @@
       .site-nav-myhomes,
       .nav-backdrop {
         display: none !important;
+      }
+      .site-nav,
+      .site-nav-body {
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+      }
+      .site-nav > a,
+      .site-nav-body > a,
+      .nav-dropdown > .nav-trigger {
+        width: auto;
+        justify-content: center;
+        text-align: left;
+        padding: 0;
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: none;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .site-nav > a.is-active,
+      .site-nav-body > a.is-active {
+        color: var(--selected);
+      }
+      .nav-dropdown {
+        flex-direction: row;
+        width: auto;
+      }
+      .nav-dropdown-menu {
+        position: absolute;
+        display: none;
+        grid-template-rows: none;
+        opacity: 1;
+        pointer-events: auto;
+        overflow: visible;
+        background: var(--white);
+        border-radius: 5px;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        padding: 14px 20px;
+        min-width: 200px;
+        width: max-content;
+      }
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu,
+      .nav-dropdown.is-open .nav-dropdown-menu {
+        display: grid;
+        grid-template-rows: none;
+        opacity: 1;
+      }
+      .nav-dropdown-menu a {
+        display: grid;
+        padding: 8px 0;
+        color: var(--ink);
+        text-align: left;
+        justify-content: start;
+        border-bottom: none;
+        font-size: 18px;
+      }
+      .nav-dropdown-menu a:hover {
+        color: var(--brand);
       }
     }
 
