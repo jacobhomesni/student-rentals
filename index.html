@@ -978,6 +978,21 @@
     .results-filter-block--distance {
       flex: 1.15 1 0;
     }
+    /* Same style of divider as Area Guides | My Homes */
+    @media (min-width: 900px) {
+      .results-filters {
+        gap: 0 0;
+      }
+      .results-filter-block + .results-filter-block,
+      .results-filter-actions {
+        border-left: 1px solid rgba(2, 20, 82, 0.15);
+        padding-left: 14px;
+        margin-left: 14px;
+      }
+      .results-filter-actions {
+        margin-left: 14px;
+      }
+    }
     .results-filter-block > label {
       display: block;
       margin: 0 0 6px;
