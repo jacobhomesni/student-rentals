@@ -26,12 +26,10 @@
       --tap: 44px;
       --cta-h: 0px;
       --topbar-height: 100px;
-      --topbar-pad-x: 30px;
     }
     @media (max-width: 980px) {
       :root {
         --topbar-height: 80px;
-        --topbar-pad-x: 20px;
       }
     }
 
@@ -70,11 +68,11 @@
       background: var(--brand);
     }
     .site-header .topbar > .inner {
-      width: 100%;
+      width: var(--inner);
       max-width: 100%;
       height: 100%;
       margin: 0 auto;
-      padding: 0 var(--topbar-pad-x);
+      padding: 0;
       box-sizing: border-box;
       overflow: visible;
     }
