@@ -734,7 +734,7 @@
       opacity: 1;
     }
     .custom-miles.is-active .custom-miles-label {
-      color: var(--white);
+      color: var(--brand);
     }
     .custom-miles .unit {
       display: none;
@@ -3449,16 +3449,21 @@
 
       function applyCustomMiles(raw, commit) {
         const result = sanitizeCustomMiles(raw, commit);
+        if (commit && !result.valid) {
+          // Empty / invalid custom → exit the box and restore a preset chip
+          state.distanceCustom = false;
+          state.customMiles = "";
+          state.distance = PRESET_DISTANCES[String(state.distance)] ? String(state.distance) : "2";
+          if (els.customMiles) els.customMiles.value = "";
+          saveState();
+          syncUI();
+          return;
+        }
         state.distanceCustom = true;
         state.customMiles = result.display;
         if (result.distance) state.distance = result.distance;
-        else if (commit) state.distance = "2";
         if (commit) {
-          if (els.customMiles && document.activeElement !== els.customMiles) {
-            els.customMiles.value = result.display;
-          } else if (els.customMiles && commit) {
-            els.customMiles.value = result.display;
-          }
+          if (els.customMiles) els.customMiles.value = result.display;
           saveState();
         }
         syncUI();
@@ -4306,6 +4311,21 @@
       }
 
       if (els.resultsCustomMiles) {
+        function commitResultsCustomMiles() {
+          const result = sanitizeCustomMiles(els.resultsCustomMiles.value, true);
+          if (!result.valid) {
+            draft.distanceCustom = false;
+            draft.customMiles = "";
+            draft.distance = PRESET_DISTANCES[String(draft.distance)] ? String(draft.distance) : "2";
+            els.resultsCustomMiles.value = "";
+          } else {
+            draft.distanceCustom = true;
+            draft.customMiles = result.display;
+            draft.distance = result.distance;
+            els.resultsCustomMiles.value = result.display;
+          }
+          renderResultsFilters();
+        }
         els.resultsCustomMiles.addEventListener("focus", () => {
           draft.distanceCustom = true;
           const result = sanitizeCustomMiles(draft.customMiles, false);
@@ -4320,14 +4340,8 @@
           if (result.distance) draft.distance = result.distance;
           els.resultsCustomMilesWrap.classList.add("is-active");
         });
-        els.resultsCustomMiles.addEventListener("change", () => {
-          const result = sanitizeCustomMiles(els.resultsCustomMiles.value, true);
-          draft.customMiles = result.display;
-          draft.distanceCustom = !!result.distance;
-          draft.distance = result.distance || "2";
-          els.resultsCustomMiles.value = result.display;
-          renderResultsFilters();
-        });
+        els.resultsCustomMiles.addEventListener("change", commitResultsCustomMiles);
+        els.resultsCustomMiles.addEventListener("blur", commitResultsCustomMiles);
       }
 
       if (els.customMiles) {
