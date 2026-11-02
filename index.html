@@ -2254,24 +2254,33 @@
 
       /* Results — map + listings first; filters behind Refine */
       .results-top {
-        padding: 14px 0 10px;
+        padding: 10px 0 8px;
       }
       .results-head-row {
-        margin: 0 0 8px;
+        margin: 0 0 6px;
       }
       .results-head-row #btn-back {
-        min-height: 40px;
-        padding: 8px 12px;
-        font-size: 0.86rem;
+        min-height: 32px;
+        height: 32px;
+        padding: 0 10px;
+        font-size: 0.78rem;
       }
       .btn-refine {
         display: inline-flex;
         align-items: center;
-        min-height: 40px;
+        min-height: 32px;
+        height: 32px;
+        padding: 0 10px;
+        font-size: 0.78rem;
+        gap: 6px;
+      }
+      .btn-refine-caret {
+        width: 4px;
+        height: 4px;
       }
       .results-top h1 {
-        font-size: 0.95rem;
-        line-height: 1.25;
+        font-size: 0.9rem;
+        line-height: 1.2;
         margin: 0;
       }
       .results-top .sub {
@@ -2290,7 +2299,7 @@
       .results-filters-collapse.is-open {
         grid-template-rows: 1fr;
         opacity: 1;
-        margin-top: 10px;
+        margin-top: 8px;
       }
       .results-filters-collapse > .results-filters {
         min-height: 0;
@@ -2302,8 +2311,8 @@
       .results-filters {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 12px;
+        gap: 10px;
+        padding: 10px;
         align-items: stretch;
         margin-top: 0;
       }
@@ -2322,22 +2331,22 @@
         width: 100%;
       }
       .results-filter-block > label {
-        font-size: 0.72rem;
-        margin-bottom: 8px;
+        font-size: 0.68rem;
+        margin-bottom: 6px;
       }
       .results-filters .chips,
       .results-filters .chips-distance {
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
         width: 100%;
       }
       .results-filters .chip {
-        flex: 1 1 calc(33.333% - 6px);
-        min-width: calc(33.333% - 6px);
-        height: 40px;
-        min-height: 40px;
-        padding: 0 8px;
-        font-size: 0.8rem;
+        flex: 1 1 calc(33.333% - 4px);
+        min-width: calc(33.333% - 4px);
+        height: 36px;
+        min-height: 36px;
+        padding: 0 6px;
+        font-size: 0.78rem;
       }
       .results-filters #results-type-chips {
         flex-wrap: nowrap;
@@ -2349,15 +2358,15 @@
         width: 0;
         min-width: 0;
         padding: 0 6px;
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         white-space: nowrap;
       }
       .results-filters .chips-distance .chip,
       .results-filters .custom-miles {
-        flex: 1 1 calc(50% - 4px);
-        min-width: calc(50% - 4px);
-        height: 40px;
-        min-height: 40px;
+        flex: 1 1 calc(50% - 3px);
+        min-width: calc(50% - 3px);
+        height: 36px;
+        min-height: 36px;
       }
       .results-filters .custom-miles input {
         width: 100%;
@@ -2368,7 +2377,7 @@
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 0.3em;
-        font-size: 0.8rem;
+        font-size: 0.76rem;
         line-height: 1.1;
         padding: 0 4px;
         white-space: nowrap;
@@ -2380,7 +2389,7 @@
         display: none;
       }
       .results-campus-select {
-        height: var(--tap);
+        height: 40px;
         font-size: 16px;
         padding: 0 34px 0 12px;
         background-position: right 12px center;
@@ -2391,10 +2400,10 @@
       }
       .results-filter-actions .btn {
         width: 100%;
-        height: var(--tap);
-        min-height: var(--tap);
+        height: 40px;
+        min-height: 40px;
         padding: 0 16px;
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
 
       .results-layout {
@@ -2479,6 +2488,12 @@
       .results-filters .chip {
         flex: 1 1 calc(50% - 4px);
         min-width: calc(50% - 4px);
+      }
+      .prefs-panel #type-chips .chip,
+      .results-filters #results-type-chips .chip {
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
       }
       .listing {
         grid-template-columns: 84px 1fr;
