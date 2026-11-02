@@ -3073,6 +3073,7 @@
 
       let prefsScrollToken = 0;
       let prefsScrollRaf = 0;
+      let prefsScrollTimer = 0;
 
       function easeInOutCubic(t) {
         return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -3088,46 +3089,55 @@
           cancelAnimationFrame(prefsScrollRaf);
           prefsScrollRaf = 0;
         }
+        if (prefsScrollTimer) {
+          clearTimeout(prefsScrollTimer);
+          prefsScrollTimer = 0;
+        }
 
-        requestAnimationFrame(() => {
-          syncCtaClearance();
+        prefsScrollTimer = setTimeout(() => {
+          prefsScrollTimer = 0;
+          if (token !== prefsScrollToken || !state.campusId) return;
+
           requestAnimationFrame(() => {
-            if (token !== prefsScrollToken) return;
-            const panel = document.getElementById("prefs-panel");
-            if (!panel) return;
+            syncCtaClearance();
+            requestAnimationFrame(() => {
+              if (token !== prefsScrollToken) return;
+              const panel = document.getElementById("prefs-panel");
+              if (!panel) return;
 
-            const topbar =
-              parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-height")) || 80;
-            const targetY = Math.max(
-              0,
-              window.scrollY + panel.getBoundingClientRect().top - topbar - 12
-            );
-            const startY = window.scrollY;
-            const distance = targetY - startY;
-            if (Math.abs(distance) < 4) return;
+              const topbar =
+                parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-height")) || 80;
+              const targetY = Math.max(
+                0,
+                window.scrollY + panel.getBoundingClientRect().top - topbar - 12
+              );
+              const startY = window.scrollY;
+              const distance = targetY - startY;
+              if (Math.abs(distance) < 4) return;
 
-            const duration = Math.min(1400, Math.max(900, Math.abs(distance) * 1.35));
-            const t0 = performance.now();
-            document.documentElement.classList.add("is-program-scrolling");
+              const duration = Math.min(850, Math.max(520, Math.abs(distance) * 0.85));
+              const t0 = performance.now();
+              document.documentElement.classList.add("is-program-scrolling");
 
-            function step(now) {
-              if (token !== prefsScrollToken) {
-                document.documentElement.classList.remove("is-program-scrolling");
-                prefsScrollRaf = 0;
-                return;
+              function step(now) {
+                if (token !== prefsScrollToken) {
+                  document.documentElement.classList.remove("is-program-scrolling");
+                  prefsScrollRaf = 0;
+                  return;
+                }
+                const t = Math.min(1, (now - t0) / duration);
+                window.scrollTo({ top: startY + distance * easeInOutCubic(t), behavior: "auto" });
+                if (t < 1) {
+                  prefsScrollRaf = requestAnimationFrame(step);
+                } else {
+                  prefsScrollRaf = 0;
+                  document.documentElement.classList.remove("is-program-scrolling");
+                }
               }
-              const t = Math.min(1, (now - t0) / duration);
-              window.scrollTo({ top: startY + distance * easeInOutCubic(t), behavior: "auto" });
-              if (t < 1) {
-                prefsScrollRaf = requestAnimationFrame(step);
-              } else {
-                prefsScrollRaf = 0;
-                document.documentElement.classList.remove("is-program-scrolling");
-              }
-            }
-            prefsScrollRaf = requestAnimationFrame(step);
+              prefsScrollRaf = requestAnimationFrame(step);
+            });
           });
-        });
+        }, 1000);
       }
 
       function applyDraftToState() {
