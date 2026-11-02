@@ -3106,7 +3106,7 @@
             const distance = targetY - startY;
             if (Math.abs(distance) < 4) return;
 
-            const duration = Math.min(780, Math.max(480, Math.abs(distance) * 0.75));
+            const duration = Math.min(1400, Math.max(900, Math.abs(distance) * 1.35));
             const t0 = performance.now();
             document.documentElement.classList.add("is-program-scrolling");
 
