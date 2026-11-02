@@ -900,6 +900,15 @@
         height: 36px;
         min-height: 36px;
       }
+      #view-onboard.is-active .prefs-panel .custom-miles-label {
+        font-size: 0.68rem;
+        padding: 0 2px;
+        letter-spacing: -0.02em;
+      }
+      #view-onboard.is-active .prefs-panel .custom-miles input {
+        font-size: 0.78rem;
+        padding: 0 4px;
+      }
       .cta-bar {
         padding-top: 12px;
         padding-bottom: 12px;
@@ -1088,16 +1097,21 @@
       min-height: 32px;
       flex: 1 1 auto;
       min-width: 0;
-      padding: 0 6px 0 0;
+      padding: 0;
     }
     .results-filters .custom-miles input {
-      width: 3.2em;
+      width: 100%;
       min-width: 0;
       font-size: 0.72rem;
-      padding: 6px 0 6px 6px;
+      padding: 0 4px;
+    }
+    .results-filters .custom-miles-label {
+      font-size: 0.58rem;
+      padding: 0 2px;
+      letter-spacing: -0.02em;
     }
     .results-filters .custom-miles .unit {
-      font-size: 0.68rem;
+      display: none;
     }
     .results-filter-actions {
       flex: 0 0 auto;
