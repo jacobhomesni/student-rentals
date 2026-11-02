@@ -3921,11 +3921,18 @@
       });
 
       els.btnSkip.addEventListener("click", () => {
+        state.campusId = null;
+        state.openPickerId = null;
         state.types = [];
         state.budget = "any";
         state.distance = "2";
         state.distanceCustom = false;
         state.customMiles = "";
+        state.origin = null;
+        state.originLabel = "";
+        if (els.locationInput) els.locationInput.value = "";
+        if (els.locationSuggest) els.locationSuggest.classList.remove("is-open");
+        syncDraftFromState();
         saveState();
         syncUI();
       });
