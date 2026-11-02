@@ -655,6 +655,7 @@
       display: contents;
     }
     .custom-miles {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -676,12 +677,14 @@
       background: #f3f8ff;
     }
     .custom-miles input {
+      position: relative;
+      z-index: 1;
       width: 100%;
       min-width: 0;
       height: 100%;
       border: none;
       background: transparent;
-      padding: 0 8px;
+      padding: 0 6px;
       font-size: 0.84rem;
       font-weight: 700;
       color: var(--ink);
@@ -696,9 +699,32 @@
       margin: 0;
     }
     .custom-miles input::placeholder {
-      color: #9a9893;
+      color: transparent;
+      opacity: 0;
+    }
+    .custom-miles-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      pointer-events: none;
+      z-index: 0;
+      font-size: 0.66rem;
       font-weight: 700;
+      line-height: 1.05;
+      color: #9a9893;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.12s ease, color 0.15s ease;
+    }
+    .custom-miles:has(input:placeholder-shown):not(:focus-within) .custom-miles-label {
       opacity: 1;
+    }
+    .custom-miles.is-active .custom-miles-label {
+      color: var(--brand);
     }
     .custom-miles .unit {
       display: none;
@@ -2538,7 +2564,8 @@
           <div class="chips-distance" role="group" aria-label="Distance from campus">
             <div class="chips" id="distance-chips"></div>
             <label class="custom-miles" id="custom-miles-wrap" for="custom-miles">
-              <input type="number" id="custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder="Custom miles" aria-label="Custom miles from campus" />
+              <input type="number" id="custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder=" " aria-label="Custom miles from campus" />
+              <span class="custom-miles-label" aria-hidden="true"><span>Custom</span><span>miles</span></span>
             </label>
           </div>
         </section>
@@ -2589,7 +2616,8 @@
             <div class="chips-distance">
               <div class="chips" id="results-distance-chips" role="group" aria-label="Distance from campus"></div>
               <label class="custom-miles" id="results-custom-miles-wrap" for="results-custom-miles">
-                <input type="number" id="results-custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder="Custom miles" aria-label="Custom miles from campus" />
+                <input type="number" id="results-custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder=" " aria-label="Custom miles from campus" />
+                <span class="custom-miles-label" aria-hidden="true"><span>Custom</span><span>miles</span></span>
               </label>
             </div>
           </div>
