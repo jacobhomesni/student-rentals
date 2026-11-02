@@ -35,6 +35,7 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    html.is-program-scrolling { scroll-behavior: auto; }
     body {
       margin: 0;
       font-family: Lato, "Helvetica Neue", Arial, sans-serif;
@@ -570,6 +571,7 @@
       margin-top: 28px;
       position: relative;
       z-index: 1;
+      scroll-margin-top: calc(var(--topbar-height) + 12px);
     }
     .prefs-panel .section { margin-top: 0; }
 
@@ -1862,55 +1864,32 @@
         height: auto;
       }
       #view-onboard.is-active .prefs-panel {
-        --prefs-sheet-max: min(38dvh, 280px);
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: var(--cta-bar-h, 112px);
-        z-index: 49;
-        margin: 0;
-        gap: 10px;
-        padding: 10px max(12px, calc((100% - var(--inner)) / 2)) 12px;
-        background: rgba(255, 255, 255, 0.97);
-        border-top: 1px solid var(--neutral);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        max-height: var(--prefs-sheet-max);
-        overflow-x: hidden;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
-        transform: translate3d(0, 110%, 0);
-        opacity: 0;
-        pointer-events: none;
-        visibility: hidden;
-        transition:
-          transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-          opacity 0.28s ease,
-          visibility 0.38s;
-      }
-      #view-onboard.is-active.has-campus .prefs-panel {
-        transform: translate3d(0, 0, 0);
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        z-index: 1;
+        margin-top: 4px;
+        gap: 14px;
+        padding: 0;
+        background: transparent;
+        border-top: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        max-height: none;
+        overflow: visible;
+        transform: none;
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
-      }
-      #view-onboard.is-active .prefs-panel .chips-distance {
-        align-items: stretch;
+        scroll-margin-top: calc(var(--topbar-height) + 12px);
+        scroll-margin-bottom: calc(var(--cta-h, 112px) + 16px);
       }
       #view-onboard.is-active .prefs-panel .section-head {
-        margin-bottom: 4px;
+        margin-bottom: 6px;
       }
       #view-onboard.is-active .prefs-panel .section-head h2 {
-        font-size: 0.84rem;
-      }
-      #view-onboard.is-active .prefs-panel .section-head .hint {
-        font-size: 0.72rem;
-      }
-      #view-onboard.is-active .prefs-panel .chip,
-      #view-onboard.is-active .prefs-panel .custom-miles {
-        height: 40px;
-        min-height: 40px;
+        font-size: 0.92rem;
       }
       #view-onboard.is-active .section-head {
         margin-bottom: 8px;
@@ -3092,6 +3071,65 @@
         draft.customMiles = state.customMiles;
       }
 
+      let prefsScrollToken = 0;
+      let prefsScrollRaf = 0;
+
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function revealPrefsOnMobile() {
+        if (!state.campusId) return;
+        if (!window.matchMedia("(max-width: 1023px)").matches) return;
+        if (!els.onboard.classList.contains("is-active")) return;
+
+        const token = ++prefsScrollToken;
+        if (prefsScrollRaf) {
+          cancelAnimationFrame(prefsScrollRaf);
+          prefsScrollRaf = 0;
+        }
+
+        requestAnimationFrame(() => {
+          syncCtaClearance();
+          requestAnimationFrame(() => {
+            if (token !== prefsScrollToken) return;
+            const panel = document.getElementById("prefs-panel");
+            if (!panel) return;
+
+            const topbar =
+              parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-height")) || 80;
+            const targetY = Math.max(
+              0,
+              window.scrollY + panel.getBoundingClientRect().top - topbar - 12
+            );
+            const startY = window.scrollY;
+            const distance = targetY - startY;
+            if (Math.abs(distance) < 4) return;
+
+            const duration = Math.min(780, Math.max(480, Math.abs(distance) * 0.75));
+            const t0 = performance.now();
+            document.documentElement.classList.add("is-program-scrolling");
+
+            function step(now) {
+              if (token !== prefsScrollToken) {
+                document.documentElement.classList.remove("is-program-scrolling");
+                prefsScrollRaf = 0;
+                return;
+              }
+              const t = Math.min(1, (now - t0) / duration);
+              window.scrollTo({ top: startY + distance * easeInOutCubic(t), behavior: "auto" });
+              if (t < 1) {
+                prefsScrollRaf = requestAnimationFrame(step);
+              } else {
+                prefsScrollRaf = 0;
+                document.documentElement.classList.remove("is-program-scrolling");
+              }
+            }
+            prefsScrollRaf = requestAnimationFrame(step);
+          });
+        });
+      }
+
       function applyDraftToState() {
         state.campusId = draft.campusId;
         state.types = draft.types.slice();
@@ -3266,9 +3304,11 @@
               return;
             }
             closePickers();
-            state.campusId = selected ? null : tile.campusIds[0];
+            const selecting = !selected;
+            state.campusId = selecting ? tile.campusIds[0] : null;
             saveState();
             syncUI();
+            if (selecting) revealPrefsOnMobile();
           });
 
           wrap.appendChild(btn);
@@ -3288,10 +3328,12 @@
                 (cDist != null ? '<span class="miles">' + formatMiles(cDist) + "</span>" : "");
               opt.addEventListener("click", (e) => {
                 e.stopPropagation();
-                state.campusId = state.campusId === cid ? null : cid;
+                const selecting = state.campusId !== cid;
+                state.campusId = selecting ? cid : null;
                 state.openPickerId = null;
                 saveState();
                 syncUI();
+                if (selecting) revealPrefsOnMobile();
               });
               picker.appendChild(opt);
             });
@@ -3397,9 +3439,11 @@
         if (!p) return;
         els.locationInput.value = p.name;
         els.locationSuggest.classList.remove("is-open");
+        let selectedCampus = false;
         if (p.campusId && CAMPUSES[p.campusId]) {
           state.campusId = p.campusId;
           state.openPickerId = null;
+          selectedCampus = true;
         } else if (p.tileId) {
           const tile = UNI_TILES.find((t) => t.id === p.tileId);
           if (tile && tile.multi) {
@@ -3407,6 +3451,7 @@
           } else if (tile) {
             state.campusId = tile.campusIds[0];
             state.openPickerId = null;
+            selectedCampus = true;
           }
         }
         if (p.lat != null && p.lng != null) setOrigin(p.lat, p.lng, p.name);
@@ -3414,6 +3459,7 @@
           saveState();
           syncUI();
         }
+        if (selectedCampus) revealPrefsOnMobile();
       }
 
       function renderSuggestions(q) {
@@ -3522,21 +3568,7 @@
         }
         const barH = Math.ceil(bar.getBoundingClientRect().height);
         document.documentElement.style.setProperty("--cta-bar-h", barH + "px");
-
-        let prefsH = 0;
-        const panel = document.getElementById("prefs-panel");
-        const dockPrefs =
-          window.matchMedia("(max-width: 1023px)").matches &&
-          els.onboard.classList.contains("is-active") &&
-          els.onboard.classList.contains("has-campus") &&
-          panel;
-        if (dockPrefs) {
-          const raw = Math.ceil(panel.scrollHeight || panel.getBoundingClientRect().height);
-          const maxRaw = getComputedStyle(panel).maxHeight;
-          const maxH = maxRaw && maxRaw !== "none" ? Math.ceil(parseFloat(maxRaw)) : raw;
-          prefsH = Math.min(raw, isFinite(maxH) && maxH > 0 ? maxH : raw);
-        }
-        document.documentElement.style.setProperty("--cta-h", barH + prefsH + "px");
+        document.documentElement.style.setProperty("--cta-h", barH + "px");
       }
 
       function showView(name) {
