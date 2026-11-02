@@ -306,6 +306,9 @@
       gap: 12px;
       margin-bottom: 12px;
     }
+    .campus-toolbar .section-head {
+      margin-bottom: 0;
+    }
 
     .location-row {
       display: flex;
@@ -769,6 +772,9 @@
       flex: 0 0 auto;
       margin-bottom: 8px;
       gap: 8px;
+    }
+    #view-onboard.is-active .campus-toolbar .section-head {
+      margin-bottom: 0;
     }
     #view-onboard.is-active .campus-grid {
       flex: 1 1 auto;
@@ -1856,20 +1862,24 @@
         height: auto;
       }
       #view-onboard.is-active .prefs-panel {
+        --prefs-sheet-max: min(38dvh, 280px);
         position: fixed;
         left: 0;
         right: 0;
         bottom: var(--cta-bar-h, 112px);
         z-index: 49;
         margin: 0;
-        gap: 12px;
-        padding: 12px max(12px, calc((100% - var(--inner)) / 2)) 14px;
+        gap: 10px;
+        padding: 10px max(12px, calc((100% - var(--inner)) / 2)) 12px;
         background: rgba(255, 255, 255, 0.97);
         border-top: 1px solid var(--neutral);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        max-height: none;
-        overflow: visible;
+        max-height: var(--prefs-sheet-max);
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
         transform: translate3d(0, 110%, 0);
         opacity: 0;
         pointer-events: none;
@@ -1888,15 +1898,19 @@
       #view-onboard.is-active .prefs-panel .chips-distance {
         align-items: stretch;
       }
-      #view-onboard.is-active .prefs-panel .custom-miles {
-        height: var(--tap);
-        min-height: var(--tap);
-      }
       #view-onboard.is-active .prefs-panel .section-head {
-        margin-bottom: 6px;
+        margin-bottom: 4px;
       }
       #view-onboard.is-active .prefs-panel .section-head h2 {
-        font-size: 0.92rem;
+        font-size: 0.84rem;
+      }
+      #view-onboard.is-active .prefs-panel .section-head .hint {
+        font-size: 0.72rem;
+      }
+      #view-onboard.is-active .prefs-panel .chip,
+      #view-onboard.is-active .prefs-panel .custom-miles {
+        height: 40px;
+        min-height: 40px;
       }
       #view-onboard.is-active .section-head {
         margin-bottom: 8px;
@@ -1937,6 +1951,10 @@
         align-items: flex-start;
         gap: 2px;
         margin-bottom: 10px;
+      }
+      .campus-toolbar .section-head,
+      #view-onboard.is-active .campus-toolbar .section-head {
+        margin-bottom: 0;
       }
       .section-head h2 {
         font-size: 1rem;
@@ -3513,7 +3531,10 @@
           els.onboard.classList.contains("has-campus") &&
           panel;
         if (dockPrefs) {
-          prefsH = Math.ceil(panel.getBoundingClientRect().height || panel.scrollHeight);
+          const raw = Math.ceil(panel.scrollHeight || panel.getBoundingClientRect().height);
+          const maxRaw = getComputedStyle(panel).maxHeight;
+          const maxH = maxRaw && maxRaw !== "none" ? Math.ceil(parseFloat(maxRaw)) : raw;
+          prefsH = Math.min(raw, isFinite(maxH) && maxH > 0 ? maxH : raw);
         }
         document.documentElement.style.setProperty("--cta-h", barH + prefsH + "px");
       }
