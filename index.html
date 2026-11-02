@@ -2027,9 +2027,18 @@
         font-size: 0.84rem;
         padding: 0 10px;
       }
+      .prefs-panel #type-chips {
+        flex-wrap: nowrap;
+        gap: 6px;
+      }
       #type-chips.chips .chip,
       .prefs-panel #type-chips .chip {
-        flex: 1 1 calc(33.333% - 6px);
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        padding: 0 6px;
+        font-size: 0.78rem;
+        white-space: nowrap;
       }
       .prefs-panel #budget-chips .chip {
         flex: 1 1 calc(33.333% - 6px);
