@@ -3337,14 +3337,34 @@
         state.customMiles = "";
       }
 
-      function applyCustomMiles(raw, commit) {
-        state.customMiles = raw;
-        state.distanceCustom = true;
-        const n = parseFloat(raw);
-        if (isFinite(n) && n > 0) {
-          state.distance = String(Math.round(n * 10) / 10);
+      function sanitizeCustomMiles(raw, commit) {
+        const cleaned = String(raw == null ? "" : raw).trim();
+        if (!cleaned) {
+          return { display: "", distance: null, valid: false };
         }
-        if (commit) saveState();
+        const n = parseFloat(cleaned);
+        if (!isFinite(n) || n <= 0) {
+          return { display: commit ? "" : cleaned, distance: null, valid: false };
+        }
+        const clamped = Math.min(50, Math.max(0.1, Math.round(n * 10) / 10));
+        const display = String(clamped);
+        return { display: commit ? display : cleaned, distance: display, valid: true };
+      }
+
+      function applyCustomMiles(raw, commit) {
+        const result = sanitizeCustomMiles(raw, commit);
+        state.distanceCustom = true;
+        state.customMiles = result.display;
+        if (result.distance) state.distance = result.distance;
+        else if (commit) state.distance = "2";
+        if (commit) {
+          if (els.customMiles && document.activeElement !== els.customMiles) {
+            els.customMiles.value = result.display;
+          } else if (els.customMiles && commit) {
+            els.customMiles.value = result.display;
+          }
+          saveState();
+        }
         syncUI();
       }
 
@@ -4192,25 +4212,24 @@
       if (els.resultsCustomMiles) {
         els.resultsCustomMiles.addEventListener("focus", () => {
           draft.distanceCustom = true;
-          if (draft.customMiles) {
-            const n = parseFloat(draft.customMiles);
-            if (isFinite(n) && n > 0) draft.distance = String(Math.round(n * 10) / 10);
-          }
+          const result = sanitizeCustomMiles(draft.customMiles, false);
+          if (result.distance) draft.distance = result.distance;
           renderResultsFilters();
           els.resultsCustomMiles.focus();
         });
         els.resultsCustomMiles.addEventListener("input", () => {
-          draft.customMiles = els.resultsCustomMiles.value;
+          const result = sanitizeCustomMiles(els.resultsCustomMiles.value, false);
+          draft.customMiles = result.display;
           draft.distanceCustom = true;
-          const n = parseFloat(draft.customMiles);
-          if (isFinite(n) && n > 0) draft.distance = String(Math.round(n * 10) / 10);
+          if (result.distance) draft.distance = result.distance;
           els.resultsCustomMilesWrap.classList.add("is-active");
         });
         els.resultsCustomMiles.addEventListener("change", () => {
-          draft.customMiles = els.resultsCustomMiles.value;
-          draft.distanceCustom = true;
-          const n = parseFloat(draft.customMiles);
-          if (isFinite(n) && n > 0) draft.distance = String(Math.round(n * 10) / 10);
+          const result = sanitizeCustomMiles(els.resultsCustomMiles.value, true);
+          draft.customMiles = result.display;
+          draft.distanceCustom = !!result.distance;
+          draft.distance = result.distance || "2";
+          els.resultsCustomMiles.value = result.display;
           renderResultsFilters();
         });
       }
@@ -4218,10 +4237,8 @@
       if (els.customMiles) {
         els.customMiles.addEventListener("focus", () => {
           state.distanceCustom = true;
-          if (state.customMiles) {
-            const n = parseFloat(state.customMiles);
-            if (isFinite(n) && n > 0) state.distance = String(Math.round(n * 10) / 10);
-          }
+          const result = sanitizeCustomMiles(state.customMiles, false);
+          if (result.distance) state.distance = result.distance;
           syncUI();
           els.customMiles.focus();
         });
@@ -4229,6 +4246,9 @@
           applyCustomMiles(els.customMiles.value, false);
         });
         els.customMiles.addEventListener("change", () => {
+          applyCustomMiles(els.customMiles.value, true);
+        });
+        els.customMiles.addEventListener("blur", () => {
           applyCustomMiles(els.customMiles.value, true);
         });
         els.customMiles.addEventListener("keydown", (e) => {
