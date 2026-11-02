@@ -3105,12 +3105,24 @@
               const panel = document.getElementById("prefs-panel");
               if (!panel) return;
 
-              const topbar =
-                parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar-height")) || 80;
-              const targetY = Math.max(
-                0,
-                window.scrollY + panel.getBoundingClientRect().top - topbar - 12
-              );
+              const rootStyles = getComputedStyle(document.documentElement);
+              const topbar = parseFloat(rootStyles.getPropertyValue("--topbar-height")) || 80;
+              const ctaH = parseFloat(rootStyles.getPropertyValue("--cta-h")) || 112;
+              const pad = 12;
+              const rect = panel.getBoundingClientRect();
+              const panelTopDoc = window.scrollY + rect.top;
+              const panelBottomDoc = window.scrollY + rect.bottom;
+              const available = window.innerHeight - topbar - ctaH - pad * 2;
+              // Fit the whole prefs block when possible; otherwise pin the bottom
+              // (distance / custom miles) just above the CTA bar.
+              let targetY = panelTopDoc - topbar - pad;
+              if (rect.height > available) {
+                targetY = panelBottomDoc - (window.innerHeight - ctaH - pad);
+              } else {
+                const bottomAligned = panelBottomDoc - (window.innerHeight - ctaH - pad);
+                targetY = Math.max(targetY, bottomAligned);
+              }
+              targetY = Math.max(0, targetY);
               const startY = window.scrollY;
               const distance = targetY - startY;
               if (Math.abs(distance) < 4) return;
