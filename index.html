@@ -1941,8 +1941,8 @@
         right: auto;
         bottom: auto;
         z-index: 1;
-        margin-top: 4px;
-        gap: 14px;
+        margin-top: 8px;
+        gap: 10px;
         padding: 0;
         background: transparent;
         border-top: none;
@@ -1954,14 +1954,18 @@
         opacity: 1;
         pointer-events: auto;
         visibility: visible;
-        scroll-margin-top: calc(var(--topbar-height) + 12px);
-        scroll-margin-bottom: calc(var(--cta-h, 112px) + 16px);
+        scroll-margin-top: calc(var(--topbar-height) + 10px);
+        scroll-margin-bottom: calc(var(--cta-h, 112px) + 12px);
       }
       #view-onboard.is-active .prefs-panel .section-head {
-        margin-bottom: 6px;
+        margin-bottom: 4px;
+        gap: 0;
       }
       #view-onboard.is-active .prefs-panel .section-head h2 {
-        font-size: 0.92rem;
+        font-size: 0.88rem;
+      }
+      #view-onboard.is-active .prefs-panel .section-head .hint {
+        font-size: 0.72rem;
       }
       #view-onboard.is-active .section-head {
         margin-bottom: 8px;
@@ -2082,22 +2086,32 @@
       }
 
       .prefs-panel {
-        margin-top: 20px;
-        gap: 18px;
+        margin-top: 12px;
+        gap: 10px;
+      }
+      .prefs-panel .section-head {
+        margin-bottom: 4px;
+      }
+      .prefs-panel .section-head h2 {
+        font-size: 0.88rem;
+      }
+      .prefs-panel .section-head .hint {
+        font-size: 0.72rem;
       }
       .prefs-panel .chips,
       .prefs-panel .chips-distance {
-        flex-wrap: wrap;
-        gap: 8px;
+        flex-wrap: nowrap;
+        gap: 6px;
       }
       .prefs-panel .chip {
-        flex: 1 1 calc(33.333% - 6px);
-        width: auto;
-        min-width: calc(33.333% - 6px);
-        height: var(--tap);
-        min-height: var(--tap);
-        font-size: 0.84rem;
-        padding: 0 10px;
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        height: 36px;
+        min-height: 36px;
+        font-size: 0.76rem;
+        padding: 0 6px;
+        white-space: nowrap;
       }
       .prefs-panel #type-chips {
         flex-wrap: nowrap;
@@ -2108,23 +2122,37 @@
         flex: 1 1 0;
         width: 0;
         min-width: 0;
-        padding: 0 6px;
-        font-size: 0.78rem;
+        padding: 0 5px;
+        font-size: 0.74rem;
         white-space: nowrap;
       }
+      .prefs-panel #budget-chips {
+        flex-wrap: nowrap;
+      }
       .prefs-panel #budget-chips .chip {
-        flex: 1 1 calc(33.333% - 6px);
+        flex: 1 1 0;
+        padding: 0 4px;
+        font-size: 0.72rem;
       }
       .prefs-panel .chips-distance .chip,
       .prefs-panel .custom-miles {
-        flex: 1 1 calc(50% - 4px);
-        width: auto;
-        min-width: calc(50% - 4px);
-        height: var(--tap);
-        min-height: var(--tap);
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        height: 36px;
+        min-height: 36px;
+      }
+      .custom-miles {
+        padding: 0 8px 0 0;
+        gap: 4px;
       }
       .custom-miles input {
         font-size: 16px;
+        width: 3.4em;
+        padding: 6px 0 6px 8px;
+      }
+      .custom-miles .unit {
+        font-size: 0.72rem;
       }
 
       .cta-bar {
@@ -3189,21 +3217,20 @@
               const rootStyles = getComputedStyle(document.documentElement);
               const topbar = parseFloat(rootStyles.getPropertyValue("--topbar-height")) || 80;
               const ctaH = parseFloat(rootStyles.getPropertyValue("--cta-h")) || 112;
-              const pad = 12;
+              const pad = 10;
               const rect = panel.getBoundingClientRect();
               const panelTopDoc = window.scrollY + rect.top;
               const panelBottomDoc = window.scrollY + rect.bottom;
               const available = window.innerHeight - topbar - ctaH - pad * 2;
-              // Fit the whole prefs block when possible; otherwise pin the bottom
-              // (distance / custom miles) just above the CTA bar.
+              // Prefer the start of the filters ("What are you looking for?").
+              // Only nudge further down if the compact block still overflows.
               let targetY = panelTopDoc - topbar - pad;
               if (rect.height > available) {
-                targetY = panelBottomDoc - (window.innerHeight - ctaH - pad);
-              } else {
-                const bottomAligned = panelBottomDoc - (window.innerHeight - ctaH - pad);
-                targetY = Math.max(targetY, bottomAligned);
+                const overflow = rect.height - available;
+                targetY += Math.min(overflow, 48);
               }
-              targetY = Math.max(0, targetY);
+              const maxY = Math.max(0, panelBottomDoc - (window.innerHeight - ctaH - pad));
+              targetY = Math.min(Math.max(0, targetY), maxY);
               const startY = window.scrollY;
               const distance = targetY - startY;
               if (Math.abs(distance) < 4) return;
