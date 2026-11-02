@@ -1531,6 +1531,49 @@
       }
     }
 
+    /* Phones/tablets: allow normal scroll — viewport lock is desktop-only */
+    @media (max-width: 1023px) {
+      body.onboard-fit {
+        height: auto;
+        min-height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      #view-onboard.is-active {
+        height: auto;
+        max-height: none;
+        overflow: visible;
+      }
+      #view-onboard.is-active .onboard {
+        flex: none;
+        min-height: 0;
+        overflow: visible;
+        padding: 12px 0 calc(20px + var(--cta-h, 112px));
+        gap: 16px;
+      }
+      #view-onboard.is-active .section-campus {
+        flex: none;
+        min-height: 0;
+        display: block;
+      }
+      #view-onboard.is-active .campus-grid {
+        flex: none;
+        grid-auto-rows: auto;
+        gap: 10px;
+      }
+      #view-onboard.is-active .campus-card {
+        aspect-ratio: 4 / 3;
+        height: auto;
+      }
+      #view-onboard.is-active .prefs-panel {
+        margin-top: 4px;
+        gap: 14px;
+      }
+      #view-onboard.is-active .section-head {
+        margin-bottom: 8px;
+      }
+    }
+
     /* —— Mobile-first optimisations (student traffic) —— */
     @media (max-width: 899px) {
       :root {
@@ -1538,51 +1581,27 @@
         --cta-h: 112px;
       }
 
-      .hero {
-        padding: 18px 0 4px;
-        text-align: left;
-      }
-      .hero h1 {
-        font-size: 1.45rem;
-        max-width: none;
-        text-align: left;
-      }
-      .hero p {
-        margin-top: 8px;
-        font-size: 0.95rem;
-        text-align: left;
-        max-width: none;
-      }
-
+      .hero,
       #view-onboard.is-active .hero {
         padding: 18px 0 8px;
         text-align: left;
       }
+      .hero h1,
       #view-onboard.is-active .hero h1 {
         font-size: 1.45rem;
+        max-width: none;
         text-align: left;
       }
+      .hero p,
       #view-onboard.is-active .hero p {
         display: block;
         margin-top: 8px;
         font-size: 0.95rem;
         text-align: left;
-      }
-      #view-onboard.is-active .onboard {
-        padding: 8px 0 calc(8px + var(--cta-h, 112px));
-        gap: 10px;
+        max-width: none;
       }
       #view-onboard.is-active .campus-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-      #view-onboard.is-active .prefs-panel {
-        gap: 8px;
-      }
-      #view-onboard.is-active .prefs-panel .chip,
-      #view-onboard.is-active .prefs-panel .custom-miles {
-        height: 36px;
-        min-height: 36px;
       }
       .section-head {
         flex-direction: column;
@@ -1634,12 +1653,15 @@
         font-size: 0.95rem;
       }
 
-      .campus-grid {
+      .campus-grid,
+      #view-onboard.is-active .campus-grid {
         grid-template-columns: 1fr 1fr;
         gap: 10px;
       }
-      .campus-card {
+      .campus-card,
+      #view-onboard.is-active .campus-card {
         aspect-ratio: 4 / 3;
+        height: auto;
       }
       .campus-card .title {
         font-size: 0.82rem;
@@ -1718,22 +1740,29 @@
         grid-template-columns: 1fr;
         gap: 8px;
       }
+      .cta-actions {
+        grid-template-columns: 1fr;
+      }
       .cta-actions .btn-ghost {
-        display: none;
+        display: block;
+        width: 100%;
+        min-height: 40px;
+        order: 2;
       }
       .cta-actions .btn-primary {
         width: 100%;
         min-height: var(--tap);
         padding: 12px 16px;
         font-size: 1rem;
+        order: 1;
       }
 
       /* Results — map + listings first; filters behind Refine */
       .results-top {
-        padding: 18px 0 8px;
+        padding: 14px 0 10px;
       }
       .results-head-row {
-        margin: 0 0 10px;
+        margin: 0 0 8px;
       }
       .results-head-row #btn-back {
         min-height: 40px;
@@ -1746,7 +1775,7 @@
         min-height: 40px;
       }
       .results-top h1 {
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.25;
         margin: 0;
       }
@@ -1764,6 +1793,12 @@
       }
       .results-filters.is-open {
         display: grid;
+      }
+      .results-filter-block + .results-filter-block,
+      .results-filter-actions {
+        border-left: none;
+        padding-left: 0;
+        margin-left: 0;
       }
       .results-filter-block,
       .results-filter-block--campus,
