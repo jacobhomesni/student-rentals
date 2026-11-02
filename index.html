@@ -3447,26 +3447,61 @@
         return { display: commit ? display : cleaned, distance: display, valid: true };
       }
 
+      function syncDistanceUI() {
+        if (els.distanceChips) {
+          renderChipGroup(els.distanceChips, DISTANCES, "distance");
+        }
+        if (els.customMilesWrap && els.customMiles) {
+          els.customMilesWrap.classList.toggle("is-active", state.distanceCustom);
+          if (!els.customMiles.matches(":focus")) {
+            els.customMiles.value = state.distanceCustom ? state.customMiles : "";
+          }
+        }
+        const campus = campusById(state.campusId);
+        if (campus) {
+          els.ctaMeta.innerHTML = "Searching near <strong>" + campus.name + "</strong> · " + formatDistanceLabel(state.distance);
+        } else {
+          els.ctaMeta.textContent = "Select a campus to continue";
+        }
+      }
+
+      function withPreservedScroll(fn) {
+        const y = window.scrollY || window.pageYOffset || 0;
+        fn();
+        const restore = () => {
+          if (Math.abs((window.scrollY || 0) - y) > 1) window.scrollTo(0, y);
+        };
+        restore();
+        requestAnimationFrame(() => {
+          restore();
+          requestAnimationFrame(restore);
+        });
+      }
+
       function applyCustomMiles(raw, commit) {
         const result = sanitizeCustomMiles(raw, commit);
-        if (commit && !result.valid) {
-          // Empty / invalid custom → exit the box and restore a preset chip
-          state.distanceCustom = false;
-          state.customMiles = "";
-          state.distance = PRESET_DISTANCES[String(state.distance)] ? String(state.distance) : "2";
-          if (els.customMiles) els.customMiles.value = "";
-          saveState();
-          syncUI();
-          return;
-        }
-        state.distanceCustom = true;
-        state.customMiles = result.display;
-        if (result.distance) state.distance = result.distance;
-        if (commit) {
-          if (els.customMiles) els.customMiles.value = result.display;
-          saveState();
-        }
-        syncUI();
+        const run = () => {
+          if (commit && !result.valid) {
+            // Empty / invalid custom → exit the box and restore a preset chip
+            state.distanceCustom = false;
+            state.customMiles = "";
+            state.distance = PRESET_DISTANCES[String(state.distance)] ? String(state.distance) : "2";
+            if (els.customMiles) els.customMiles.value = "";
+            if (commit) saveState();
+            syncDistanceUI();
+            return;
+          }
+          state.distanceCustom = true;
+          state.customMiles = result.display;
+          if (result.distance) state.distance = result.distance;
+          if (commit) {
+            if (els.customMiles) els.customMiles.value = result.display;
+            saveState();
+          }
+          syncDistanceUI();
+        };
+        if (commit) withPreservedScroll(run);
+        else run();
       }
 
       function campusById(id) {
@@ -4345,26 +4380,28 @@
       }
 
       if (els.customMiles) {
+        let customMilesCommitLock = false;
+        function commitCustomMilesFromInput() {
+          if (customMilesCommitLock) return;
+          customMilesCommitLock = true;
+          applyCustomMiles(els.customMiles.value, true);
+          setTimeout(() => { customMilesCommitLock = false; }, 0);
+        }
         els.customMiles.addEventListener("focus", () => {
           state.distanceCustom = true;
           const result = sanitizeCustomMiles(state.customMiles, false);
           if (result.distance) state.distance = result.distance;
-          syncUI();
-          els.customMiles.focus();
+          syncDistanceUI();
         });
         els.customMiles.addEventListener("input", () => {
           applyCustomMiles(els.customMiles.value, false);
         });
-        els.customMiles.addEventListener("change", () => {
-          applyCustomMiles(els.customMiles.value, true);
-        });
-        els.customMiles.addEventListener("blur", () => {
-          applyCustomMiles(els.customMiles.value, true);
-        });
+        els.customMiles.addEventListener("change", commitCustomMilesFromInput);
+        els.customMiles.addEventListener("blur", commitCustomMilesFromInput);
         els.customMiles.addEventListener("keydown", (e) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            applyCustomMiles(els.customMiles.value, true);
+            commitCustomMilesFromInput();
             els.customMiles.blur();
           }
         });
