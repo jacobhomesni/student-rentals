@@ -1092,6 +1092,17 @@
       min-width: 0;
       box-sizing: border-box;
     }
+    .results-filters #results-type-chips {
+      flex-wrap: nowrap;
+      gap: 4px;
+      width: 100%;
+    }
+    .results-filters #results-type-chips .chip {
+      flex: 1 1 0;
+      width: 0;
+      min-width: 0;
+      padding: 0 4px;
+    }
     .results-filters .custom-miles {
       height: 32px;
       min-height: 32px;
@@ -2327,6 +2338,19 @@
         min-height: 40px;
         padding: 0 8px;
         font-size: 0.8rem;
+      }
+      .results-filters #results-type-chips {
+        flex-wrap: nowrap;
+        gap: 6px;
+        width: 100%;
+      }
+      .results-filters #results-type-chips .chip {
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        padding: 0 6px;
+        font-size: 0.78rem;
+        white-space: nowrap;
       }
       .results-filters .chips-distance .chip,
       .results-filters .custom-miles {
