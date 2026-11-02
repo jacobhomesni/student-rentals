@@ -523,19 +523,11 @@
       font-size: 0.98rem;
       font-weight: 900;
       display: block;
-      position: relative;
       line-height: 1.25;
-      padding-right: 28px;
+      padding-right: 0;
     }
-    .campus-card .title-text {
+    .campus-card .title > span {
       display: block;
-      min-width: 0;
-    }
-    .campus-card .title-name {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     .campus-card .uni {
       display: flex;
@@ -547,7 +539,6 @@
       opacity: 0.85;
       line-height: 1.2;
       width: 100%;
-      min-width: 0;
     }
     .campus-card .uni-arrow {
       display: inline-block;
@@ -563,19 +554,21 @@
     }
     .campus-card .check {
       position: absolute;
-      right: 0;
-      top: 0;
-      width: 20px;
-      height: 20px;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: var(--brand);
       color: #fff;
       display: none;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 900;
+      box-shadow: 0 1px 4px rgba(2, 20, 82, 0.28);
+      pointer-events: none;
     }
     .campus-card.is-selected .check { display: inline-flex; }
 
@@ -2153,6 +2146,13 @@
         font-size: 0.66rem;
         padding: 3px 6px;
       }
+      .campus-card .check {
+        top: 8px;
+        left: 8px;
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+      }
       .campus-picker button {
         padding: 12px 14px;
         min-height: var(--tap);
@@ -3556,10 +3556,10 @@
           if (tile.multi) btn.setAttribute("aria-haspopup", "listbox");
           btn.innerHTML =
             (dist != null ? '<span class="dist-tag">' + formatMiles(dist) + "</span>" : "") +
+            '<span class="check" aria-hidden="true">✓</span>' +
             '<div class="img"><img loading="lazy" src="' + tile.image + '" alt="" /></div>' +
-            '<div class="info"><h3 class="title"><span class="title-text"><span class="title-name">' + tile.name +
-            '</span><span class="uni"><span class="uni-label">' + uniText + "</span>" + uniArrow + "</span></span>" +
-            '<span class="check" aria-hidden="true">✓</span></h3></div>';
+            '<div class="info"><h3 class="title"><span>' + tile.name +
+            '</span><span class="uni"><span class="uni-label">' + uniText + "</span>" + uniArrow + "</span></h3></div>";
 
           btn.addEventListener("click", (e) => {
             e.stopPropagation();
