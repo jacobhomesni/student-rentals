@@ -25,6 +25,14 @@
       --inner: min(1180px, calc(100% - 32px));
       --tap: 44px;
       --cta-h: 0px;
+      --topbar-height: 100px;
+      --topbar-pad-x: 30px;
+    }
+    @media (max-width: 980px) {
+      :root {
+        --topbar-height: 80px;
+        --topbar-pad-x: 20px;
+      }
     }
 
     * { box-sizing: border-box; }
@@ -46,23 +54,42 @@
     button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     img { display: block; max-width: 100%; }
 
-    /* —— Header (HomesNI blue bar) —— */
+    /* —— Header (match HomesNI #top .topbar metrics) —— */
     .site-header {
       background: var(--brand);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      overflow: visible;
+      height: var(--topbar-height);
+    }
+    .site-header .topbar {
+      position: relative;
+      z-index: 999;
+      height: var(--topbar-height);
+      background: var(--brand);
+    }
+    .site-header .topbar > .inner {
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 var(--topbar-pad-x);
+      box-sizing: border-box;
       overflow: visible;
     }
-    .site-header .inner {
-      width: var(--inner);
-      margin: 0 auto;
+    .top-container {
       display: flex;
+      height: var(--topbar-height);
       align-items: center;
-      gap: 18px;
-      padding: 12px 0;
-      min-height: 64px;
-      overflow: visible;
+      gap: 30px;
+    }
+    .logo-container {
+      display: flex;
+      flex: 1;
+      justify-content: flex-start;
+      align-items: center;
+      min-width: 0;
     }
     .brand-logo {
       display: flex;
@@ -70,89 +97,89 @@
       flex-shrink: 0;
       text-decoration: none;
     }
-    .brand-logo .logo-wordmark {
-      height: 36px;
+    .brand-logo img {
+      height: calc(var(--topbar-height) / 2.2);
       width: auto;
+      max-height: 50px;
+      margin-top: -7.5px;
       display: block;
     }
     .brand-logo .logo-mark {
       display: none;
-      height: 36px;
-      width: 36px;
     }
-    @media (min-width: 900px) {
-      .brand-logo .logo-wordmark { height: 42px; }
+    .navigation-container {
+      display: flex;
+      justify-content: center;
+      min-width: 0;
     }
     .site-nav {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: 4px 18px;
-      flex: 1;
+      justify-content: center;
+      gap: 30px;
       min-width: 0;
       overflow: visible;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
     .site-nav > a,
     .nav-dropdown > .nav-trigger {
       color: var(--white);
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.92rem;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.5;
       white-space: nowrap;
-      padding: 6px 0;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
+      padding: 0;
+      border: none;
+      border-bottom: none;
+      transition: color 0.3s ease-in-out;
       background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
       font-family: inherit;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
     }
     .site-nav > a:hover,
     .nav-dropdown > .nav-trigger:hover { color: var(--selected); }
     .site-nav > a.is-active {
       color: var(--selected);
-      border-bottom-color: var(--selected);
     }
     .nav-dropdown {
       position: relative;
       display: flex;
       align-items: center;
-      align-self: stretch;
     }
     .nav-dropdown > .nav-trigger {
       display: inline-flex;
       align-items: center;
-      height: 100%;
     }
     .nav-dropdown-menu {
       display: none;
       position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: 148px;
+      top: 40px;
+      left: 0;
+      min-width: 200px;
+      width: max-content;
       background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 24px rgba(2, 20, 82, 0.18);
-      padding: 6px 0;
+      border-radius: 5px;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      padding: 14px 20px;
       z-index: 200;
-      margin-top: 0;
     }
-    /* Invisible bridge so the pointer can move into the menu without closing it */
     .nav-dropdown-menu::before {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
-      top: -14px;
-      height: 14px;
+      top: -20px;
+      height: 20px;
     }
     .nav-dropdown:hover .nav-dropdown-menu,
     .nav-dropdown:focus-within .nav-dropdown-menu,
     .nav-dropdown.is-open .nav-dropdown-menu {
-      display: block;
+      display: grid;
     }
     .nav-dropdown:hover > .nav-trigger,
     .nav-dropdown:focus-within > .nav-trigger,
@@ -160,46 +187,45 @@
       color: var(--selected);
     }
     .nav-dropdown-menu a {
-      display: block;
-      padding: 10px 16px;
-      color: #6b6964;
+      display: grid;
+      padding: 8px 0;
+      color: var(--ink);
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.88rem;
+      font-weight: 400;
+      font-size: 18px;
       white-space: nowrap;
-      background: var(--white);
+      background: transparent;
     }
     .nav-dropdown-menu a:hover {
-      background: #f5f4f2;
-      color: #5a5c5e;
+      color: var(--brand);
     }
-    .header-account {
-      display: inline-flex;
+    .search-btns-container {
+      display: flex;
+      justify-content: flex-end;
       align-items: center;
-      gap: 12px;
       flex-shrink: 0;
-      margin-left: 0;
-    }
-    .nav-divider {
-      width: 1px;
-      height: 22px;
-      background: rgba(255, 255, 255, 0.45);
-      flex-shrink: 0;
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      padding-left: 30px;
+      margin-left: auto;
     }
     .my-homes {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      flex-direction: row;
+      gap: 10px;
       color: var(--white);
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.92rem;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.5;
       white-space: nowrap;
+      padding: 0;
+      transition: color 0.3s ease-in-out;
     }
     .my-homes:hover { color: var(--selected); }
     .my-homes .heart-home-icon {
-      width: 18px;
-      height: 18px;
+      width: 24px;
+      height: 24px;
       display: block;
       flex-shrink: 0;
     }
@@ -1367,25 +1393,17 @@
       padding: 0 16px 20px;
     }
 
-    /* —— Mobile-first optimisations (student traffic) —— */
-    @media (max-width: 899px) {
-      :root {
-        --inner: min(1180px, calc(100% - 24px));
-        --cta-h: 112px;
-      }
-
-      .site-header .inner {
+    /* —— Mobile header (HomesNI ≤980px topbar height) —— */
+    @media (max-width: 980px) {
+      .site-header .topbar > .inner {
         position: relative;
-        gap: 0;
-        padding: 10px 0;
-        min-height: 52px;
-        align-items: center;
-        justify-content: flex-start;
       }
-      .brand-logo {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
+      .top-container {
+        gap: 0;
+        position: relative;
+      }
+      .logo-container {
+        flex: 0 0 auto;
         z-index: 2;
       }
       .brand-logo .logo-wordmark {
@@ -1393,10 +1411,12 @@
       }
       .brand-logo .logo-mark {
         display: block;
-        height: 34px;
-        width: 34px;
+        height: calc(var(--topbar-height) / 2.2);
+        width: auto;
+        max-height: 50px;
+        margin-top: -7.5px;
       }
-      .site-nav {
+      .navigation-container {
         position: absolute;
         left: 0;
         right: 0;
@@ -1406,8 +1426,11 @@
         align-items: center;
         justify-content: center;
         pointer-events: none;
-        margin: 0;
         z-index: 1;
+      }
+      .site-nav {
+        gap: 0;
+        pointer-events: none;
       }
       .site-nav > a,
       .site-nav > .nav-dropdown {
@@ -1415,16 +1438,21 @@
       }
       .site-nav > a.nav-student {
         display: inline-flex;
-        align-items: center;
         pointer-events: auto;
-        font-size: 0.95rem;
-        line-height: 1.2;
-        padding: 4px 0;
+        font-size: 18px;
+        font-weight: 500;
         color: var(--selected);
-        border-bottom: 2px solid var(--selected);
       }
-      .header-account {
+      .search-btns-container {
         display: none;
+      }
+    }
+
+    /* —— Mobile-first optimisations (student traffic) —— */
+    @media (max-width: 899px) {
+      :root {
+        --inner: min(1180px, calc(100% - 24px));
+        --cta-h: 112px;
       }
 
       .hero {
@@ -1788,31 +1816,38 @@
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="inner">
-      <a class="brand-logo" href="#" id="brand-home" aria-label="HomesNI home">
-        <img class="logo-wordmark" src="https://homesni.com/images/logo-landscape-white.svg?ver=1.1" alt="HomesNI" width="180" height="35" />
-        <img class="logo-mark" src="assets/heart-home-icon.svg" alt="HomesNI" width="36" height="36" />
-      </a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="https://homesni.com/property-for-sale" target="_blank" rel="noopener">For Sale</a>
-        <a href="https://homesni.com/property-for-rent" target="_blank" rel="noopener">For Rent</a>
-        <div class="nav-dropdown" id="nav-commercial">
-          <button type="button" class="nav-trigger" id="nav-commercial-btn" aria-expanded="false" aria-haspopup="true">Commercial</button>
-          <div class="nav-dropdown-menu" role="menu">
-            <a href="https://homesni.com/commercial-sales" target="_blank" rel="noopener" role="menuitem">Sales</a>
-            <a href="https://homesni.com/commercial-rentals" target="_blank" rel="noopener" role="menuitem">Rent</a>
+  <header id="top" class="site-header">
+    <div class="topbar">
+      <div class="inner">
+        <div class="top-container">
+          <div class="logo-container">
+            <a class="brand-logo" href="#" id="brand-home" aria-label="HomesNI home">
+              <img class="logo-wordmark" src="https://homesni.com/images/logo-landscape-white.svg?ver=1.1" alt="HomesNI" title="HomesNI" width="120" height="60" />
+              <img class="logo-mark" src="assets/heart-home-icon.svg" alt="HomesNI" width="36" height="36" />
+            </a>
+          </div>
+          <div class="navigation-container">
+            <nav class="site-nav navigation" aria-label="Primary">
+              <a href="https://homesni.com/property-for-sale" target="_blank" rel="noopener">For Sale</a>
+              <a href="https://homesni.com/property-for-rent" target="_blank" rel="noopener">For Rent</a>
+              <div class="nav-dropdown" id="nav-commercial">
+                <button type="button" class="nav-trigger" id="nav-commercial-btn" aria-expanded="false" aria-haspopup="true">Commercial</button>
+                <div class="nav-dropdown-menu" role="menu">
+                  <a href="https://homesni.com/commercial-sales" target="_blank" rel="noopener" role="menuitem">Sales</a>
+                  <a href="https://homesni.com/commercial-rentals" target="_blank" rel="noopener" role="menuitem">Rent</a>
+                </div>
+              </div>
+              <a href="#" class="nav-student is-active" aria-current="page">Student Rentals</a>
+              <a href="https://homesni.com/area-guides/" target="_blank" rel="noopener">Area Guides</a>
+            </nav>
+          </div>
+          <div class="search-btns-container">
+            <a class="my-homes" href="https://homesni.com/members" target="_blank" rel="noopener">
+              <img class="heart-home-icon" src="assets/heart-home-icon.svg" alt="" width="24" height="24" />
+              <span>My Homes</span>
+            </a>
           </div>
         </div>
-        <a href="#" class="nav-student is-active" aria-current="page">Student Rentals</a>
-        <a href="https://homesni.com/area-guides/" target="_blank" rel="noopener">Area Guides</a>
-      </nav>
-      <div class="header-account">
-        <span class="nav-divider" aria-hidden="true"></span>
-        <a class="my-homes" href="https://homesni.com/members" target="_blank" rel="noopener">
-          <img class="heart-home-icon" src="assets/heart-home-icon.svg" alt="" width="18" height="18" />
-          <span>My Homes</span>
-        </a>
       </div>
     </div>
   </header>
