@@ -2086,61 +2086,67 @@
       }
 
       .prefs-panel {
-        margin-top: 12px;
-        gap: 10px;
+        margin-top: 14px;
+        gap: 12px;
       }
       .prefs-panel .section-head {
-        margin-bottom: 4px;
+        margin-bottom: 5px;
       }
       .prefs-panel .section-head h2 {
-        font-size: 0.88rem;
+        font-size: 0.9rem;
       }
       .prefs-panel .section-head .hint {
-        font-size: 0.72rem;
+        font-size: 0.74rem;
       }
       .prefs-panel .chips,
       .prefs-panel .chips-distance {
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 6px;
       }
       .prefs-panel .chip {
-        flex: 1 1 0;
-        width: 0;
-        min-width: 0;
-        height: 36px;
-        min-height: 36px;
-        font-size: 0.76rem;
-        padding: 0 6px;
-        white-space: nowrap;
+        flex: 1 1 calc(33.333% - 4px);
+        width: auto;
+        min-width: calc(33.333% - 4px);
+        max-width: 100%;
+        height: 38px;
+        min-height: 38px;
+        font-size: 0.8rem;
+        padding: 0 8px;
+        box-sizing: border-box;
       }
       .prefs-panel #type-chips {
         flex-wrap: nowrap;
         gap: 6px;
+        width: 100%;
       }
       #type-chips.chips .chip,
       .prefs-panel #type-chips .chip {
         flex: 1 1 0;
         width: 0;
         min-width: 0;
-        padding: 0 5px;
-        font-size: 0.74rem;
+        padding: 0 6px;
+        font-size: 0.78rem;
         white-space: nowrap;
       }
       .prefs-panel #budget-chips {
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
       }
       .prefs-panel #budget-chips .chip {
-        flex: 1 1 0;
-        padding: 0 4px;
-        font-size: 0.72rem;
+        flex: 1 1 calc(33.333% - 4px);
+        min-width: calc(33.333% - 4px);
+        width: auto;
+      }
+      .prefs-panel .chips-distance {
+        flex-wrap: nowrap;
+        width: 100%;
       }
       .prefs-panel .chips-distance .chip,
       .prefs-panel .custom-miles {
         flex: 1 1 0;
         width: 0;
         min-width: 0;
-        height: 36px;
-        min-height: 36px;
+        height: 38px;
+        min-height: 38px;
       }
       .custom-miles {
         padding: 0 8px 0 0;
@@ -2148,11 +2154,11 @@
       }
       .custom-miles input {
         font-size: 16px;
-        width: 3.4em;
+        width: 3.6em;
         padding: 6px 0 6px 8px;
       }
       .custom-miles .unit {
-        font-size: 0.72rem;
+        font-size: 0.74rem;
       }
 
       .cta-bar {
