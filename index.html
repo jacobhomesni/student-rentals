@@ -3425,6 +3425,9 @@
       els.btnSkip.addEventListener("click", () => {
         state.types = [];
         state.budget = "any";
+        state.distance = "2";
+        state.distanceCustom = false;
+        state.customMiles = "";
         saveState();
         syncUI();
       });
