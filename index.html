@@ -935,10 +935,16 @@
     .results-top {
       background: var(--white);
       border-bottom: 1px solid var(--neutral);
-      padding: 18px 0;
+      /* Match onboarding .hero vertical padding */
+      padding: 28px 0 8px;
+    }
+    @media (min-width: 1024px) {
+      .results-top {
+        padding: 32px 0 12px;
+      }
     }
     .results-top h1 {
-      margin: 0 0 6px;
+      margin: 0;
       font-size: 1.45rem;
       font-weight: 900;
       white-space: nowrap;
@@ -946,9 +952,10 @@
       overflow: hidden;
     }
     .results-top .sub {
-      margin: 0;
+      margin: 10px 0 0;
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 1.02rem;
+      line-height: 1.45;
     }
     .results-filters {
       margin-top: 16px;
@@ -1426,7 +1433,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin: 0 0 10px;
+      margin: 0 0 12px;
     }
     .results-head-row #btn-back {
       margin: 0;
@@ -1722,10 +1729,10 @@
 
       /* Results — map + listings first; filters behind Refine */
       .results-top {
-        padding: 8px 0 6px;
+        padding: 18px 0 8px;
       }
       .results-head-row {
-        margin: 0 0 6px;
+        margin: 0 0 10px;
       }
       .results-head-row #btn-back {
         min-height: 40px;
