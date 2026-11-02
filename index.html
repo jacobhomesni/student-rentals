@@ -657,16 +657,17 @@
     .custom-miles {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
       border: 1px solid var(--neutral);
       background: var(--white);
       border-radius: var(--radius);
-      padding: 0 10px 0 0;
+      padding: 0;
       height: 40px;
       min-height: 40px;
       flex: 1.15 1 0;
       min-width: 0;
       box-sizing: border-box;
+      cursor: text;
       transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
     .custom-miles.is-active {
@@ -675,15 +676,19 @@
       background: #f3f8ff;
     }
     .custom-miles input {
-      width: 4.2em;
+      width: 100%;
+      min-width: 0;
+      height: 100%;
       border: none;
       background: transparent;
-      padding: 8px 0 8px 10px;
-      font-size: 0.88rem;
+      padding: 0 8px;
+      font-size: 0.84rem;
       font-weight: 700;
       color: var(--ink);
+      text-align: center;
       outline: none;
       -moz-appearance: textfield;
+      pointer-events: auto;
     }
     .custom-miles input::-webkit-outer-spin-button,
     .custom-miles input::-webkit-inner-spin-button {
@@ -693,14 +698,11 @@
     .custom-miles input::placeholder {
       color: #9a9893;
       font-weight: 700;
+      opacity: 1;
     }
     .custom-miles .unit {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--muted);
-      white-space: nowrap;
+      display: none;
     }
-    .custom-miles.is-active .unit { color: var(--brand); }
 
     /* Search bar pinned to bottom */
     .cta-bar {
@@ -2149,16 +2151,12 @@
         min-height: 38px;
       }
       .custom-miles {
-        padding: 0 8px 0 0;
-        gap: 4px;
+        padding: 0;
       }
       .custom-miles input {
         font-size: 16px;
-        width: 3.6em;
-        padding: 6px 0 6px 8px;
-      }
-      .custom-miles .unit {
-        font-size: 0.74rem;
+        width: 100%;
+        padding: 0 6px;
       }
 
       .cta-bar {
@@ -2540,8 +2538,7 @@
           <div class="chips-distance" role="group" aria-label="Distance from campus">
             <div class="chips" id="distance-chips"></div>
             <label class="custom-miles" id="custom-miles-wrap" for="custom-miles">
-              <input type="number" id="custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder="Custom" aria-label="Custom miles from campus" />
-              <span class="unit">miles</span>
+              <input type="number" id="custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder="Custom miles" aria-label="Custom miles from campus" />
             </label>
           </div>
         </section>
@@ -2592,8 +2589,7 @@
             <div class="chips-distance">
               <div class="chips" id="results-distance-chips" role="group" aria-label="Distance from campus"></div>
               <label class="custom-miles" id="results-custom-miles-wrap" for="results-custom-miles">
-                <input type="number" id="results-custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder="Custom" aria-label="Custom miles from campus" />
-                <span class="unit">miles</span>
+                <input type="number" id="results-custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder="Custom miles" aria-label="Custom miles from campus" />
               </label>
             </div>
           </div>
