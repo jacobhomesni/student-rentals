@@ -746,10 +746,11 @@
 
     .content-split {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      grid-template-rows: minmax(0, auto) minmax(220px, 1fr);
+      /* Match University Areas column width to Area Guides / Property Areas column */
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: auto;
       gap: 22px 28px;
-      align-items: stretch;
+      align-items: start;
       padding: 20px 0 8px;
     }
     .content-split .col {
@@ -780,22 +781,8 @@
       flex: 1 1 auto;
       min-height: 0;
     }
-    .content-split #campus-map {
-      grid-column: 1;
-      grid-row: 2;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      height: 100%;
-    }
-    .content-split #faqs {
-      grid-column: 2;
-      grid-row: 2;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      height: 100%;
-    }
+    .content-split #campus-map { display: flex; flex-direction: column; min-height: 0; }
+    .content-split #faqs { display: flex; flex-direction: column; min-height: 0; }
     /* Scale page body when fewer uni areas so cards fill, not float in empty space */
     .content-split[data-uni-count="1"],
     .content-split[data-uni-count="2"],
@@ -1403,6 +1390,21 @@
           <div class="campus-grid" id="uni-areas-grid" role="list"></div>
         </section>
 
+      <section class="block" id="campus-map" aria-labelledby="campus-map-heading">
+        <div class="section-head">
+          <h2 id="campus-map-heading">Campus Map</h2>
+        </div>
+        <div class="campus-map">
+          <iframe
+            id="campus-map-frame"
+            title="Google Map of Ulster University campus"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            src=""
+          ></iframe>
+        </div>
+      </section>
       </div>
 
       <aside class="col col-side">
@@ -1421,23 +1423,6 @@
           </div>
           <div class="chip-list" id="property-chips"></div>
         </section>
-      </aside>
-
-      <section class="block" id="campus-map" aria-labelledby="campus-map-heading">
-        <div class="section-head">
-          <h2 id="campus-map-heading">Campus Map</h2>
-        </div>
-        <div class="campus-map">
-          <iframe
-            id="campus-map-frame"
-            title="Google Map of Ulster University campus"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-            src=""
-          ></iframe>
-        </div>
-      </section>
 
       <section class="block" id="faqs" aria-labelledby="faqs-heading">
         <div class="section-head">
@@ -1454,6 +1439,9 @@
           </details>
         </div>
       </section>
+      </aside>
+
+
     </div>
   </main>
 
