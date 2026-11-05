@@ -860,24 +860,90 @@
       margin-bottom: 10px;
     }
     @media (min-width: 981px) {
+      .content-split {
+        grid-template-rows: auto auto;
+      }
+      .content-split .col-main {
+        grid-column: 1;
+        grid-row: 1;
+        min-height: 0;
+      }
+      .content-split .col-side {
+        grid-column: 2;
+        grid-row: 1;
+        min-height: 0;
+      }
+      /* Map full-width under both columns — kills the empty band under short card rows */
+      .content-split #campus-map {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
       .content-split .col-main #university-areas .section-head {
         margin-bottom: 4px;
         gap: 2px;
       }
-      /* Don't stretch area cards to the side column height — that left a huge empty image box under the description */
-      .content-split .col-main #university-areas {
+      /* Few uni areas: stretch cards to the side column (Magee/Jordanstown/Belfast/OU) */
+      .content-split[data-uni-count="1"],
+      .content-split[data-uni-count="2"],
+      .content-split[data-uni-count="3"] {
+        align-items: stretch;
+      }
+      .content-split[data-uni-count="1"] .col-main,
+      .content-split[data-uni-count="2"] .col-main,
+      .content-split[data-uni-count="3"] .col-main {
+        display: flex;
+        flex-direction: column;
+      }
+      .content-split[data-uni-count="1"] .col-main #university-areas,
+      .content-split[data-uni-count="2"] .col-main #university-areas,
+      .content-split[data-uni-count="3"] .col-main #university-areas {
+        flex: 1 1 auto;
+        height: 100%;
+        min-height: 0;
+      }
+      .content-split[data-uni-count="1"] .col-main #university-areas .campus-grid,
+      .content-split[data-uni-count="2"] .col-main #university-areas .campus-grid,
+      .content-split[data-uni-count="3"] .col-main #university-areas .campus-grid {
+        flex: 1 1 auto;
+        align-content: stretch;
+        grid-auto-rows: 1fr;
+        min-height: 0;
+      }
+      .content-split[data-uni-count="1"] .col-main #university-areas .campus-card-wrap,
+      .content-split[data-uni-count="2"] .col-main #university-areas .campus-card-wrap,
+      .content-split[data-uni-count="3"] .col-main #university-areas .campus-card-wrap {
+        height: 100%;
+        min-height: 0;
+      }
+      .content-split[data-uni-count="1"] .col-main #university-areas .campus-card,
+      .content-split[data-uni-count="2"] .col-main #university-areas .campus-card,
+      .content-split[data-uni-count="3"] .col-main #university-areas .campus-card {
+        height: 100%;
+        min-height: 160px;
+        aspect-ratio: auto;
+      }
+      /* Many uni areas (e.g. Queen’s): keep compact cards */
+      .content-split[data-uni-count="4"] .col-main #university-areas,
+      .content-split[data-uni-count="5"] .col-main #university-areas,
+      .content-split[data-uni-count="6"] .col-main #university-areas {
         height: auto;
         flex: 0 1 auto;
       }
-      .content-split .col-main #university-areas .campus-grid {
+      .content-split[data-uni-count="4"] .col-main #university-areas .campus-grid,
+      .content-split[data-uni-count="5"] .col-main #university-areas .campus-grid,
+      .content-split[data-uni-count="6"] .col-main #university-areas .campus-grid {
         flex: none;
         align-content: start;
         grid-auto-rows: auto;
       }
-      .content-split .col-main #university-areas .campus-card-wrap {
+      .content-split[data-uni-count="4"] .col-main #university-areas .campus-card-wrap,
+      .content-split[data-uni-count="5"] .col-main #university-areas .campus-card-wrap,
+      .content-split[data-uni-count="6"] .col-main #university-areas .campus-card-wrap {
         height: auto;
       }
-      .content-split .col-main #university-areas .campus-card {
+      .content-split[data-uni-count="4"] .col-main #university-areas .campus-card,
+      .content-split[data-uni-count="5"] .col-main #university-areas .campus-card,
+      .content-split[data-uni-count="6"] .col-main #university-areas .campus-card {
         height: auto;
         min-height: 0;
         aspect-ratio: 2 / 1;
@@ -1430,21 +1496,6 @@
             </div>
           </div>
         </section>
-
-      <section class="block" id="campus-map" aria-labelledby="campus-map-heading">
-        <div class="section-head">
-          <h2 id="campus-map-heading">Campus Map</h2>
-        </div>
-        <div class="campus-map">
-          <iframe
-            title="Google Map of St Mary’s University College"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-            src="https://maps.google.com/maps?q=54.595,-5.961&amp;z=16&amp;output=embed"
-          ></iframe>
-        </div>
-      </section>
       </div>
 
       <aside class="col col-side">
@@ -1477,6 +1528,20 @@
           </div>
         </section>
       </aside>
+      <section class="block" id="campus-map" aria-labelledby="campus-map-heading">
+        <div class="section-head">
+          <h2 id="campus-map-heading">Campus Map</h2>
+        </div>
+        <div class="campus-map">
+          <iframe
+            title="Google Map of St Mary’s University College"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            src="https://maps.google.com/maps?q=54.595,-5.961&amp;z=16&amp;output=embed"
+          ></iframe>
+        </div>
+      </section>
 
     </div>
   </main>
