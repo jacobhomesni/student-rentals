@@ -740,6 +740,9 @@
       text-decoration: none;
     }
     .meta-bar a:hover { text-decoration: underline; }
+    .meta-bar-map {
+      white-space: nowrap;
+    }
 
     .content-split {
       display: grid;
@@ -857,7 +860,13 @@
       .content-split .col-main #university-areas .campus-card {
         height: auto;
         min-height: 0;
-        aspect-ratio: 16 / 11;
+        aspect-ratio: 2 / 1;
+      }
+      .content-split .col-main #university-areas .campus-card .info {
+        padding: 18px 12px 8px;
+      }
+      .content-split .col-main #university-areas .campus-card .uni {
+        min-height: 0;
       }
     }
     .section-head h2 {
@@ -1378,7 +1387,7 @@
 
   <div class="meta-bar">
     <div class="inner">
-      <div id="campus-meta"><strong>Belfast campus</strong> · York Street / Cathedral Quarter, Belfast · <a href="#campus-map">Map</a></div>
+      <div id="campus-meta"><strong>Belfast campus</strong> · York Street / Cathedral Quarter, Belfast <span class="meta-bar-map">· <a href="#campus-map">Map</a></span></div>
       <div class="campus-switcher" id="campus-switcher" role="tablist" aria-label="Choose campus"></div>
     </div>
   </div>
@@ -1794,7 +1803,7 @@
         renderSwitcher(campus.id);
         els.meta.innerHTML =
           "<strong>" + campus.name + "</strong> · " + campus.locationLabel +
-          ' · <a href="#campus-map">Map</a>';
+          ' <span class="meta-bar-map">· <a href="#campus-map">Map</a></span>';
         els.heroSearch.href = "../../HomesNI-Student-Rentals-Onboarding.html?campus=" + campus.id;
         if (els.uniHint) {
           const one = campus.uniAreas.length === 1;

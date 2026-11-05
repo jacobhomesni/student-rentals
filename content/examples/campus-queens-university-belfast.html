@@ -793,6 +793,9 @@
       text-decoration: none;
     }
     .meta-bar a:hover { text-decoration: underline; }
+    .meta-bar-map {
+      white-space: nowrap;
+    }
 
     .content-split {
       display: grid;
@@ -888,7 +891,13 @@
       .content-split .col-main #university-areas .campus-card {
         height: auto;
         min-height: 0;
-        aspect-ratio: 16 / 11;
+        aspect-ratio: 2 / 1;
+      }
+      .content-split .col-main #university-areas .campus-card .info {
+        padding: 18px 12px 8px;
+      }
+      .content-split .col-main #university-areas .campus-card .uni {
+        min-height: 0;
       }
     }
     .section-head h2 {
@@ -1406,8 +1415,7 @@
 
   <div class="meta-bar">
     <div class="inner">
-      <strong>Main campus</strong> · University Road, Belfast BT7 1NN
-        · <a href="#campus-map">Map</a>
+      <strong>Main campus</strong> · University Road, Belfast BT7 1NN <span class="meta-bar-map">· <a href="#campus-map">Map</a></span>
       </div>
   </div>
 
