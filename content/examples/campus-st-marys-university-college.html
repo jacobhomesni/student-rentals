@@ -1634,6 +1634,12 @@
           return;
         }
 
+        var uniCount = parseInt(split.getAttribute("data-uni-count") || "0", 10);
+        if (uniCount > 3) {
+          clear();
+          return;
+        }
+
         var chips = chipList.querySelectorAll(".chip-link");
         if (!chips.length) {
           clear();
