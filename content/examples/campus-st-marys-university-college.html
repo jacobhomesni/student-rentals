@@ -873,10 +873,47 @@
         grid-row: 1;
         min-height: 0;
       }
-      /* Map full-width under both columns — kills the empty band under short card rows */
+      /* Default: map full-width under both columns */
       .content-split #campus-map {
         grid-column: 1 / -1;
         grid-row: 2;
+      }
+      /* Many uni areas (Queen’s): drop map into the left-column gap under the cards */
+      .content-split[data-uni-count="4"],
+      .content-split[data-uni-count="5"],
+      .content-split[data-uni-count="6"] {
+        align-items: stretch;
+        grid-template-rows: auto minmax(240px, 1fr);
+      }
+      .content-split[data-uni-count="4"] .col-main,
+      .content-split[data-uni-count="5"] .col-main,
+      .content-split[data-uni-count="6"] .col-main {
+        grid-row: 1;
+      }
+      .content-split[data-uni-count="4"] .col-side,
+      .content-split[data-uni-count="5"] .col-side,
+      .content-split[data-uni-count="6"] .col-side {
+        grid-row: 1 / 3;
+      }
+      .content-split[data-uni-count="4"] #campus-map,
+      .content-split[data-uni-count="5"] #campus-map,
+      .content-split[data-uni-count="6"] #campus-map {
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+        min-height: 240px;
+        height: 100%;
+      }
+      .content-split[data-uni-count="4"] #campus-map .campus-map,
+      .content-split[data-uni-count="5"] #campus-map .campus-map,
+      .content-split[data-uni-count="6"] #campus-map .campus-map,
+      .content-split[data-uni-count="4"] #campus-map .campus-map iframe,
+      .content-split[data-uni-count="5"] #campus-map .campus-map iframe,
+      .content-split[data-uni-count="6"] #campus-map .campus-map iframe {
+        flex: 1 1 auto;
+        height: 100%;
+        min-height: 240px;
       }
       .content-split .col-main #university-areas .section-head {
         margin-bottom: 4px;
@@ -1662,14 +1699,23 @@
           }
         }
 
-        var listTop = chipList.getBoundingClientRect().top;
+        var hasGuides = split.getAttribute("data-has-guides") === "1";
         var gridTop = grid.getBoundingClientRect().top;
-        var margin = Math.round(listTop - gridTop);
-        if (margin > 0) grid.style.marginTop = margin + "px";
-
-        listTop = chipList.getBoundingClientRect().top;
         var bottom = bottomEl.getBoundingClientRect().bottom;
-        var height = Math.round(bottom - listTop);
+
+        /* With area guides on the right, keep cards at the natural top (same row as guides).
+           Only push down when there are no guides (e.g. Magee / St Mary’s). */
+        if (!hasGuides) {
+          var listTop = chipList.getBoundingClientRect().top;
+          var margin = Math.round(listTop - gridTop);
+          if (margin > 0) {
+            grid.style.marginTop = margin + "px";
+            gridTop = grid.getBoundingClientRect().top;
+            bottom = bottomEl.getBoundingClientRect().bottom;
+          }
+        }
+
+        var height = Math.round(bottom - gridTop);
         if (height > 0) {
           grid.style.height = height + "px";
           grid.classList.add("is-chip-aligned");
