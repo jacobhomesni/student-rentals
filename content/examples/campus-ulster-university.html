@@ -838,44 +838,31 @@
         margin-bottom: 4px;
         gap: 2px;
       }
-      /* Few uni areas: stretch cards to the side column (Magee/Jordanstown/Belfast/OU) */
+      /* Template: uni-area cards align to Property Areas chips (top/bottom), not full side column */
       .content-split[data-uni-count="1"],
       .content-split[data-uni-count="2"],
       .content-split[data-uni-count="3"] {
-        align-items: stretch;
-      }
-      .content-split[data-uni-count="1"] .col-main,
-      .content-split[data-uni-count="2"] .col-main,
-      .content-split[data-uni-count="3"] .col-main {
-        display: flex;
-        flex-direction: column;
+        align-items: start;
       }
       .content-split[data-uni-count="1"] .col-main #university-areas,
       .content-split[data-uni-count="2"] .col-main #university-areas,
       .content-split[data-uni-count="3"] .col-main #university-areas {
-        flex: 1 1 auto;
-        height: 100%;
-        min-height: 0;
+        flex: 0 1 auto;
+        height: auto;
       }
-      .content-split[data-uni-count="1"] .col-main #university-areas .campus-grid,
-      .content-split[data-uni-count="2"] .col-main #university-areas .campus-grid,
-      .content-split[data-uni-count="3"] .col-main #university-areas .campus-grid {
-        flex: 1 1 auto;
+      .content-split .campus-grid.is-chip-aligned {
+        flex: none;
         align-content: stretch;
         grid-auto-rows: 1fr;
         min-height: 0;
       }
-      .content-split[data-uni-count="1"] .col-main #university-areas .campus-card-wrap,
-      .content-split[data-uni-count="2"] .col-main #university-areas .campus-card-wrap,
-      .content-split[data-uni-count="3"] .col-main #university-areas .campus-card-wrap {
+      .content-split .campus-grid.is-chip-aligned .campus-card-wrap {
         height: 100%;
         min-height: 0;
       }
-      .content-split[data-uni-count="1"] .col-main #university-areas .campus-card,
-      .content-split[data-uni-count="2"] .col-main #university-areas .campus-card,
-      .content-split[data-uni-count="3"] .col-main #university-areas .campus-card {
+      .content-split .campus-grid.is-chip-aligned .campus-card {
         height: 100%;
-        min-height: 160px;
+        min-height: 0;
         aspect-ratio: auto;
       }
       /* Many uni areas (e.g. Queen’s): keep compact cards */
@@ -1754,6 +1741,13 @@
         if (els.split) {
           els.split.dataset.uniCount = String(uniCount);
           els.split.dataset.hasGuides = hasGuides ? "1" : "0";
+          /* Bottom of uni cards meets this property chip (template); omit = full chip list */
+          /* Jordanstown: stop at Carrickfergus chip. Others: full chip list (top aligns to first chip). */
+          if (campus.id === "ulster-jordanstown") {
+            els.split.setAttribute("data-align-chip", "carrickfergus");
+          } else {
+            els.split.removeAttribute("data-align-chip");
+          }
         }
         if (els.uniGrid) els.uniGrid.dataset.count = String(uniCount);
         if (els.properties) els.properties.dataset.count = String(campus.searchPlaces.length);
@@ -1860,9 +1854,86 @@
         renderUniAreas(campus);
         renderGuides(campus);
         renderProperties(campus);
+        if (typeof window.syncUniCardsToPropertyChips === "function") {
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(window.syncUniCardsToPropertyChips);
+          });
+        }
       }
 
       setCampus("ulster-belfast");
+    })();
+  </script>
+
+  <script>
+    (function () {
+      function syncUniCardsToPropertyChips() {
+        var split = document.querySelector(".content-split");
+        var grid = document.querySelector("#university-areas .campus-grid");
+        var chipList = document.querySelector("#property-areas .chip-list");
+        if (!split || !grid || !chipList) return;
+
+        function clear() {
+          grid.style.marginTop = "";
+          grid.style.height = "";
+          grid.classList.remove("is-chip-aligned");
+        }
+
+        if (!window.matchMedia("(min-width: 981px)").matches) {
+          clear();
+          return;
+        }
+
+        var chips = chipList.querySelectorAll(".chip-link");
+        if (!chips.length) {
+          clear();
+          return;
+        }
+
+        grid.style.marginTop = "0px";
+        grid.style.height = "auto";
+        grid.classList.remove("is-chip-aligned");
+
+        var alignKey = split.getAttribute("data-align-chip") || "";
+        var bottomEl = chipList;
+        if (alignKey) {
+          for (var i = 0; i < chips.length; i++) {
+            var href = chips[i].getAttribute("href") || "";
+            if (href.indexOf(alignKey) !== -1) {
+              bottomEl = chips[i];
+              break;
+            }
+          }
+        }
+
+        var listTop = chipList.getBoundingClientRect().top;
+        var gridTop = grid.getBoundingClientRect().top;
+        var margin = Math.round(listTop - gridTop);
+        if (margin > 0) grid.style.marginTop = margin + "px";
+
+        listTop = chipList.getBoundingClientRect().top;
+        var bottom = bottomEl.getBoundingClientRect().bottom;
+        var height = Math.round(bottom - listTop);
+        if (height > 0) {
+          grid.style.height = height + "px";
+          grid.classList.add("is-chip-aligned");
+        }
+      }
+
+      window.syncUniCardsToPropertyChips = syncUniCardsToPropertyChips;
+
+      function scheduleSync() {
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(syncUniCardsToPropertyChips);
+        });
+      }
+
+      window.addEventListener("load", scheduleSync);
+      window.addEventListener("resize", scheduleSync);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(scheduleSync).catch(function () {});
+      }
+      scheduleSync();
     })();
   </script>
 </body>
