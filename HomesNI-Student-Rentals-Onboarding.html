@@ -979,31 +979,30 @@
       }
     }
 
-    /* Campus options stack on the card, just above the university title */
+    /* Same menu UX as before; anchored on the card above the title */
     .campus-picker {
       display: none;
       position: absolute;
-      left: 6px;
-      right: 6px;
+      left: 0;
+      right: 0;
       bottom: 3.85rem;
       top: auto;
       z-index: 5;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 0;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 3px;
-      pointer-events: none;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 32px rgba(2, 20, 82, 0.2);
+      padding: 8px 0;
     }
-    .campus-picker.is-open { display: flex; }
-    .campus-card-wrap:has(.campus-picker.is-open) .campus-card .img img {
-      opacity: 0.4;
-      transform: translate3d(-50%, -50%, 0);
+    .campus-picker.is-open { display: block; }
+    .campus-picker .picker-label {
+      padding: 4px 14px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
     }
-    .campus-picker .picker-label { display: none; }
     .campus-picker button {
       display: flex;
       width: 100%;
@@ -1011,27 +1010,20 @@
       justify-content: space-between;
       gap: 8px;
       border: none;
-      background: rgba(255, 255, 255, 0.96);
-      border-radius: 3px;
-      padding: 6px 10px;
-      font-size: 0.78rem;
+      background: transparent;
+      padding: 10px 14px;
+      font-size: 0.9rem;
       font-weight: 700;
-      color: var(--ink);
+      color: #6b6964;
       cursor: pointer;
       text-align: left;
-      line-height: 1.2;
-      min-height: 0;
-      pointer-events: auto;
-      box-shadow: 0 1px 4px rgba(2, 20, 82, 0.18);
     }
     .campus-picker button:hover,
     .campus-picker button.is-active {
-      background: var(--white);
-      color: var(--brand);
+      background: var(--bg);
+      color: var(--ink);
     }
-    .campus-picker button.is-active {
-      box-shadow: 0 0 0 2px rgba(0, 100, 224, 0.35);
-    }
+    .campus-picker button.is-active { color: var(--brand); }
     .btn {
       appearance: none;
       border: none;
@@ -2203,15 +2195,11 @@
         font-size: 11px;
       }
       .campus-picker {
-        left: 5px;
-        right: 5px;
         bottom: 3.4rem;
-        gap: 2px;
       }
       .campus-picker button {
-        padding: 7px 10px;
-        font-size: 0.76rem;
-        min-height: 0;
+        padding: 12px 14px;
+        min-height: var(--tap);
       }
 
       .prefs-panel {
