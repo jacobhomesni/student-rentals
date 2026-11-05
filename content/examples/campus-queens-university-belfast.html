@@ -801,31 +801,32 @@
       --bento-gap: 16px;
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr) auto;
       gap: var(--bento-gap);
       align-items: stretch;
       padding: 20px 0 8px;
     }
+    /* Subgrid rows: [University Areas | Area Guides(+props)] then [Campus Map | FAQs] */
     .content-split .col {
       min-width: 0;
       min-height: 0;
       display: grid;
+      grid-template-rows: subgrid;
+      grid-row: 1 / -1;
       gap: var(--bento-gap);
-      align-content: stretch;
     }
-    .content-split .col-main {
-      grid-column: 1;
-      grid-row: 1;
-      grid-template-rows: auto minmax(200px, 1fr);
-    }
-    .content-split .col-side {
-      grid-column: 2;
-      grid-row: 1;
-      grid-template-rows: auto auto minmax(0, 1fr);
-    }
-    .content-split[data-has-guides="0"] .col-side {
-      grid-template-rows: auto minmax(0, 1fr);
+    .content-split .col-main { grid-column: 1; }
+    .content-split .col-side { grid-column: 2; }
+    .content-split .side-top {
+      display: flex;
+      flex-direction: column;
+      gap: var(--bento-gap);
+      min-width: 0;
+      min-height: 0;
     }
     .content-split .col-main #university-areas,
+    .content-split .side-top #property-areas,
+    .content-split .side-top #area-guides,
     .content-split .col-side #property-areas,
     .content-split .col-side #area-guides,
     .content-split .col-main #campus-map,
@@ -838,7 +839,22 @@
       min-height: 0;
       margin: 0;
     }
-    .content-split .col-main #campus-map {
+    .content-split .col-main #university-areas {
+      height: 100%;
+      min-height: 0;
+    }
+    .content-split .side-top #area-guides:not([hidden]) {
+      flex: 0 0 auto;
+    }
+    .content-split .side-top #property-areas {
+      flex: 0 0 auto;
+    }
+    .content-split[data-has-guides="0"] .side-top #property-areas {
+      flex: 1 1 auto;
+    }
+    .content-split .col-main #campus-map,
+    .content-split .col-side #faqs {
+      align-self: stretch;
       min-height: 0;
     }
     section.block { padding: 0; }
@@ -860,15 +876,16 @@
       line-height: 1.35;
     }
 
-    /* Bento uni-area cards — equal cells, shared gap */
+    /* Bento uni-area cards — stretch to fill leftover column height */
     .campus-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--bento-gap, 16px);
-      flex: none;
+      flex: 1 1 auto;
       min-height: 0;
-      align-content: start;
-      grid-auto-rows: auto;
+      height: 100%;
+      align-content: stretch;
+      grid-auto-rows: minmax(140px, 1fr);
     }
     .campus-grid[data-count="1"] { grid-template-columns: minmax(0, 1fr); }
     .campus-grid[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -879,16 +896,15 @@
     .campus-card-wrap {
       position: relative;
       min-width: 0;
-      min-height: 0;
-      height: auto;
+      min-height: 140px;
+      height: 100%;
     }
     .campus-card {
       position: relative;
       display: block;
       width: 100%;
-      height: auto;
-      min-height: 0;
-      aspect-ratio: 16 / 10;
+      height: 100%;
+      min-height: 140px;
       margin: 0;
       padding: 0;
       border: 1px solid var(--line);
@@ -970,16 +986,17 @@
       overflow: hidden;
       background: var(--white);
       box-shadow: var(--shadow);
-      flex: 1 1 auto;
-      min-height: 220px;
-      height: 100%;
+      flex: 0 0 auto;
+      min-height: 160px;
+      height: 180px;
+      max-height: 180px;
       position: relative;
     }
     .campus-map iframe {
       display: block;
       width: 100%;
       height: 100%;
-      min-height: 220px;
+      min-height: 0;
       border: 0;
       position: absolute;
       inset: 0;
@@ -1067,6 +1084,10 @@
       grid-template-columns: 1fr;
       gap: var(--bento-gap, 16px);
     }
+    .guide-grid[data-count="2"],
+    .guide-grid:has(> :nth-child(2):last-child) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .guide-card {
       position: relative;
       border-radius: var(--radius);
@@ -1151,16 +1172,20 @@
         grid-template-columns: 1fr;
         grid-template-rows: none;
         min-height: 0;
-        gap: 22px;
-        padding-top: 16px;
+        gap: 8px;
+        padding-top: 8px;
         align-items: start;
       }
       .content-split .col {
-        gap: var(--bento-gap, 16px);
+        gap: 8px;
         min-height: 0;
         display: flex;
         flex-direction: column;
         grid-template-rows: none;
+        grid-row: auto;
+      }
+      .content-split .col-main #university-areas {
+        gap: 6px;
       }
       .content-split .col-main,
       .content-split .col-side,
@@ -1175,9 +1200,17 @@
         flex: none;
         grid-template-rows: none;
       }
+      .content-split .side-top {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-height: 0;
+      }
       .content-split .col-main #university-areas,
       .content-split .col-side #property-areas,
-      .content-split[data-has-guides="0"] .col-side #property-areas {
+      .content-split .side-top #property-areas,
+      .content-split[data-has-guides="0"] .col-side #property-areas,
+      .content-split[data-has-guides="0"] .side-top #property-areas {
         height: auto;
         flex: none;
         min-height: 0;
@@ -1185,10 +1218,18 @@
       .campus-grid {
         flex: none;
         grid-auto-rows: auto;
+        height: auto;
         min-height: 0;
+        align-content: start;
+        gap: 10px; /* match onboarding campus cards */
+      }
+      .campus-grid[data-count="5"],
+      .campus-grid[data-count="6"] {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .campus-card-wrap {
         height: auto;
+        min-height: 0;
       }
       .campus-card {
         height: auto;
@@ -1196,14 +1237,17 @@
         aspect-ratio: 16 / 11;
       }
       .content-split .col-side #area-guides:not([hidden]),
-      .content-split .col-side #property-areas {
+      .content-split .col-side #property-areas,
+      .content-split .side-top #area-guides:not([hidden]),
+      .content-split .side-top #property-areas {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-      }
-      .content-split .col-side .section-head {
-        margin-bottom: 0;
         gap: 6px;
+      }
+      .content-split .col-side .section-head,
+      .content-split .col-main .section-head {
+        margin-bottom: 0;
+        gap: 2px;
       }
       .content-split .col-side .guide-card {
         min-height: 0;
@@ -1217,12 +1261,13 @@
       }
       .campus-map {
         flex: none;
-        height: 220px;
-        min-height: 220px;
+        height: 180px;
+        min-height: 160px;
+        max-height: 180px;
       }
       .campus-map iframe {
-        height: 220px;
-        min-height: 220px;
+        height: 100%;
+        min-height: 0;
       }
       .faq { flex: none; }
       .faq summary { white-space: normal; }
@@ -1247,10 +1292,6 @@
         margin-top: 6px;
         font-size: 0.9rem;
         line-height: 1.35;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
       }
       .hero-actions {
         margin-top: 10px;
@@ -1279,8 +1320,20 @@
       .campus-grid:not([data-count]) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .campus-grid { gap: 10px; }
+      .campus-grid[data-count="5"],
+      .campus-grid[data-count="6"] {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .campus-grid {
+        gap: 10px; /* match onboarding */
+        height: auto;
+        align-content: start;
+      }
       .campus-card { aspect-ratio: 4 / 3; }
+      .content-split { gap: 6px; padding-top: 6px; }
+      .content-split .col { gap: 6px; }
+      .content-split .side-top { gap: 6px; }
+      .content-split .col-main #university-areas { gap: 4px; }
       .chip-link { font-size: 0.85rem; padding: 10px 8px; }
     }
   </style>
@@ -1459,6 +1512,7 @@
       </div>
 
       <aside class="col col-side">
+        <div class="side-top">
         <section class="block" id="area-guides" aria-labelledby="area-guides-heading">
           <div class="section-head">
             <h2 id="area-guides-heading">Area Guides</h2>
@@ -1491,6 +1545,7 @@
             <a class="chip-link" href="/properties-for-sale-finaghy">Finaghy</a>
           </div>
         </section>
+        </div>
 
       <section class="block" id="faqs" aria-labelledby="faqs-heading">
         <div class="section-head">
