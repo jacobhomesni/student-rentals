@@ -1,0 +1,4145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Student Rentals — HomesNI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand: #0064e0;
+      --brand-hover: #0052b8;
+      --brand-dark: #021452;
+      --ink: #021452;
+      --selected: #00FFFF;
+      --muted: #5a6280;
+      --neutral: #CCC9C3;
+      --bg: #f5f4f2;
+      --bg-soft: #f0efec;
+      --white: #ffffff;
+      --line: #d8d6d1;
+      --radius: 4px;
+      --shadow: 0 2px 12px rgba(2, 20, 82, 0.08);
+      --inner: min(1180px, calc(100% - 32px));
+      --tap: 44px;
+      --cta-h: 0px;
+      --topbar-height: 100px;
+    }
+    @media (max-width: 980px) {
+      :root {
+        --topbar-height: 80px;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html.is-program-scrolling { scroll-behavior: auto; }
+    body {
+      margin: 0;
+      font-family: Lato, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--ink);
+      background: var(--bg);
+      min-height: 100vh;
+      min-height: 100dvh;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    /* Lock page scroll on the initial onboarding screen */
+    body.onboard-fit {
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    button, input, select { font-family: inherit; font-size: 16px; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    img { display: block; max-width: 100%; }
+
+    /* —— Header (match HomesNI #top .topbar metrics) —— */
+    .site-header {
+      background: var(--brand);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      overflow: visible;
+      height: var(--topbar-height);
+    }
+    .site-header .topbar {
+      position: relative;
+      z-index: 999;
+      height: var(--topbar-height);
+      background: var(--brand);
+    }
+    .site-header .topbar > .inner {
+      width: var(--inner);
+      max-width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: visible;
+    }
+    .top-container {
+      display: flex;
+      height: var(--topbar-height);
+      align-items: center;
+      gap: 30px;
+    }
+    .logo-container {
+      display: flex;
+      flex: 1;
+      justify-content: flex-start;
+      align-items: center;
+      min-width: 0;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .brand-logo img {
+      height: calc(var(--topbar-height) / 2.2);
+      width: auto;
+      max-height: 50px;
+      margin-top: -7.5px;
+      display: block;
+    }
+    .brand-logo .logo-mark {
+      display: none;
+    }
+    .navigation-container {
+      display: flex;
+      justify-content: center;
+      min-width: 0;
+    }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      min-width: 0;
+      overflow: visible;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .site-nav > a,
+    .site-nav-body > a,
+    .nav-dropdown > .nav-trigger {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.5;
+      white-space: nowrap;
+      padding: 0;
+      border: none;
+      border-bottom: none;
+      transition: color 0.3s ease-in-out;
+      background: none;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+    .site-nav > a:hover,
+    .site-nav-body > a:hover,
+    .nav-dropdown > .nav-trigger:hover { color: var(--selected); }
+    .site-nav > a.is-active,
+    .site-nav-body > a.is-active {
+      color: var(--selected);
+    }
+    .site-nav-body > a:focus,
+    .site-nav-body > a:active {
+      color: var(--white);
+      text-decoration: none;
+    }
+    .site-nav-body > a.is-active:focus,
+    .site-nav-body > a.is-active:active {
+      color: var(--selected);
+    }
+    .nav-dropdown {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-dropdown > .nav-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      min-width: 200px;
+      width: max-content;
+      background: var(--white);
+      border-radius: 5px;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      padding: 14px 20px;
+      z-index: 200;
+    }
+    .nav-dropdown-menu::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -20px;
+      height: 20px;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown.is-open .nav-dropdown-menu {
+      display: grid;
+    }
+    .nav-dropdown:hover > .nav-trigger,
+    .nav-dropdown:focus-within > .nav-trigger,
+    .nav-dropdown.is-open > .nav-trigger {
+      color: var(--selected);
+    }
+    .nav-dropdown-menu a {
+      display: grid;
+      padding: 8px 0;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 18px;
+      white-space: nowrap;
+      background: transparent;
+    }
+    .nav-dropdown-menu a:hover {
+      color: var(--brand);
+    }
+    .search-btns-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-shrink: 0;
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      padding-left: 30px;
+      margin-left: auto;
+    }
+    .my-homes {
+      display: inline-flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 10px;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.5;
+      white-space: nowrap;
+      padding: 0;
+      transition: color 0.3s ease-in-out;
+    }
+    .my-homes:hover { color: var(--selected); }
+    .my-homes .homesni-small-logo {
+      width: 24px;
+      height: 24px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* —— Views —— */
+    .view { display: none; animation: fadeIn 0.35s ease; }
+    .view.is-active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .inner {
+      width: var(--inner);
+      margin: 0 auto;
+    }
+
+    /* —— Onboarding hero —— */
+    .hero {
+      padding: 28px 0 8px;
+      text-align: center;
+    }
+    .hero h1 {
+      margin: 0 auto;
+      font-size: clamp(1.6rem, 3.2vw, 2.15rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: pretty;
+      max-width: 18em;
+    }
+    .hero p {
+      margin: 10px auto 0;
+      max-width: 34em;
+      font-size: 1.02rem;
+      line-height: 1.45;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .onboard {
+      padding: 16px 0 100px;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--ink);
+    }
+    .section-head .hint {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .required::after {
+      content: " *";
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    .campus-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .campus-toolbar .section-head {
+      margin-bottom: 0;
+    }
+
+    .location-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      min-width: 0;
+      position: relative;
+    }
+    .location-row .section-head {
+      margin: 0;
+      min-width: 0;
+    }
+
+    .campus-pages {
+      position: relative;
+      flex: 0 0 auto;
+      margin-left: auto;
+    }
+    .campus-pages-btn {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 100%;
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--neutral);
+      border-radius: var(--radius);
+      background: var(--white);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+    }
+    .campus-pages-btn:hover,
+    .campus-pages.is-open .campus-pages-btn {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .campus-pages-btn:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+    .campus-pages-caret {
+      width: 6px;
+      height: 6px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      margin-top: -3px;
+      transition: transform 0.2s ease;
+    }
+    .campus-pages.is-open .campus-pages-caret {
+      transform: rotate(225deg);
+      margin-top: 2px;
+    }
+    .campus-pages-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+      left: auto;
+      min-width: 280px;
+      max-width: min(360px, 90vw);
+      background: var(--white);
+      border: 1px solid var(--neutral);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(2, 20, 82, 0.14);
+      padding: 6px 0;
+      z-index: 40;
+    }
+    .campus-pages.is-open .campus-pages-menu {
+      display: block;
+    }
+    .campus-pages-menu a {
+      display: block;
+      padding: 10px 14px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .campus-pages-menu a:hover {
+      background: rgba(0, 100, 224, 0.08);
+      color: var(--brand);
+    }
+
+    /* Campus search */
+    .campus-search {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+    }
+    .campus-search .placeholder-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      width: 18px;
+      height: 18px;
+      z-index: 1;
+    }
+    .campus-search input {
+      width: 100%;
+      border: 1px solid var(--neutral);
+      background: var(--white);
+      padding: 13px 14px 13px 42px;
+      font-size: 1rem;
+      color: var(--ink);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .campus-search input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(0, 100, 224, 0.15);
+    }
+    .campus-search input::placeholder { color: #9a9893; }
+
+    .location-suggest {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      z-index: 30;
+      max-height: 220px;
+      overflow: auto;
+    }
+    .location-suggest.is-open { display: block; }
+    .location-suggest button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #6b6964;
+      cursor: pointer;
+    }
+    .location-suggest button:hover { background: var(--bg); color: var(--ink); }
+    .location-suggest .suggest-meta {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    /* Campus grid — area-card style */
+    .campus-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 560px) {
+      .campus-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .campus-grid { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    }
+
+    .campus-card-wrap {
+      position: relative;
+      z-index: 1;
+    }
+    .campus-card-wrap.is-hidden { display: none; }
+    .campus-card-wrap.is-picker-open,
+    .campus-card-wrap:has(.campus-picker.is-open) {
+      z-index: 70;
+    }
+
+    .campus-card {
+      position: relative;
+      border: 2px solid var(--neutral);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--ink);
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: var(--shadow);
+      aspect-ratio: 16 / 11;
+      width: 100%;
+    }
+    .campus-card:hover { transform: translateY(-2px); }
+    .campus-card:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+    .campus-card.is-selected {
+      border-color: var(--brand);
+      box-shadow:
+        0 0 0 3px rgba(0, 100, 224, 0.32),
+        0 0 0 7px rgba(0, 100, 224, 0.12),
+        0 0 18px rgba(0, 100, 224, 0.22),
+        var(--shadow);
+    }
+    .campus-card .img {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .campus-card .img img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 108%;
+      height: 108%;
+      max-width: none;
+      object-fit: cover;
+      opacity: 0.88;
+      /* Oversized + composited layer avoids soft/pixel-y upscale during hover zoom */
+      transform: translate3d(-50%, -50%, 0);
+      transform-origin: center center;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.35s ease;
+    }
+    .campus-card:hover .img img,
+    .campus-card.is-selected .img img {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1.04);
+    }
+    .campus-card .info {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 28px 12px 12px;
+      background: linear-gradient(transparent, rgba(2, 20, 82, 0.88));
+      color: var(--white);
+    }
+    .campus-card .title {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 900;
+      display: block;
+      line-height: 1.25;
+      padding-right: 0;
+    }
+    .campus-card .title > span {
+      display: block;
+    }
+    .campus-card .uni {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 2px;
+      font-size: 0.72rem;
+      font-weight: 400;
+      opacity: 0.85;
+      line-height: 1.2;
+      width: 100%;
+    }
+    .campus-card .uni-arrow {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid currentColor;
+      flex-shrink: 0;
+      opacity: 0.95;
+      position: relative;
+      top: 0.5px;
+      margin-left: 2px;
+    }
+    .campus-card .check {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 1px 4px rgba(2, 20, 82, 0.28);
+      pointer-events: none;
+    }
+    .campus-card.is-selected .check { display: inline-flex; }
+
+    .no-campus-match {
+      display: none;
+      padding: 20px 16px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--white);
+      border: 1px dashed var(--neutral);
+      border-radius: var(--radius);
+    }
+    .no-campus-match.is-visible { display: block; }
+
+    .prefs-panel {
+      display: grid;
+      gap: 22px;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+      scroll-margin-top: calc(var(--topbar-height) + 12px);
+    }
+    .prefs-panel .section { margin-top: 0; }
+
+    /* Chips */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      appearance: none;
+      border: 1px solid var(--neutral);
+      background: var(--white);
+      color: var(--ink);
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    .chip:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .chip:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+    .chip.is-active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: var(--white);
+    }
+
+    /* Prefs card: equal-size option buttons */
+    .prefs-panel .chips,
+    .prefs-panel .chips-distance {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 6px;
+    }
+    .prefs-panel .chips-distance .chips {
+      display: contents;
+    }
+    .prefs-panel .chip {
+      flex: 1 1 0;
+      width: 0;
+      min-width: 0;
+      height: 40px;
+      min-height: 40px;
+      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: nowrap;
+      font-size: 0.84rem;
+      box-sizing: border-box;
+      line-height: 1.1;
+    }
+    .chips-distance {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 8px;
+    }
+    .chips-distance .chips {
+      display: contents;
+    }
+    .custom-miles {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--neutral);
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 0;
+      height: 40px;
+      min-height: 40px;
+      flex: 1.15 1 0;
+      min-width: 0;
+      box-sizing: border-box;
+      cursor: text;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+    .custom-miles.is-active {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(0, 100, 224, 0.15);
+      background: #f3f8ff;
+    }
+    .custom-miles input {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+      border: none;
+      background: transparent;
+      padding: 0 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: center;
+      outline: none;
+      -moz-appearance: textfield;
+      pointer-events: auto;
+    }
+    .custom-miles input::-webkit-outer-spin-button,
+    .custom-miles input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .custom-miles input::placeholder {
+      color: transparent;
+      opacity: 0;
+    }
+    .custom-miles-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      pointer-events: none;
+      z-index: 0;
+      padding: 2px 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--ink);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.12s ease, color 0.15s ease;
+    }
+    .custom-miles-label span {
+      display: block;
+    }
+    .custom-miles:has(input:placeholder-shown):not(:focus-within) .custom-miles-label {
+      opacity: 1;
+    }
+    .custom-miles.is-active .custom-miles-label {
+      color: var(--brand);
+    }
+    .custom-miles .unit {
+      display: none;
+    }
+
+    /* Search bar pinned to bottom */
+    .cta-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.97);
+      border-top: 1px solid var(--neutral);
+      backdrop-filter: blur(8px);
+      padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .cta-bar-inner {
+      width: var(--inner);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .cta-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .cta-meta strong { color: var(--ink); }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    /* Fit onboarding into the viewport (no page scrollbar) */
+    #view-onboard.is-active {
+      height: calc(100dvh - var(--topbar-height));
+      max-height: calc(100dvh - var(--topbar-height));
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    #view-onboard.is-active .hero {
+      flex: 0 0 auto;
+      padding: 28px 0 8px;
+    }
+    #view-onboard.is-active .hero h1 {
+      font-size: clamp(1.6rem, 3.2vw, 2.15rem);
+    }
+    #view-onboard.is-active .hero p {
+      margin-top: 10px;
+      font-size: 1.02rem;
+      line-height: 1.45;
+    }
+    #view-onboard.is-active .onboard {
+      --stack-gap: 12px;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--stack-gap);
+      padding: 8px 0 calc(10px + var(--cta-h, 72px));
+      overflow: hidden;
+    }
+    #view-onboard.is-active .section {
+      margin-top: 0;
+    }
+    #view-onboard.is-active .section-campus {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    #view-onboard.is-active .campus-toolbar {
+      flex: 0 0 auto;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+    #view-onboard.is-active .campus-toolbar .section-head {
+      margin-bottom: 0;
+    }
+    #view-onboard.is-active .campus-grid {
+      flex: 1 1 auto;
+      min-height: 0;
+      align-content: stretch;
+      grid-auto-rows: 1fr;
+      gap: 10px;
+    }
+    #view-onboard.is-active .campus-card {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 0;
+    }
+    #view-onboard.is-active .prefs-panel {
+      flex: 0 0 auto;
+      margin-top: 0;
+      gap: 10px;
+    }
+    #view-onboard.is-active .section-head {
+      margin-bottom: 6px;
+    }
+    @media (min-width: 1024px) {
+      #view-onboard.is-active .hero {
+        padding: 32px 0 12px;
+        text-align: center;
+      }
+      #view-onboard.is-active .hero h1 {
+        font-size: 2.1rem;
+        max-width: none;
+      }
+      #view-onboard.is-active .hero p {
+        margin-top: 12px;
+        font-size: 1.05rem;
+      }
+      #view-onboard.is-active .onboard {
+        --stack-gap: 14px;
+        --cta-clearance: 72px;
+        padding: 8px 0 calc(8px + var(--cta-h, var(--cta-clearance)));
+      }
+      #view-onboard.is-active .campus-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      #view-onboard.is-active .campus-toolbar .section-head {
+        margin: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      .location-row {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-left: 0;
+        max-width: none;
+      }
+      #view-onboard.is-active .campus-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+      }
+      #view-onboard.is-active .campus-card .title { font-size: 0.86rem; }
+      #view-onboard.is-active .campus-card .uni { font-size: 0.66rem; }
+      #view-onboard.is-active .campus-card .info { padding: 18px 8px 8px; }
+      #view-onboard.is-active .prefs-panel {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px 16px;
+        padding: 10px 14px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+      #view-onboard.is-active .prefs-panel .section-head { margin-bottom: 6px; }
+      #view-onboard.is-active .section-head h2 { font-size: 0.95rem; }
+      #view-onboard.is-active .prefs-panel .chip,
+      #view-onboard.is-active .prefs-panel .custom-miles {
+        height: 36px;
+        min-height: 36px;
+      }
+      #view-onboard.is-active .prefs-panel .custom-miles-label {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0.3em;
+        font-size: 0.72rem;
+        line-height: 1.1;
+        padding: 0 6px;
+        white-space: nowrap;
+      }
+      #view-onboard.is-active .prefs-panel .custom-miles-label span {
+        display: inline;
+      }
+      #view-onboard.is-active .prefs-panel .custom-miles input {
+        font-size: 0.78rem;
+        padding: 0 4px;
+      }
+      .cta-bar {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+    }
+
+    .campus-picker {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 6px);
+      z-index: 70;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 32px rgba(2, 20, 82, 0.2);
+      padding: 8px 0;
+    }
+    .campus-picker.is-open { display: block; }
+    /* Desktop onboarding locks body scroll — open upward so Magee stays on-screen */
+    @media (min-width: 900px) {
+      .campus-picker {
+        top: auto;
+        bottom: calc(100% + 6px);
+        box-shadow: 0 -12px 32px rgba(2, 20, 82, 0.2);
+      }
+    }
+    .campus-picker .picker-label {
+      padding: 4px 14px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .campus-picker button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border: none;
+      background: transparent;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #6b6964;
+      cursor: pointer;
+      text-align: left;
+    }
+    .campus-picker button:hover,
+    .campus-picker button.is-active {
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .campus-picker button.is-active { color: var(--brand); }
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background 0.15s ease, opacity 0.15s ease;
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--brand);
+      color: var(--white);
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--brand-hover); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--neutral);
+    }
+    .btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* —— Results —— */
+    .results-top {
+      background: var(--white);
+      border-bottom: 1px solid var(--neutral);
+      /* Match onboarding .hero vertical padding */
+      padding: 28px 0 8px;
+    }
+    @media (min-width: 1024px) {
+      .results-top {
+        padding: 32px 0 12px;
+      }
+    }
+    .results-top h1 {
+      margin: 0;
+      font-size: 1.45rem;
+      font-weight: 900;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .results-top .sub {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+    .results-filters {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px 14px;
+      align-items: flex-end;
+      padding: 12px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .results-filter-block {
+      min-width: 0;
+      flex: 1 1 0;
+    }
+    .results-filter-block--campus {
+      flex: 1.15 1 0;
+      max-width: 170px;
+    }
+    .results-filter-block--budget {
+      flex: 1.35 1 0;
+    }
+    .results-filter-block--distance {
+      flex: 1.15 1 0;
+    }
+    @media (min-width: 900px) {
+      .results-filters {
+        gap: 0 14px;
+      }
+      .results-filter-block + .results-filter-block,
+      .results-filter-actions {
+        border-left: none;
+        padding-left: 0;
+        margin-left: 0;
+      }
+    }
+    .results-filter-block > label {
+      display: block;
+      margin: 0 0 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .results-filters .chips,
+    .results-filters .chips-distance {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px;
+      align-items: stretch;
+      min-width: 0;
+      width: 100%;
+    }
+    .results-filters .chips-distance .chips {
+      display: contents;
+    }
+    .results-filters .chip {
+      height: 32px;
+      min-height: 32px;
+      padding: 0 6px;
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      flex: 1 1 auto;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .results-filters #results-type-chips {
+      flex-wrap: nowrap;
+      gap: 4px;
+      width: 100%;
+    }
+    .results-filters #results-type-chips .chip {
+      flex: 1 1 0;
+      width: 0;
+      min-width: 0;
+      padding: 0 4px;
+    }
+    .results-filters .custom-miles {
+      height: 32px;
+      min-height: 32px;
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 0;
+    }
+    .results-filters .custom-miles input {
+      width: 100%;
+      min-width: 0;
+      font-size: 0.72rem;
+      padding: 0 4px;
+    }
+    .results-filters .custom-miles-label {
+      font-size: 0.58rem;
+      gap: 0;
+      padding: 1px 2px;
+    }
+    .results-filters .custom-miles .unit {
+      display: none;
+    }
+    .results-filter-actions {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-end;
+      margin-left: 0;
+      padding-bottom: 0;
+    }
+    .results-filter-actions .btn {
+      height: 32px;
+      min-height: 32px;
+      padding: 0 12px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .results-campus-select {
+      width: 100%;
+      max-width: 100%;
+      height: 32px;
+      appearance: none;
+      border: 1px solid var(--neutral);
+      background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%215a6280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 8px center;
+      padding: 0 26px 0 8px;
+      border-radius: var(--radius);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink);
+      font-family: inherit;
+      outline: none;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .results-campus-select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(0, 100, 224, 0.15);
+    }
+
+    .results-layout {
+      padding: 20px 0 48px;
+    }
+    .results-count {
+      margin: 0 0 14px;
+      font-size: 1.08rem;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .results-count span {
+      color: var(--brand);
+    }
+    .results-flow {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+    @media (min-width: 900px) {
+      .results-flow {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 16px;
+      }
+    }
+
+    .map-stub {
+      background: #ebe9e4;
+      border: 1px solid var(--neutral);
+      border-radius: var(--radius);
+      min-height: 240px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    @media (min-width: 900px) {
+      .map-stub {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        min-height: 0;
+        height: auto;
+        align-self: stretch;
+      }
+    }
+    .map-stub svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .map-pins {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .map-pin {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      margin: -8px 0 0 -8px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(2, 20, 82, 0.28);
+      cursor: pointer;
+      pointer-events: auto;
+      transform: scale(1);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      z-index: 2;
+    }
+    .map-pin:hover,
+    .map-pin.is-active {
+      transform: scale(1.35);
+      z-index: 4;
+      box-shadow: 0 4px 14px rgba(2, 20, 82, 0.35);
+    }
+    .map-pin[data-tone="ink"] { background: #021452; }
+    .map-pin[data-tone="brand"] { background: #0064e0; }
+    .map-pin[data-tone="green"] { background: #0f7a45; }
+    .map-pin[data-tone="amber"] { background: #b45309; }
+    .map-pin[data-tone="purple"] { background: #6d28d9; }
+    .map-tooltip {
+      display: none;
+      position: absolute;
+      z-index: 5;
+      width: min(240px, calc(100% - 24px));
+      background: rgba(255, 255, 255, 0.97);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(2, 20, 82, 0.18);
+      padding: 10px 12px;
+      pointer-events: none;
+      transform: translate(-50%, calc(-100% - 14px));
+    }
+    .map-tooltip.is-visible { display: block; }
+    .map-tooltip .tip-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: #eef3fb;
+      color: var(--brand);
+      margin-bottom: 6px;
+    }
+    .map-tooltip .tip-badge.halls { background: #eef8f1; color: #0f7a45; }
+    .map-tooltip .tip-badge.house { background: #fff4e5; color: #b45309; }
+    .map-tooltip strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+    .map-tooltip .tip-meta {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .map-tooltip .tip-price {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: var(--brand);
+    }
+    .map-tooltip .tip-agent {
+      margin-top: 2px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .map-label {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      z-index: 3;
+    }
+    .map-label em {
+      font-style: normal;
+      color: var(--brand);
+    }
+
+    .listing-rail {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+    .listing-rail:empty {
+      display: none;
+    }
+    .listing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      min-width: 0;
+    }
+    @media (min-width: 700px) and (max-width: 899px) {
+      .listing-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .listing-grid:empty {
+      display: none;
+    }
+    @media (min-width: 900px) {
+      .listing-rail,
+      .listing-grid {
+        display: contents;
+      }
+    }
+    .listing {
+      background: var(--white);
+      border: 1px solid var(--neutral);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      box-shadow: var(--shadow);
+      margin: 0;
+      min-width: 0;
+    }
+    .listing-media {
+      background: var(--bg-soft);
+      min-height: 120px;
+      position: relative;
+    }
+    .listing-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+    .listing-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+    .listing-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 1px;
+    }
+    .badge {
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: #eef3fb;
+      color: var(--brand);
+    }
+    .badge.halls { background: #eef8f1; color: #0f7a45; }
+    .badge.house { background: #fff4e5; color: #b45309; }
+    .listing h3 {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 900;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .listing .meta {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .listing .price {
+      margin-top: auto;
+      padding-top: 4px;
+      font-size: 0.98rem;
+      font-weight: 900;
+      color: var(--brand);
+    }
+    .listing .price small {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .listing .agent-block {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+    .listing .agent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .listing .agent-avatar {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: var(--radius);
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--brand-dark);
+    }
+    .listing .agent-avatar svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+    .listing .agent-copy {
+      min-width: 0;
+      flex: 1;
+    }
+    .listing .agent-name {
+      margin: 0 0 5px;
+      font-size: 0.76rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .listing .agent-name span {
+      font-weight: 400;
+      color: var(--muted);
+    }
+    .listing .agent-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .listing .agent-action {
+      appearance: none;
+      border: 1.5px solid var(--brand-dark);
+      background: var(--white);
+      padding: 5px 8px;
+      margin: 0;
+      border-radius: var(--radius);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+    .listing .agent-action:hover {
+      background: var(--brand-dark);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+    .listing .agent-action:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+    .listing .agent-action svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .results-head-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 0 6px;
+    }
+    .results-head-row #btn-back {
+      margin: 0;
+    }
+    .btn-refine {
+      appearance: none;
+      border: 1.5px solid var(--brand);
+      background: var(--white);
+      color: var(--brand);
+      border-radius: var(--radius);
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition:
+        background 0.28s ease,
+        color 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease,
+        transform 0.2s ease;
+    }
+    .btn-refine:hover {
+      box-shadow: 0 0 0 3px rgba(0, 100, 224, 0.12);
+    }
+    .btn-refine:active {
+      transform: scale(0.97);
+    }
+    .btn-refine[aria-expanded="true"] {
+      background: var(--brand);
+      color: var(--white);
+      box-shadow: 0 0 0 3px rgba(0, 100, 224, 0.18);
+    }
+    .btn-refine-caret {
+      width: 5px;
+      height: 5px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      box-sizing: content-box;
+      transform: rotate(45deg);
+      transform-origin: center;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      flex-shrink: 0;
+    }
+    .btn-refine[aria-expanded="true"] .btn-refine-caret {
+      transform: rotate(225deg);
+    }
+    @media (min-width: 900px) {
+      .btn-refine {
+        display: none !important;
+      }
+      .results-head-row {
+        margin: 0 0 6px;
+      }
+      .results-filters-collapse {
+        display: contents;
+      }
+      .results-filters {
+        display: flex !important;
+        margin-top: 10px;
+      }
+    }
+
+    .proto-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0 16px 20px;
+    }
+
+    /* —— Mobile header (HomesNI ≤980px topbar height) —— */
+    @media (max-width: 980px) {
+      .site-header {
+        height: auto;
+        min-height: var(--topbar-height);
+      }
+      .site-header .topbar {
+        height: auto;
+        min-height: var(--topbar-height);
+      }
+      .site-header .topbar > .inner {
+        position: relative;
+        height: auto;
+        min-height: var(--topbar-height);
+      }
+      .top-container {
+        gap: 0;
+        position: relative;
+        height: var(--topbar-height);
+      }
+      .logo-container {
+        flex: 0 0 auto;
+        z-index: 1;
+      }
+      .brand-logo .logo-wordmark {
+        display: none;
+      }
+      .brand-logo .logo-mark {
+        display: block;
+        height: calc(var(--topbar-height) / 2.2);
+        width: auto;
+        max-height: 50px;
+        margin-top: -7.5px;
+      }
+      .site-header.is-nav-open {
+        overflow: visible;
+      }
+      .site-header.is-nav-open .topbar,
+      .site-header.is-nav-open .topbar > .inner,
+      .site-header.is-nav-open .top-container {
+        overflow: visible;
+      }
+      .navigation-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: var(--topbar-height);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        box-sizing: border-box;
+        /* Keep trigger vertically centred; shell grows downward when open */
+        padding-top: calc((var(--topbar-height) - 51px) / 2);
+        pointer-events: none;
+        z-index: 20;
+        overflow: visible;
+      }
+      .site-nav-shell {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content;
+        max-width: calc(100vw - 24px);
+        pointer-events: auto;
+        z-index: 10060;
+        overflow: hidden;
+        background: transparent;
+        border-radius: 8px;
+        box-shadow: none;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+      }
+      .site-header.is-nav-open .site-nav-shell {
+        background: var(--brand);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+      }
+      .site-nav-trigger {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin: 0;
+        padding: 12px 14px;
+        pointer-events: auto;
+        color: var(--selected);
+        background: none;
+        border: none;
+        border-bottom: 1px solid transparent;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.5;
+        white-space: nowrap;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+      }
+      .site-header.is-nav-open .site-nav-trigger {
+        border-bottom-color: rgba(255, 255, 255, 0.28);
+      }
+      .site-nav-trigger-caret {
+        width: 5px;
+        height: 5px;
+        margin-left: 2px;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        box-sizing: content-box;
+        transform: rotate(45deg);
+        transform-origin: center;
+        transition: transform 0.28s ease;
+        flex-shrink: 0;
+      }
+      .site-header.is-nav-open .site-nav-trigger-caret {
+        transform: rotate(225deg);
+      }
+      .site-nav {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        display: grid;
+        grid-template-rows: 0fr;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        pointer-events: none;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          grid-template-rows 0.3s ease,
+          opacity 0.2s ease;
+        z-index: 1;
+      }
+      .site-header.is-nav-open .site-nav {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .site-nav-body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        overflow: hidden;
+        padding: 0 0 6px;
+      }
+      .site-nav-body > a,
+      .site-nav-body > .nav-dropdown {
+        display: flex;
+        width: 100%;
+        pointer-events: auto;
+      }
+      .site-nav-body > a.nav-student {
+        display: none;
+      }
+      .site-nav-body > a,
+      .nav-dropdown > .nav-trigger {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 14px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+        box-sizing: border-box;
+      }
+      .site-nav-body > a:last-child {
+        border-bottom: none;
+      }
+      .site-nav-body > a:hover,
+      .site-nav-body > a:focus,
+      .site-nav-body > a:active,
+      .nav-dropdown-menu a:hover,
+      .nav-dropdown-menu a:focus,
+      .nav-dropdown-menu a:active {
+        text-decoration: none;
+      }
+      .site-nav-body > a.is-active,
+      .site-nav-body > a:hover,
+      .nav-dropdown > .nav-trigger:hover,
+      .nav-dropdown.is-open > .nav-trigger {
+        color: var(--selected);
+      }
+      .nav-dropdown {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+      .nav-dropdown-menu {
+        position: static;
+        display: grid;
+        grid-template-rows: 0fr;
+        min-width: 0;
+        width: 100%;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition:
+          grid-template-rows 0.3s ease,
+          opacity 0.2s ease;
+      }
+      .nav-dropdown-menu::before {
+        display: none;
+      }
+      .nav-dropdown-menu-body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu {
+        grid-template-rows: 0fr;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .nav-dropdown.is-open .nav-dropdown-menu,
+      .nav-dropdown.is-open:hover .nav-dropdown-menu,
+      .nav-dropdown.is-open:focus-within .nav-dropdown-menu {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-dropdown-menu a {
+        display: flex;
+        color: var(--white);
+        font-size: 16px;
+        padding: 12px 14px;
+        text-align: center;
+        justify-content: center;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+      }
+      .nav-dropdown-menu a:last-child {
+        border-bottom: none;
+      }
+      .nav-dropdown-menu a:hover {
+        color: var(--selected);
+      }
+      .site-nav-myhomes {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 14px;
+        color: var(--white);
+        text-decoration: none !important;
+        font-size: 18px;
+        font-weight: 500;
+        box-sizing: border-box;
+        border-bottom: none;
+      }
+      .site-nav-myhomes img {
+        display: none;
+      }
+      .search-btns-container {
+        display: none;
+      }
+      .nav-backdrop {
+        display: block;
+        position: fixed;
+        top: var(--topbar-height);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 42, 0.35);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 900;
+      }
+      .site-header.is-nav-open ~ .nav-backdrop,
+      body.is-nav-open .nav-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 981px) {
+      .site-nav-shell {
+        display: contents;
+      }
+      .site-nav-body {
+        display: contents;
+      }
+      .nav-dropdown-menu-body {
+        display: contents;
+      }
+      .site-nav-trigger,
+      .site-nav-myhomes,
+      .nav-backdrop {
+        display: none !important;
+      }
+      .site-nav,
+      .site-nav-body {
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+      }
+      .site-nav > a,
+      .site-nav-body > a,
+      .nav-dropdown > .nav-trigger {
+        width: auto;
+        justify-content: center;
+        text-align: left;
+        padding: 0;
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: none;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .site-nav > a.is-active,
+      .site-nav-body > a.is-active {
+        color: var(--selected);
+      }
+      .nav-dropdown {
+        flex-direction: row;
+        width: auto;
+      }
+      .nav-dropdown-menu {
+        position: absolute;
+        display: none;
+        grid-template-rows: none;
+        opacity: 1;
+        pointer-events: auto;
+        overflow: visible;
+        background: var(--white);
+        border-radius: 5px;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        padding: 14px 20px;
+        min-width: 200px;
+        width: max-content;
+      }
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu,
+      .nav-dropdown.is-open .nav-dropdown-menu {
+        display: grid;
+        grid-template-rows: none;
+        opacity: 1;
+      }
+      .nav-dropdown-menu a {
+        display: grid;
+        padding: 8px 0;
+        color: var(--ink);
+        text-align: left;
+        justify-content: start;
+        border-bottom: none;
+        font-size: 18px;
+      }
+      .nav-dropdown-menu a:hover {
+        color: var(--brand);
+      }
+    }
+
+    /* Phones/tablets: allow normal scroll — viewport lock is desktop-only */
+    @media (max-width: 1023px) {
+      body.onboard-fit {
+        height: auto;
+        min-height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      #view-onboard.is-active {
+        height: auto;
+        max-height: none;
+        overflow: visible;
+      }
+      #view-onboard.is-active .onboard {
+        flex: none;
+        min-height: 0;
+        overflow: visible;
+        padding: 12px 0 calc(20px + var(--cta-h, 112px));
+        gap: 16px;
+      }
+      #view-onboard.is-active .section-campus {
+        flex: none;
+        min-height: 0;
+        display: block;
+      }
+      #view-onboard.is-active .campus-grid {
+        flex: none;
+        grid-auto-rows: auto;
+        gap: 10px;
+      }
+      #view-onboard.is-active .campus-card {
+        aspect-ratio: 4 / 3;
+        height: auto;
+      }
+      #view-onboard.is-active .prefs-panel {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        z-index: 1;
+        margin-top: 8px;
+        gap: 10px;
+        padding: 0;
+        background: transparent;
+        border-top: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        max-height: none;
+        overflow: visible;
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        scroll-margin-top: calc(var(--topbar-height) + 10px);
+        scroll-margin-bottom: calc(var(--cta-h, 112px) + 12px);
+      }
+      #view-onboard.is-active .prefs-panel .section-head {
+        margin-bottom: 4px;
+        gap: 0;
+      }
+      #view-onboard.is-active .prefs-panel .section-head h2 {
+        font-size: 0.88rem;
+      }
+      #view-onboard.is-active .prefs-panel .section-head .hint {
+        font-size: 0.72rem;
+      }
+      #view-onboard.is-active .section-head {
+        margin-bottom: 8px;
+      }
+    }
+
+    /* —— Mobile-first optimisations (student traffic) —— */
+    @media (max-width: 899px) {
+      :root {
+        --inner: min(1180px, calc(100% - 24px));
+        --cta-h: 112px;
+      }
+
+      .hero,
+      #view-onboard.is-active .hero {
+        padding: 18px 0 8px;
+        text-align: left;
+      }
+      .hero h1,
+      #view-onboard.is-active .hero h1 {
+        font-size: 1.45rem;
+        max-width: none;
+        text-align: left;
+      }
+      .hero p,
+      #view-onboard.is-active .hero p {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.95rem;
+        text-align: left;
+        max-width: none;
+      }
+      #view-onboard.is-active .campus-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        margin-bottom: 10px;
+      }
+      .campus-toolbar .section-head,
+      #view-onboard.is-active .campus-toolbar .section-head {
+        margin-bottom: 0;
+      }
+      .section-head h2 {
+        font-size: 1rem;
+      }
+      .section-head .hint {
+        font-size: 0.8rem;
+      }
+
+      .location-row {
+        gap: 8px;
+      }
+      .campus-pages-btn {
+        padding: 0 12px;
+        font-size: 0.88rem;
+        min-height: var(--tap);
+      }
+      .campus-pages-menu {
+        min-width: min(280px, calc(100vw - 32px));
+      }
+      .campus-search input {
+        padding: 12px 12px 12px 40px;
+        min-height: var(--tap);
+        font-size: 16px;
+      }
+      .campus-search input::placeholder {
+        font-size: 0.9rem;
+      }
+      .location-suggest {
+        max-height: min(280px, 45vh);
+        left: 0;
+        right: 0;
+      }
+      .location-suggest button {
+        padding: 12px 14px;
+        min-height: var(--tap);
+        font-size: 0.95rem;
+      }
+
+      .campus-grid,
+      #view-onboard.is-active .campus-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .campus-card-wrap.is-full-row,
+      #view-onboard.is-active .campus-card-wrap.is-full-row {
+        grid-column: 1 / -1;
+      }
+      .campus-card-wrap.is-full-row .campus-card,
+      #view-onboard.is-active .campus-card-wrap.is-full-row .campus-card {
+        aspect-ratio: auto;
+        height: 120px;
+        min-height: 120px;
+      }
+      .campus-card,
+      #view-onboard.is-active .campus-card {
+        aspect-ratio: 4 / 3;
+        height: auto;
+      }
+      .campus-card .title {
+        font-size: 0.82rem;
+      }
+      .campus-card .uni {
+        font-size: 0.65rem;
+      }
+      .campus-card .info {
+        padding: 22px 10px 10px;
+      }
+      .campus-card .check {
+        top: 8px;
+        left: 8px;
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+      }
+      .campus-picker button {
+        padding: 12px 14px;
+        min-height: var(--tap);
+      }
+
+      .prefs-panel {
+        margin-top: 14px;
+        gap: 12px;
+      }
+      .prefs-panel .section-head {
+        margin-bottom: 5px;
+      }
+      .prefs-panel .section-head h2 {
+        font-size: 0.9rem;
+      }
+      .prefs-panel .section-head .hint {
+        font-size: 0.74rem;
+      }
+      .prefs-panel .chips,
+      .prefs-panel .chips-distance {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .prefs-panel .chip {
+        flex: 1 1 calc(33.333% - 4px);
+        width: auto;
+        min-width: calc(33.333% - 4px);
+        max-width: 100%;
+        height: 38px;
+        min-height: 38px;
+        font-size: 0.8rem;
+        padding: 0 8px;
+        box-sizing: border-box;
+      }
+      .prefs-panel #type-chips {
+        flex-wrap: nowrap;
+        gap: 6px;
+        width: 100%;
+      }
+      #type-chips.chips .chip,
+      .prefs-panel #type-chips .chip {
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        padding: 0 6px;
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+      .prefs-panel #budget-chips {
+        flex-wrap: wrap;
+      }
+      .prefs-panel #budget-chips .chip {
+        flex: 1 1 calc(33.333% - 4px);
+        min-width: calc(33.333% - 4px);
+        width: auto;
+      }
+      .prefs-panel .chips-distance {
+        flex-wrap: nowrap;
+        width: 100%;
+      }
+      .prefs-panel .chips-distance .chip,
+      .prefs-panel .custom-miles {
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        height: 38px;
+        min-height: 38px;
+      }
+      .custom-miles {
+        padding: 0;
+      }
+      .custom-miles input {
+        font-size: 16px;
+        width: 100%;
+        padding: 0 4px;
+      }
+      .custom-miles-label {
+        font-size: 0.68rem;
+        gap: 1px;
+        padding: 2px 3px;
+      }
+
+      .cta-bar {
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+      }
+      .cta-bar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .cta-meta {
+        font-size: 0.82rem;
+        line-height: 1.35;
+        order: 0;
+      }
+      .cta-actions {
+        margin-left: 0;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .cta-actions {
+        grid-template-columns: 1fr;
+      }
+      .cta-actions .btn-ghost {
+        display: block;
+        width: 100%;
+        min-height: 40px;
+        order: 2;
+      }
+      .cta-actions .btn-primary {
+        width: 100%;
+        min-height: var(--tap);
+        padding: 12px 16px;
+        font-size: 1rem;
+        order: 1;
+      }
+
+      /* Results — map + listings first; filters behind Refine */
+      .results-top {
+        padding: 10px 0 2px;
+        transition: padding-bottom 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .results-top:has(.results-filters-collapse.is-open) {
+        padding-bottom: 10px;
+      }
+      .results-head-row {
+        margin: 0 0 10px;
+      }
+      .results-head-row #btn-back {
+        min-height: 32px;
+        height: 32px;
+        padding: 0 10px;
+        font-size: 0.78rem;
+      }
+      .btn-refine {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        height: 32px;
+        padding: 0 10px;
+        font-size: 0.78rem;
+        gap: 6px;
+      }
+      .btn-refine-caret {
+        width: 4px;
+        height: 4px;
+      }
+      .results-top h1 {
+        font-size: 0.9rem;
+        line-height: 1.2;
+        margin: 0;
+        padding-bottom: 0;
+      }
+      .results-top .sub {
+        display: none;
+      }
+      .results-filters-collapse {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        transition:
+          grid-template-rows 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.28s ease,
+          margin-top 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .results-filters-collapse.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        margin-top: 10px;
+      }
+      .results-filters-collapse > .results-filters {
+        min-height: 0;
+        overflow: hidden;
+      }
+      .results-filters-collapse.is-open > .results-filters {
+        overflow: visible;
+      }
+      .results-filters {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px;
+        align-items: stretch;
+        margin-top: 0;
+      }
+      .results-filter-block + .results-filter-block,
+      .results-filter-actions {
+        border-left: none;
+        padding-left: 0;
+        margin-left: 0;
+      }
+      .results-filter-block,
+      .results-filter-block--campus,
+      .results-filter-block--budget,
+      .results-filter-block--distance {
+        flex: none;
+        max-width: none;
+        width: 100%;
+      }
+      .results-filter-block > label {
+        font-size: 0.68rem;
+        margin-bottom: 6px;
+      }
+      .results-filters .chips,
+      .results-filters .chips-distance {
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+      }
+      .results-filters .chip {
+        flex: 1 1 calc(33.333% - 4px);
+        min-width: calc(33.333% - 4px);
+        height: 36px;
+        min-height: 36px;
+        padding: 0 6px;
+        font-size: 0.78rem;
+      }
+      .results-filters #results-type-chips {
+        flex-wrap: nowrap;
+        gap: 6px;
+        width: 100%;
+      }
+      .results-filters #results-type-chips .chip {
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+        padding: 0 6px;
+        font-size: 0.76rem;
+        white-space: nowrap;
+      }
+      .results-filters .chips-distance .chip,
+      .results-filters .custom-miles {
+        flex: 1 1 calc(50% - 3px);
+        min-width: calc(50% - 3px);
+        height: 36px;
+        min-height: 36px;
+      }
+      .results-filters .custom-miles input {
+        width: 100%;
+        font-size: 16px;
+        padding: 0 6px;
+      }
+      .results-filters .custom-miles-label {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0.3em;
+        font-size: 0.76rem;
+        line-height: 1.1;
+        padding: 0 4px;
+        white-space: nowrap;
+      }
+      .results-filters .custom-miles-label span {
+        display: inline;
+      }
+      .results-filters .custom-miles .unit {
+        display: none;
+      }
+      .results-campus-select {
+        height: 40px;
+        font-size: 16px;
+        padding: 0 34px 0 12px;
+        background-position: right 12px center;
+      }
+      .results-filter-actions {
+        width: 100%;
+        margin-left: 0;
+      }
+      .results-filter-actions .btn {
+        width: 100%;
+        height: 40px;
+        min-height: 40px;
+        padding: 0 16px;
+        font-size: 0.95rem;
+      }
+
+      .results-layout {
+        padding: 8px 0 calc(28px + env(safe-area-inset-bottom));
+      }
+      .results-count {
+        font-size: 0.95rem;
+        margin: 0 0 8px;
+      }
+      .results-flow {
+        gap: 10px;
+      }
+      .map-stub {
+        min-height: 160px;
+        aspect-ratio: 16 / 9;
+        height: auto;
+      }
+      .map-label {
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        font-size: 0.74rem;
+        padding: 7px 10px;
+        max-width: calc(100% - 16px);
+      }
+      .map-tooltip {
+        width: min(220px, calc(100% - 16px));
+        font-size: 0.85rem;
+      }
+      .map-pin {
+        width: 18px;
+        height: 18px;
+        margin: -9px 0 0 -9px;
+      }
+
+      .listing-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .listing {
+        grid-template-columns: 96px 1fr;
+      }
+      .listing-media {
+        min-height: 100%;
+      }
+      .listing-body {
+        padding: 10px;
+      }
+      .listing h3 {
+        font-size: 0.9rem;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .listing .meta {
+        font-size: 0.76rem;
+      }
+      .listing .price {
+        font-size: 0.95rem;
+      }
+      .listing .agent-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      .listing .agent-action {
+        justify-content: center;
+        min-height: 40px;
+        padding: 8px 6px;
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (max-width: 399px) {
+      .campus-grid,
+      #view-onboard.is-active .campus-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .campus-card-wrap.is-full-row,
+      #view-onboard.is-active .campus-card-wrap.is-full-row {
+        grid-column: 1 / -1;
+      }
+      .campus-card-wrap.is-full-row .campus-card,
+      #view-onboard.is-active .campus-card-wrap.is-full-row .campus-card {
+        aspect-ratio: auto;
+        height: 120px;
+        min-height: 120px;
+      }
+      .prefs-panel .chip,
+      .prefs-panel #budget-chips .chip,
+      .results-filters .chip {
+        flex: 1 1 calc(50% - 4px);
+        min-width: calc(50% - 4px);
+      }
+      .prefs-panel #type-chips .chip,
+      .results-filters #results-type-chips .chip {
+        flex: 1 1 0;
+        width: 0;
+        min-width: 0;
+      }
+      .listing {
+        grid-template-columns: 84px 1fr;
+      }
+      .listing .agent-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 560px) and (max-width: 899px) {
+      .campus-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="top" class="site-header">
+    <div class="topbar">
+      <div class="inner">
+        <div class="top-container">
+          <div class="logo-container">
+            <a class="brand-logo" href="#" id="brand-home" aria-label="HomesNI home">
+              <img class="logo-wordmark" src="https://homesni.com/images/logo-landscape-white.svg?ver=1.1" alt="HomesNI" title="HomesNI" width="120" height="60" />
+              <img class="logo-mark" src="assets/homesni-small-logo.jpg" alt="HomesNI" width="36" height="36" />
+            </a>
+          </div>
+          <div class="navigation-container">
+            <div class="site-nav-shell" id="site-nav-shell">
+              <button
+                type="button"
+                class="site-nav-trigger"
+                id="site-nav-trigger"
+                aria-expanded="false"
+                aria-controls="site-nav"
+                aria-label="Open site navigation"
+              >
+                <span>Student Rentals</span>
+                <span class="site-nav-trigger-caret" aria-hidden="true"></span>
+              </button>
+              <nav class="site-nav navigation" id="site-nav" aria-label="Primary">
+                <div class="site-nav-body">
+                  <a href="https://homesni.com/property-for-sale" target="_blank" rel="noopener">For Sale</a>
+                  <a href="https://homesni.com/property-for-rent" target="_blank" rel="noopener">For Rent</a>
+                  <div class="nav-dropdown" id="nav-commercial">
+                    <button type="button" class="nav-trigger" id="nav-commercial-btn" aria-expanded="false" aria-haspopup="true">Commercial</button>
+                    <div class="nav-dropdown-menu" role="menu">
+                      <div class="nav-dropdown-menu-body">
+                        <a href="https://homesni.com/commercial-sales" target="_blank" rel="noopener" role="menuitem">Sales</a>
+                        <a href="https://homesni.com/commercial-rentals" target="_blank" rel="noopener" role="menuitem">Rent</a>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#" class="nav-student is-active" aria-current="page">Student Rentals</a>
+                  <a href="https://homesni.com/area-guides/" target="_blank" rel="noopener">Area Guides</a>
+                  <a class="site-nav-myhomes" href="https://homesni.com/members" target="_blank" rel="noopener">
+                    <img class="homesni-small-logo" src="assets/homesni-small-logo.jpg" alt="" width="24" height="24" />
+                    <span>My Homes</span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </div>
+          <div class="search-btns-container">
+            <a class="my-homes" href="https://homesni.com/members" target="_blank" rel="noopener">
+              <img class="homesni-small-logo" src="assets/homesni-small-logo.jpg" alt="" width="24" height="24" />
+              <span>My Homes</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
+  <!-- ONBOARDING -->
+  <main id="view-onboard" class="view is-active" aria-label="Student search onboarding">
+    <div class="inner hero">
+      <h1>Find student rentals near campus</h1>
+      <p>Answer a few quick questions and we’ll show rooms, houses and halls that fit.</p>
+    </div>
+
+    <div class="inner onboard">
+      <!-- 1. Campus -->
+      <section class="section section-campus" aria-labelledby="campus-heading">
+        <div class="campus-toolbar">
+          <div class="location-row">
+            <div class="section-head">
+              <h2 id="campus-heading" class="required">Where do you study?</h2>
+            </div>
+            <div class="campus-pages" id="campus-pages">
+              <button type="button" class="campus-pages-btn" id="campus-pages-btn" aria-expanded="false" aria-haspopup="true" aria-controls="campus-pages-menu">
+                <span>Campus Pages</span>
+                <span class="campus-pages-caret" aria-hidden="true"></span>
+              </button>
+              <div class="campus-pages-menu" id="campus-pages-menu" role="menu" hidden>
+                <a href="content/examples/campus-queens-university-belfast.html" role="menuitem">Queen’s University Belfast</a>
+                <a href="content/examples/campus-ulster-university.html" role="menuitem">Ulster University</a>
+                <a href="content/examples/campus-st-marys-university-college.html" role="menuitem">St Mary’s University College</a>
+                <a href="content/examples/campus-stranmillis-university-college.html" role="menuitem">Stranmillis University College</a>
+                <a href="content/examples/campus-open-university-ni.html" role="menuitem">The Open University</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="campus-grid" id="campus-grid" role="listbox" aria-label="Universities"></div>
+        <div class="no-campus-match" id="no-campus-match">No universities match that search.</div>
+      </section>
+
+      <div class="prefs-panel" id="prefs-panel">
+        <!-- 2. Stay type -->
+        <section class="section" aria-labelledby="type-heading">
+          <div class="section-head">
+            <h2 id="type-heading">What are you looking for?</h2>
+            <span class="hint">Select all that apply</span>
+          </div>
+          <div class="chips" id="type-chips" role="group" aria-label="Type of stay"></div>
+        </section>
+
+        <!-- 3. Budget -->
+        <section class="section" aria-labelledby="budget-heading">
+          <div class="section-head">
+            <h2 id="budget-heading">Max budget per person / week</h2>
+            <span class="hint">Optional</span>
+          </div>
+          <div class="chips" id="budget-chips" role="group" aria-label="Max budget"></div>
+        </section>
+
+        <!-- 4. Distance -->
+        <section class="section" aria-labelledby="distance-heading">
+          <div class="section-head">
+            <h2 id="distance-heading">How far from campus?</h2>
+            <span class="hint">Default 2 miles</span>
+          </div>
+          <div class="chips-distance" role="group" aria-label="Distance from campus">
+            <div class="chips" id="distance-chips"></div>
+            <label class="custom-miles" id="custom-miles-wrap" for="custom-miles">
+              <input type="number" id="custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder=" " aria-label="Custom miles from campus" />
+              <span class="custom-miles-label" aria-hidden="true"><span>Custom</span><span>miles</span></span>
+            </label>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <div class="cta-bar">
+      <div class="cta-bar-inner">
+        <div class="cta-meta" id="cta-meta">Select a campus to continue</div>
+        <div class="cta-actions">
+                    <button type="button" class="btn btn-ghost" id="btn-skip-prefs">Clear Filters</button>
+          <button type="button" class="btn btn-primary" id="btn-search" disabled>Search student rentals</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- RESULTS -->
+  <main id="view-results" class="view" aria-label="Student rental results">
+    <div class="results-top">
+      <div class="inner">
+        <div class="results-head-row">
+          <button type="button" class="btn btn-ghost" id="btn-back">← Back</button>
+          <button type="button" class="btn-refine" id="btn-refine-toggle" aria-expanded="false" aria-controls="results-filters">
+            <span>Refine</span>
+            <span class="btn-refine-caret" aria-hidden="true"></span>
+          </button>
+        </div>
+        <h1 id="results-title">Student rentals</h1>
+        <p class="sub" id="results-sub">Prototype results — sample listings only</p>
+        <div class="results-filters-collapse" id="results-filters-collapse">
+        <div class="results-filters" id="results-filters" aria-label="Refine search">
+          <div class="results-filter-block results-filter-block--campus">
+            <label for="results-campus">Campus</label>
+            <select id="results-campus" class="results-campus-select" aria-label="Campus"></select>
+          </div>
+          <div class="results-filter-block">
+            <label>Type</label>
+            <div class="chips" id="results-type-chips" role="group" aria-label="Type of stay"></div>
+          </div>
+          <div class="results-filter-block results-filter-block--budget">
+            <label>Budget</label>
+            <div class="chips" id="results-budget-chips" role="group" aria-label="Max budget"></div>
+          </div>
+          <div class="results-filter-block results-filter-block--distance">
+            <label>Distance</label>
+            <div class="chips-distance">
+              <div class="chips" id="results-distance-chips" role="group" aria-label="Distance from campus"></div>
+              <label class="custom-miles" id="results-custom-miles-wrap" for="results-custom-miles">
+                <input type="number" id="results-custom-miles" min="0.1" max="50" step="0.1" inputmode="decimal" placeholder=" " aria-label="Custom miles from campus" />
+                <span class="custom-miles-label" aria-hidden="true"><span>Custom</span><span>miles</span></span>
+              </label>
+            </div>
+          </div>
+          <div class="results-filter-actions">
+            <button type="button" class="btn btn-primary" id="btn-results-search">Search</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner results-layout">
+      <p class="results-count" id="results-count"><span>0</span> results</p>
+      <div class="results-flow">
+        <div class="map-stub" id="map-stub" aria-label="Map of results near campus">
+          <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stylised map stub">
+            <defs>
+              <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M32 0H0V32" fill="none" stroke="#e4e2dc" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="640" height="360" fill="#ebe9e4"/>
+            <rect width="640" height="360" fill="url(#grid)"/>
+            <path d="M40 280 C120 240, 200 300, 300 250 S480 180, 600 220" fill="none" stroke="#CCC9C3" stroke-width="18" stroke-linecap="round"/>
+            <path d="M80 40 C140 120, 160 200, 220 340" fill="none" stroke="#d8d6d1" stroke-width="12" stroke-linecap="round"/>
+            <circle id="map-campus" cx="320" cy="180" r="56" fill="rgba(0,100,224,0.12)" stroke="#0064e0" stroke-width="2" stroke-dasharray="6 4"/>
+            <circle cx="320" cy="180" r="10" fill="#0064e0"/>
+          </svg>
+          <div class="map-pins" id="map-pins"></div>
+          <div class="map-tooltip" id="map-tooltip" role="tooltip"></div>
+          <div class="map-label"><em id="map-campus-name">Campus</em> · <span id="map-radius">2 miles</span></div>
+        </div>
+
+        <div class="listing-rail" id="listing-rail"></div>
+        <div class="listing-grid" id="listing-grid"></div>
+      </div>
+    </div>
+
+    <p class="proto-note">HomesNI Student Rentals prototype — not live search results</p>
+  </main>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = "homesni-student-onboard-v2";
+
+      const CAMPUSES = {
+        "queens-belfast": {
+          id: "queens-belfast",
+          name: "Queen’s University Belfast",
+          lat: 54.5847,
+          lng: -5.9349,
+          image: "assets/unis/queens.jpg"
+        },
+        "ulster-belfast": {
+          id: "ulster-belfast",
+          name: "Ulster University — Belfast",
+          lat: 54.603,
+          lng: -5.93,
+          image: "assets/unis/ulster.jpg"
+        },
+        "ulster-jordanstown": {
+          id: "ulster-jordanstown",
+          name: "Ulster University — Jordanstown",
+          lat: 54.688,
+          lng: -5.822,
+          image: "assets/unis/ulster.jpg"
+        },
+        "ulster-coleraine": {
+          id: "ulster-coleraine",
+          name: "Ulster University — Coleraine",
+          lat: 55.148,
+          lng: -6.675,
+          image: "assets/unis/ulster.jpg"
+        },
+        "ulster-magee": {
+          id: "ulster-magee",
+          name: "Ulster University — Magee",
+          lat: 55.006,
+          lng: -7.323,
+          image: "assets/unis/ulster.jpg"
+        },
+        "st-marys": {
+          id: "st-marys",
+          name: "St Mary’s University College",
+          lat: 54.595,
+          lng: -5.961,
+          image: "assets/unis/st-marys.jpg"
+        },
+        "stranmillis": {
+          id: "stranmillis",
+          name: "Stranmillis University College",
+          lat: 54.571,
+          lng: -5.937,
+          image: "assets/unis/stranmillis.jpg"
+        },
+        "open-university-belfast": {
+          id: "open-university-belfast",
+          name: "The Open University",
+          lat: 54.5964,
+          lng: -5.9235,
+          image: "assets/unis/open-university-ni.jpg"
+        }
+      };
+
+      const UNI_TILES = [
+        {
+          id: "queens",
+          name: "Queen’s University",
+          subtitle: "Belfast",
+          search: "queens queen's belfast",
+          image: "assets/unis/queens.jpg",
+          campusIds: ["queens-belfast"],
+          lat: 54.5847,
+          lng: -5.9349
+        },
+        {
+          id: "ulster",
+          name: "Ulster University",
+          subtitle: "Choose a campus",
+          search: "ulster belfast coleraine jordanstown magee derry",
+          image: "assets/unis/ulster.jpg",
+          campusIds: ["ulster-belfast", "ulster-jordanstown", "ulster-coleraine", "ulster-magee"],
+          lat: 54.65,
+          lng: -5.95,
+          multi: true
+        },
+        {
+          id: "st-marys",
+          name: "St Mary’s",
+          subtitle: "University College · Belfast",
+          search: "st marys mary's belfast",
+          image: "assets/unis/st-marys.jpg",
+          campusIds: ["st-marys"],
+          lat: 54.595,
+          lng: -5.961
+        },
+        {
+          id: "stranmillis",
+          name: "Stranmillis",
+          subtitle: "University College · Belfast",
+          search: "stranmillis belfast",
+          image: "assets/unis/stranmillis.jpg",
+          campusIds: ["stranmillis"],
+          lat: 54.571,
+          lng: -5.937
+        },
+        {
+          id: "open-university",
+          name: "The Open University",
+          subtitle: "Belfast office",
+          search: "open university ou distance learning belfast",
+          image: "assets/unis/open-university-ni.jpg",
+          campusIds: ["open-university-belfast"],
+          lat: 54.5964,
+          lng: -5.9235
+        }
+      ];
+
+      /* University search autocomplete (kept for deep-link / legacy helpers) */
+      const NI_COLLEGES = [
+        { name: "Queen’s University Belfast", aliases: "qub queens queen's university belfast", lat: 54.5847, lng: -5.9349, campusId: "queens-belfast" },
+        { name: "Ulster University — Belfast", aliases: "uu ulster belfast", lat: 54.603, lng: -5.93, campusId: "ulster-belfast" },
+        { name: "Ulster University — Jordanstown", aliases: "uu ulster jordanstown", lat: 54.688, lng: -5.822, campusId: "ulster-jordanstown" },
+        { name: "Ulster University — Coleraine", aliases: "uu ulster coleraine", lat: 55.148, lng: -6.675, campusId: "ulster-coleraine" },
+        { name: "Ulster University — Magee", aliases: "uu ulster magee derry londonderry", lat: 55.006, lng: -7.323, campusId: "ulster-magee" },
+        { name: "Ulster University", aliases: "uu ulster university", lat: 54.65, lng: -5.95, tileId: "ulster" },
+        { name: "St Mary’s University College", aliases: "st marys st mary's university college belfast", lat: 54.595, lng: -5.961, campusId: "st-marys" },
+        { name: "Stranmillis University College", aliases: "stranmillis university college belfast", lat: 54.571, lng: -5.937, campusId: "stranmillis" },
+        { name: "The Open University", aliases: "open university ou distance learning ou ni northern ireland", lat: 54.5964, lng: -5.9235, campusId: "open-university-belfast" }
+      ];
+
+      const STAY_TYPES = [
+        { id: "room", label: "Room" },
+        { id: "house", label: "Whole house" },
+        { id: "halls", label: "Halls" }
+      ];
+
+      const BUDGETS = [
+        { id: "any", label: "Any" },
+        { id: "80", label: "£80" },
+        { id: "100", label: "£100" },
+        { id: "120", label: "£120" },
+        { id: "150", label: "£150" },
+        { id: "200", label: "£200+" }
+      ];
+
+      const DISTANCES = [
+        { id: "any", label: "Any" },
+        { id: "2", label: "2 miles" },
+        { id: "5", label: "5 miles" }
+      ];
+
+      const PRESET_DISTANCES = { any: true, "2": true, "5": true };
+
+      const state = {
+        campusId: null,
+        types: [],
+        budget: "any",
+        distance: "2",
+        distanceCustom: false,
+        customMiles: "",
+        openPickerId: null
+      };
+
+      const draft = {
+        campusId: null,
+        types: [],
+        budget: "any",
+        distance: "2",
+        distanceCustom: false,
+        customMiles: ""
+      };
+
+      const els = {
+        onboard: document.getElementById("view-onboard"),
+        results: document.getElementById("view-results"),
+        grid: document.getElementById("campus-grid"),
+        locationInput: document.getElementById("location-input"),
+        locationSuggest: document.getElementById("location-suggest"),
+        noMatch: document.getElementById("no-campus-match"),
+        typeChips: document.getElementById("type-chips"),
+        budgetChips: document.getElementById("budget-chips"),
+        distanceChips: document.getElementById("distance-chips"),
+        customMiles: document.getElementById("custom-miles"),
+        customMilesWrap: document.getElementById("custom-miles-wrap"),
+        btnSearch: document.getElementById("btn-search"),
+        btnSkip: document.getElementById("btn-skip-prefs"),
+        btnBack: document.getElementById("btn-back"),
+        btnRefineToggle: document.getElementById("btn-refine-toggle"),
+        resultsFilters: document.getElementById("results-filters"),
+        resultsFiltersCollapse: document.getElementById("results-filters-collapse"),
+        btnResultsSearch: document.getElementById("btn-results-search"),
+        brandHome: document.getElementById("brand-home"),
+        ctaMeta: document.getElementById("cta-meta"),
+        listingRail: document.getElementById("listing-rail"),
+        listingGrid: document.getElementById("listing-grid"),
+        resultsTitle: document.getElementById("results-title"),
+        resultsSub: document.getElementById("results-sub"),
+        resultsCount: document.getElementById("results-count"),
+        resultsCampus: document.getElementById("results-campus"),
+        resultsTypeChips: document.getElementById("results-type-chips"),
+        resultsBudgetChips: document.getElementById("results-budget-chips"),
+        resultsDistanceChips: document.getElementById("results-distance-chips"),
+        resultsCustomMiles: document.getElementById("results-custom-miles"),
+        resultsCustomMilesWrap: document.getElementById("results-custom-miles-wrap"),
+        mapStub: document.getElementById("map-stub"),
+        mapPins: document.getElementById("map-pins"),
+        mapTooltip: document.getElementById("map-tooltip"),
+        mapCampusName: document.getElementById("map-campus-name"),
+        mapRadius: document.getElementById("map-radius")
+      };
+
+      const FAKE_AGENTS = [
+        "Harbour Homes",
+        "Quinn & Co.",
+        "Campus Lets NI",
+        "Oakleaf Property",
+        "Stranmillis Estates",
+        "Linenhall Lettings",
+        "Ormeau Student Homes",
+        "Northside Property"
+      ];
+
+      const MAP_PIN_SPOTS = [
+        { left: 40.6, top: 41.7, tone: "ink" },
+        { left: 55.5, top: 58.3, tone: "brand" },
+        { left: 45.3, top: 63.9, tone: "green" },
+        { left: 59.4, top: 40.3, tone: "amber" },
+        { left: 33.0, top: 52.0, tone: "purple" }
+      ];
+
+      function loadState() {
+        try {
+          const raw = sessionStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const saved = JSON.parse(raw);
+          if (saved.campusId) {
+            state.campusId = saved.campusId;
+            if (!CAMPUSES[state.campusId]) state.campusId = null;
+          }
+          if (Array.isArray(saved.types)) state.types = saved.types;
+          if (saved.budget) state.budget = saved.budget;
+          if (saved.distance) state.distance = String(saved.distance);
+          if (typeof saved.distanceCustom === "boolean") state.distanceCustom = saved.distanceCustom;
+          if (saved.customMiles != null) state.customMiles = String(saved.customMiles);
+          normalizeDistanceState();
+        } catch (_) { /* ignore */ }
+      }
+
+      function saveState() {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+          campusId: state.campusId,
+          types: state.types,
+          budget: state.budget,
+          distance: state.distance,
+          distanceCustom: state.distanceCustom,
+          customMiles: state.customMiles
+        }));
+      }
+
+      function syncDraftFromState() {
+        draft.campusId = state.campusId;
+        draft.types = state.types.slice();
+        draft.budget = state.budget;
+        draft.distance = state.distance;
+        draft.distanceCustom = state.distanceCustom;
+        draft.customMiles = state.customMiles;
+      }
+
+      let prefsScrollToken = 0;
+      let prefsScrollRaf = 0;
+      let prefsScrollTimer = 0;
+
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function revealPrefsOnMobile() {
+        if (!state.campusId) return;
+        if (!window.matchMedia("(max-width: 1023px)").matches) return;
+        if (!els.onboard.classList.contains("is-active")) return;
+
+        const token = ++prefsScrollToken;
+        if (prefsScrollRaf) {
+          cancelAnimationFrame(prefsScrollRaf);
+          prefsScrollRaf = 0;
+        }
+        if (prefsScrollTimer) {
+          clearTimeout(prefsScrollTimer);
+          prefsScrollTimer = 0;
+        }
+
+        prefsScrollTimer = setTimeout(() => {
+          prefsScrollTimer = 0;
+          if (token !== prefsScrollToken || !state.campusId) return;
+
+          requestAnimationFrame(() => {
+            syncCtaClearance();
+            requestAnimationFrame(() => {
+              if (token !== prefsScrollToken) return;
+              const panel = document.getElementById("prefs-panel");
+              if (!panel) return;
+
+              const rootStyles = getComputedStyle(document.documentElement);
+              const topbar = parseFloat(rootStyles.getPropertyValue("--topbar-height")) || 80;
+              const ctaH = parseFloat(rootStyles.getPropertyValue("--cta-h")) || 112;
+              const pad = 10;
+              const rect = panel.getBoundingClientRect();
+              const panelTopDoc = window.scrollY + rect.top;
+              const panelBottomDoc = window.scrollY + rect.bottom;
+              const available = window.innerHeight - topbar - ctaH - pad * 2;
+              // Prefer the start of the filters ("What are you looking for?").
+              // Only nudge further down if the compact block still overflows.
+              let targetY = panelTopDoc - topbar - pad;
+              if (rect.height > available) {
+                const overflow = rect.height - available;
+                targetY += Math.min(overflow, 48);
+              }
+              const maxY = Math.max(0, panelBottomDoc - (window.innerHeight - ctaH - pad));
+              targetY = Math.min(Math.max(0, targetY), maxY);
+              const startY = window.scrollY;
+              const distance = targetY - startY;
+              if (Math.abs(distance) < 4) return;
+
+              const duration = Math.min(850, Math.max(520, Math.abs(distance) * 0.85));
+              const t0 = performance.now();
+              document.documentElement.classList.add("is-program-scrolling");
+
+              function step(now) {
+                if (token !== prefsScrollToken) {
+                  document.documentElement.classList.remove("is-program-scrolling");
+                  prefsScrollRaf = 0;
+                  return;
+                }
+                const t = Math.min(1, (now - t0) / duration);
+                window.scrollTo({ top: startY + distance * easeInOutCubic(t), behavior: "auto" });
+                if (t < 1) {
+                  prefsScrollRaf = requestAnimationFrame(step);
+                } else {
+                  prefsScrollRaf = 0;
+                  document.documentElement.classList.remove("is-program-scrolling");
+                }
+              }
+              prefsScrollRaf = requestAnimationFrame(step);
+            });
+          });
+        }, 250);
+      }
+
+      function applyDraftToState() {
+        state.campusId = draft.campusId;
+        state.types = draft.types.slice();
+        state.budget = draft.budget;
+        state.distance = draft.distance;
+        state.distanceCustom = draft.distanceCustom;
+        state.customMiles = draft.customMiles;
+        normalizeDistanceState();
+        syncDraftFromState();
+      }
+
+      function formatDistanceLabel(miles) {
+        if (miles === "any") return "Any distance";
+        const n = Number(miles);
+        if (!isFinite(n) || n <= 0) return "2 miles";
+        const text = Number.isInteger(n) ? String(n) : String(Math.round(n * 10) / 10);
+        return text + " mile" + (n === 1 ? "" : "s");
+      }
+
+      function distanceLimitMiles() {
+        if (state.distance === "any") return Infinity;
+        const n = Number(state.distance);
+        return isFinite(n) && n > 0 ? n : 2;
+      }
+
+      function normalizeDistanceState() {
+        if (state.distance === "any") {
+          state.distanceCustom = false;
+          return;
+        }
+        if (PRESET_DISTANCES[state.distance] && state.distance !== "any") {
+          state.distanceCustom = false;
+          state.customMiles = "";
+          return;
+        }
+        const n = Number(state.distance);
+        if (isFinite(n) && n > 0 && n <= 50) {
+          state.distanceCustom = true;
+          state.customMiles = String(Math.round(n * 10) / 10);
+          state.distance = state.customMiles;
+          return;
+        }
+        state.distance = "2";
+        state.distanceCustom = false;
+        state.customMiles = "";
+      }
+
+      function sanitizeCustomMiles(raw, commit) {
+        const cleaned = String(raw == null ? "" : raw).trim();
+        if (!cleaned) {
+          return { display: "", distance: null, valid: false };
+        }
+        const n = parseFloat(cleaned);
+        if (!isFinite(n) || n <= 0) {
+          return { display: commit ? "" : cleaned, distance: null, valid: false };
+        }
+        const clamped = Math.min(50, Math.max(0.1, Math.round(n * 10) / 10));
+        const display = String(clamped);
+        return { display: commit ? display : cleaned, distance: display, valid: true };
+      }
+
+      function syncDistanceUI() {
+        if (els.distanceChips) {
+          renderChipGroup(els.distanceChips, DISTANCES, "distance");
+        }
+        if (els.customMilesWrap && els.customMiles) {
+          els.customMilesWrap.classList.toggle("is-active", state.distanceCustom);
+          if (!els.customMiles.matches(":focus")) {
+            els.customMiles.value = state.distanceCustom ? state.customMiles : "";
+          }
+        }
+        const campus = campusById(state.campusId);
+        if (campus) {
+          els.ctaMeta.innerHTML = "Searching near <strong>" + campus.name + "</strong> · " + formatDistanceLabel(state.distance);
+        } else {
+          els.ctaMeta.textContent = "Select a campus to continue";
+        }
+      }
+
+      function withPreservedScroll(fn) {
+        const y = window.scrollY || window.pageYOffset || 0;
+        fn();
+        const restore = () => {
+          if (Math.abs((window.scrollY || 0) - y) > 1) window.scrollTo(0, y);
+        };
+        restore();
+        requestAnimationFrame(() => {
+          restore();
+          requestAnimationFrame(restore);
+        });
+      }
+
+      function applyCustomMiles(raw, commit) {
+        const result = sanitizeCustomMiles(raw, commit);
+        const run = () => {
+          if (commit && !result.valid) {
+            // Empty / invalid custom → exit the box and restore a preset chip
+            state.distanceCustom = false;
+            state.customMiles = "";
+            state.distance = PRESET_DISTANCES[String(state.distance)] ? String(state.distance) : "2";
+            if (els.customMiles) els.customMiles.value = "";
+            if (commit) saveState();
+            syncDistanceUI();
+            return;
+          }
+          state.distanceCustom = true;
+          state.customMiles = result.display;
+          if (result.distance) state.distance = result.distance;
+          if (commit) {
+            if (els.customMiles) els.customMiles.value = result.display;
+            saveState();
+          }
+          syncDistanceUI();
+        };
+        if (commit) withPreservedScroll(run);
+        else run();
+      }
+
+      function campusById(id) {
+        return CAMPUSES[id] || null;
+      }
+
+      function campusShortLabel(campus) {
+        if (!campus || !campus.name) return "";
+        return campus.name
+          .replace(/^Ulster University — /, "")
+          .replace(/^SERC — /, "")
+          .replace(/^SRC — /, "")
+          .replace(/^NRC — /, "")
+          .replace(/^South Eastern Regional College — /, "")
+          .replace(/^Southern Regional College — /, "")
+          .replace(/^Northern Regional College — /, "");
+      }
+
+      function isTileSelected(tile) {
+        return tile.campusIds.indexOf(state.campusId) !== -1;
+      }
+
+      function closePickers() {
+        state.openPickerId = null;
+        document.querySelectorAll(".campus-picker.is-open").forEach((el) => el.classList.remove("is-open"));
+        document.querySelectorAll(".campus-card-wrap.is-picker-open").forEach((el) => el.classList.remove("is-picker-open"));
+      }
+
+      function renderUniversities() {
+        els.grid.innerHTML = "";
+        const tiles = UNI_TILES.slice();
+        let visible = 0;
+
+        tiles.forEach((tile) => {
+          const wrap = document.createElement("div");
+          wrap.className = "campus-card-wrap" + (tile.id === "open-university" ? " is-full-row" : "");
+          wrap.dataset.tileId = tile.id;
+
+          const selected = isTileSelected(tile);
+          const pickerOpen = tile.multi && state.openPickerId === tile.id;
+          if (pickerOpen) wrap.classList.add("is-picker-open");
+          const uniText = selected && tile.multi
+            ? campusShortLabel(campusById(state.campusId)) + " campus"
+            : tile.subtitle;
+          const uniArrow = tile.multi ? '<span class="uni-arrow" aria-hidden="true"></span>' : "";
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "campus-card" + (selected ? " is-selected" : "");
+          btn.setAttribute("role", "option");
+          btn.setAttribute("aria-selected", selected ? "true" : "false");
+          if (tile.multi) btn.setAttribute("aria-haspopup", "listbox");
+          btn.innerHTML =
+            '<span class="check" aria-hidden="true">✓</span>' +
+            '<div class="img"><img loading="lazy" src="' + tile.image + '" alt="" /></div>' +
+            '<div class="info"><h3 class="title"><span>' + tile.name +
+            '</span><span class="uni"><span class="uni-label">' + uniText + "</span>" + uniArrow + "</span></h3></div>";
+
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (tile.multi) {
+              const open = state.openPickerId === tile.id;
+              closePickers();
+              if (open && selected) {
+                state.campusId = null;
+                saveState();
+                syncUI();
+                return;
+              }
+              if (!open) {
+                state.openPickerId = tile.id;
+                wrap.classList.add("is-picker-open");
+                picker.classList.add("is-open");
+              }
+              return;
+            }
+            closePickers();
+            const selecting = !selected;
+            state.campusId = selecting ? tile.campusIds[0] : null;
+            saveState();
+            syncUI();
+            if (selecting) revealPrefsOnMobile();
+          });
+
+          wrap.appendChild(btn);
+
+          if (tile.multi) {
+            var picker = document.createElement("div");
+            picker.className = "campus-picker" + (pickerOpen ? " is-open" : "");
+            picker.innerHTML = '<div class="picker-label">Select campus</div>';
+            tile.campusIds.forEach((cid) => {
+              const c = CAMPUSES[cid];
+              const opt = document.createElement("button");
+              opt.type = "button";
+              opt.className = state.campusId === cid ? "is-active" : "";
+              const label = campusShortLabel(c);
+              opt.innerHTML = "<span>" + label + "</span>";
+              opt.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const selecting = state.campusId !== cid;
+                state.campusId = selecting ? cid : null;
+                state.openPickerId = null;
+                saveState();
+                syncUI();
+                if (selecting) revealPrefsOnMobile();
+              });
+              picker.appendChild(opt);
+            });
+            wrap.appendChild(picker);
+          }
+
+          els.grid.appendChild(wrap);
+          visible += 1;
+        });
+
+        els.noMatch.classList.toggle("is-visible", visible === 0);
+      }
+
+      function buildCollegeSearchIndex() {
+        const entries = [];
+        const seen = {};
+
+        function add(entry) {
+          const key = entry.name.toLowerCase();
+          if (seen[key]) return;
+          seen[key] = true;
+          entries.push(entry);
+        }
+
+        NI_COLLEGES.forEach((c) => {
+          add({
+            name: c.name,
+            meta: "University",
+            search: (c.name + " " + (c.aliases || "")).toLowerCase(),
+            campusId: c.campusId || null,
+            tileId: c.tileId || null,
+            rank: 0
+          });
+        });
+
+        Object.keys(CAMPUSES).forEach((id) => {
+          const c = CAMPUSES[id];
+          add({
+            name: c.name,
+            meta: "Campus",
+            search: (c.name + " " + campusShortLabel(c)).toLowerCase(),
+            campusId: c.id,
+            rank: 1
+          });
+        });
+
+        return entries;
+      }
+
+      const COLLEGE_SEARCH_INDEX = buildCollegeSearchIndex();
+
+      function scoreLocationMatches(q) {
+        const query = (q || "").trim().toLowerCase();
+        if (!query) return [];
+        return COLLEGE_SEARCH_INDEX
+          .map((entry) => {
+            const idx = entry.search.indexOf(query);
+            if (idx === -1) return null;
+            const starts = entry.name.toLowerCase().indexOf(query) === 0 || entry.search.indexOf(query) === 0;
+            return {
+              entry: entry,
+              score: (starts ? 0 : 10) + entry.rank + Math.min(idx, 20) / 20
+            };
+          })
+          .filter(Boolean)
+          .sort((a, b) => a.score - b.score || a.entry.name.localeCompare(b.entry.name))
+          .map((s) => s.entry);
+      }
+
+      function applyLocationEntry(p) {
+        if (!p) return;
+        if (els.locationInput) els.locationInput.value = p.name;
+        if (els.locationSuggest) els.locationSuggest.classList.remove("is-open");
+        let selectedCampus = false;
+        if (p.campusId && CAMPUSES[p.campusId]) {
+          state.campusId = p.campusId;
+          state.openPickerId = null;
+          selectedCampus = true;
+        } else if (p.tileId) {
+          const tile = UNI_TILES.find((t) => t.id === p.tileId);
+          if (tile && tile.multi) {
+            state.openPickerId = tile.id;
+          } else if (tile) {
+            state.campusId = tile.campusIds[0];
+            state.openPickerId = null;
+            selectedCampus = true;
+          }
+        }
+        saveState();
+        syncUI();
+        if (selectedCampus) revealPrefsOnMobile();
+      }
+
+      function renderSuggestions(q) {
+        if (!els.locationSuggest) return;
+        els.locationSuggest.innerHTML = "";
+        const shown = scoreLocationMatches(q).slice(0, 12);
+        if (!shown.length) {
+          els.locationSuggest.classList.remove("is-open");
+          return;
+        }
+        shown.forEach((p) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.setAttribute("role", "option");
+          b.innerHTML = p.name + '<span class="suggest-meta">' + p.meta + "</span>";
+          b.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            applyLocationEntry(p);
+          });
+          els.locationSuggest.appendChild(b);
+        });
+        els.locationSuggest.classList.add("is-open");
+      }
+
+      function renderChipGroup(container, items, mode) {
+        container.innerHTML = "";
+        items.forEach((item) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "chip";
+          btn.dataset.id = item.id;
+          btn.textContent = item.label;
+
+          if (mode === "type") {
+            if (state.types.includes(item.id)) btn.classList.add("is-active");
+            btn.setAttribute("aria-pressed", state.types.includes(item.id) ? "true" : "false");
+            btn.addEventListener("click", () => {
+              if (state.types.includes(item.id)) {
+                state.types = state.types.filter((t) => t !== item.id);
+              } else {
+                state.types = state.types.concat(item.id);
+              }
+              saveState();
+              syncUI();
+            });
+          } else if (mode === "budget") {
+            if (state.budget === item.id) btn.classList.add("is-active");
+            btn.setAttribute("aria-pressed", state.budget === item.id ? "true" : "false");
+            btn.addEventListener("click", () => {
+              state.budget = item.id;
+              saveState();
+              syncUI();
+            });
+          } else if (mode === "distance") {
+            const active = !state.distanceCustom && state.distance === item.id;
+            if (active) btn.classList.add("is-active");
+            btn.setAttribute("aria-pressed", active ? "true" : "false");
+            btn.addEventListener("click", () => {
+              state.distanceCustom = false;
+              state.distance = item.id;
+              saveState();
+              syncUI();
+            });
+          }
+
+          container.appendChild(btn);
+        });
+      }
+
+      function syncUI() {
+        renderUniversities();
+        renderChipGroup(els.typeChips, STAY_TYPES, "type");
+        renderChipGroup(els.budgetChips, BUDGETS, "budget");
+        renderChipGroup(els.distanceChips, DISTANCES, "distance");
+
+        if (els.customMilesWrap && els.customMiles) {
+          els.customMilesWrap.classList.toggle("is-active", state.distanceCustom);
+          if (!els.customMiles.matches(":focus")) {
+            els.customMiles.value = state.distanceCustom ? state.customMiles : "";
+          }
+        }
+
+        const campus = campusById(state.campusId);
+        els.onboard.classList.toggle("has-campus", !!campus);
+        els.btnSearch.disabled = !campus;
+        if (campus) {
+          els.ctaMeta.innerHTML = "Searching near <strong>" + campus.name + "</strong> · " + formatDistanceLabel(state.distance);
+        } else {
+          els.ctaMeta.textContent = "Select a campus to continue";
+        }
+        requestAnimationFrame(() => {
+          syncCtaClearance();
+          requestAnimationFrame(syncCtaClearance);
+        });
+      }
+
+      function syncCtaClearance() {
+        const bar = document.querySelector("#view-onboard.is-active .cta-bar");
+        if (!bar) {
+          document.documentElement.style.removeProperty("--cta-h");
+          document.documentElement.style.removeProperty("--cta-bar-h");
+          return;
+        }
+        const barH = Math.ceil(bar.getBoundingClientRect().height);
+        document.documentElement.style.setProperty("--cta-bar-h", barH + "px");
+        document.documentElement.style.setProperty("--cta-h", barH + "px");
+      }
+
+      function showView(name) {
+        const isResults = name === "results";
+        els.onboard.classList.toggle("is-active", !isResults);
+        els.results.classList.toggle("is-active", isResults);
+        document.body.classList.toggle("onboard-fit", !isResults);
+        window.scrollTo({ top: 0, behavior: isResults ? "smooth" : "auto" });
+        requestAnimationFrame(syncCtaClearance);
+      }
+
+      function budgetLabel() {
+        const b = BUDGETS.find((x) => x.id === state.budget);
+        return b ? b.label : "Any";
+      }
+
+      function typeLabels() {
+        if (!state.types.length) return ["Any type"];
+        return state.types.map((id) => {
+          const t = STAY_TYPES.find((x) => x.id === id);
+          return t ? t.label : id;
+        });
+      }
+
+      function mockListings(campus) {
+        const pool = [
+          { title: "Shared house near campus", type: "room", badge: "Room", badgeClass: "", price: 95, beds: "1 of 4 rooms", img: campus.image },
+          { title: "En-suite student room", type: "room", badge: "Room", badgeClass: "", price: 110, beds: "Bills included", img: campus.image },
+          { title: "5-bed student house", type: "house", badge: "Whole house", badgeClass: "house", price: 85, beds: "5 bedrooms", img: campus.image },
+          { title: "Purpose-built studio", type: "halls", badge: "Halls", badgeClass: "halls", price: 165, beds: "Studio · bills included", img: campus.image },
+          { title: "Twin room in halls", type: "halls", badge: "Halls", badgeClass: "halls", price: 125, beds: "Shared kitchen", img: campus.image },
+          { title: "Bright double in shared house", type: "room", badge: "Room", badgeClass: "", price: 105, beds: "Bills included", img: campus.image },
+          { title: "Modern 4-bed student house", type: "house", badge: "Whole house", badgeClass: "house", price: 90, beds: "4 bedrooms", img: campus.image },
+          { title: "City-centre studio apartment", type: "halls", badge: "Halls", badgeClass: "halls", price: 155, beds: "Studio", img: campus.image },
+          { title: "Cosy single near campus", type: "room", badge: "Room", badgeClass: "", price: 88, beds: "1 of 3 rooms", img: campus.image },
+          { title: "Renovated terrace for sharers", type: "house", badge: "Whole house", badgeClass: "house", price: 78, beds: "6 bedrooms", img: campus.image }
+        ];
+
+        let list = pool.slice();
+        if (state.types.length) {
+          list = list.filter((l) => state.types.includes(l.type));
+          if (!list.length) list = pool.slice(0, 4);
+        }
+
+        const max = state.budget === "any" || state.budget === "200" ? 999 : Number(state.budget);
+        if (state.budget !== "any") {
+          const filtered = list.filter((l) => l.price <= max || state.budget === "200");
+          if (filtered.length) list = filtered;
+        }
+
+        const limit = distanceLimitMiles();
+        const span = limit === Infinity ? 6 : limit;
+        const take = Math.min(list.length, 10);
+        return list.slice(0, take).map((l, i) => {
+          const fraction = (i + 1) / (take + 1);
+          const milesNum = Math.round(span * fraction * 10) / 10;
+          const miles = Number.isInteger(milesNum) ? String(milesNum) : String(milesNum);
+          return Object.assign({}, l, {
+            miles: miles,
+            agent: FAKE_AGENTS[i % FAKE_AGENTS.length]
+          });
+        }).filter((l) => limit === Infinity || Number(l.miles) <= limit);
+      }
+
+      function hideMapTooltip() {
+        if (!els.mapTooltip) return;
+        els.mapTooltip.classList.remove("is-visible");
+        els.mapTooltip.innerHTML = "";
+        if (els.mapPins) {
+          els.mapPins.querySelectorAll(".map-pin.is-active").forEach((p) => p.classList.remove("is-active"));
+        }
+      }
+
+      function showMapTooltip(pin, listing) {
+        if (!els.mapTooltip || !els.mapStub) return;
+        els.mapPins.querySelectorAll(".map-pin.is-active").forEach((p) => p.classList.remove("is-active"));
+        pin.classList.add("is-active");
+        els.mapTooltip.innerHTML =
+          '<span class="tip-badge ' + listing.badgeClass + '">' + listing.badge + "</span>" +
+          "<strong>" + listing.title + "</strong>" +
+          '<p class="tip-meta">' + listing.miles + " miles to campus · " + listing.beds + "</p>" +
+          '<div class="tip-price">£' + listing.price + ' <span style="font-size:0.75rem;font-weight:700;color:var(--muted)">pp / week</span></div>' +
+          '<div class="tip-agent">' + listing.agent + "</div>";
+        const left = parseFloat(pin.style.left) || 50;
+        const top = parseFloat(pin.style.top) || 50;
+        els.mapTooltip.style.left = left + "%";
+        els.mapTooltip.style.top = top + "%";
+        els.mapTooltip.classList.add("is-visible");
+      }
+
+      function renderMapPins(listings) {
+        if (!els.mapPins) return;
+        hideMapTooltip();
+        els.mapPins.innerHTML = "";
+        listings.forEach((listing, i) => {
+          const spot = MAP_PIN_SPOTS[i % MAP_PIN_SPOTS.length];
+          const pin = document.createElement("button");
+          pin.type = "button";
+          pin.className = "map-pin";
+          pin.dataset.tone = spot.tone;
+          pin.style.left = spot.left + "%";
+          pin.style.top = spot.top + "%";
+          pin.setAttribute("aria-label", listing.title + ", £" + listing.price + " pp / week");
+          pin.addEventListener("mouseenter", () => showMapTooltip(pin, listing));
+          pin.addEventListener("focus", () => showMapTooltip(pin, listing));
+          pin.addEventListener("mouseleave", hideMapTooltip);
+          pin.addEventListener("blur", hideMapTooltip);
+          els.mapPins.appendChild(pin);
+        });
+      }
+
+      function renderResultsFilters() {
+        if (!els.resultsCampus) return;
+
+        const campusIds = Object.keys(CAMPUSES);
+        els.resultsCampus.innerHTML = campusIds.map((id) => {
+          const c = CAMPUSES[id];
+          return '<option value="' + id + '"' + (draft.campusId === id ? " selected" : "") + ">" + c.name + "</option>";
+        }).join("");
+
+        function paintChips(container, items, mode) {
+          if (!container) return;
+          container.innerHTML = "";
+          items.forEach((item) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "chip";
+            btn.textContent = item.label;
+            if (mode === "type") {
+              const on = draft.types.includes(item.id);
+              if (on) btn.classList.add("is-active");
+              btn.setAttribute("aria-pressed", on ? "true" : "false");
+              btn.addEventListener("click", () => {
+                if (draft.types.includes(item.id)) draft.types = draft.types.filter((t) => t !== item.id);
+                else draft.types = draft.types.concat(item.id);
+                renderResultsFilters();
+              });
+            } else if (mode === "budget") {
+              const on = draft.budget === item.id;
+              if (on) btn.classList.add("is-active");
+              btn.setAttribute("aria-pressed", on ? "true" : "false");
+              btn.addEventListener("click", () => {
+                draft.budget = item.id;
+                renderResultsFilters();
+              });
+            } else if (mode === "distance") {
+              const on = !draft.distanceCustom && draft.distance === item.id;
+              if (on) btn.classList.add("is-active");
+              btn.setAttribute("aria-pressed", on ? "true" : "false");
+              btn.addEventListener("click", () => {
+                draft.distanceCustom = false;
+                draft.distance = item.id;
+                draft.customMiles = "";
+                renderResultsFilters();
+              });
+            }
+            container.appendChild(btn);
+          });
+        }
+
+        paintChips(els.resultsTypeChips, STAY_TYPES, "type");
+        paintChips(els.resultsBudgetChips, BUDGETS, "budget");
+        paintChips(els.resultsDistanceChips, DISTANCES, "distance");
+
+        if (els.resultsCustomMilesWrap && els.resultsCustomMiles) {
+          els.resultsCustomMilesWrap.classList.toggle("is-active", draft.distanceCustom);
+          if (!els.resultsCustomMiles.matches(":focus")) {
+            els.resultsCustomMiles.value = draft.distanceCustom ? draft.customMiles : "";
+          }
+        }
+      }
+
+      function refreshResultsView(show) {
+        const campus = campusById(state.campusId);
+        if (!campus) {
+          showView("onboard");
+          return;
+        }
+
+        normalizeDistanceState();
+
+        els.resultsTitle.textContent = "Student rentals near " + campus.name;
+        els.resultsTitle.style.fontSize = "";
+        els.resultsSub.textContent = "Showing sample listings within " + formatDistanceLabel(state.distance);
+        els.mapCampusName.textContent = campus.name;
+        els.mapRadius.textContent = formatDistanceLabel(state.distance);
+
+        const mapCampus = document.getElementById("map-campus");
+        if (mapCampus) {
+          const limit = distanceLimitMiles();
+          const radius = limit === Infinity ? 90 : Math.max(28, Math.min(90, 28 + limit * 12));
+          mapCampus.setAttribute("r", String(radius));
+        }
+
+        renderResultsFilters();
+
+        const agentAvatar =
+          '<span class="agent-avatar" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+              '<path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-6h6v6"/>' +
+            "</svg></span>";
+        const phoneIcon =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.68 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.73-1.25a2 2 0 0 1 2.11-.45c.75.32 1.54.55 2.35.68A2 2 0 0 1 22 16.92z"/>' +
+          "</svg>";
+        const mailIcon =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/>' +
+          "</svg>";
+
+        const listings = mockListings(campus);
+        if (els.resultsCount) {
+          const n = listings.length;
+          els.resultsCount.innerHTML = "<span>" + n + "</span> result" + (n === 1 ? "" : "s");
+        }
+
+        function listingCard(l) {
+          return (
+            '<article class="listing">' +
+              '<div class="listing-media"><img src="' + l.img + '" alt="" /></div>' +
+              '<div class="listing-body">' +
+                '<div class="listing-badges"><span class="badge ' + l.badgeClass + '">' + l.badge + "</span></div>" +
+                "<h3>" + l.title + "</h3>" +
+                '<p class="meta">' + l.miles + " miles to campus · " + l.beds + "</p>" +
+                '<div class="price">£' + l.price + ' <small>pp / week</small></div>' +
+                '<div class="agent-block">' +
+                  '<div class="agent-row">' +
+                    agentAvatar +
+                    '<div class="agent-copy">' +
+                      '<p class="agent-name"><span>Contact</span> ' + l.agent + "</p>" +
+                      '<div class="agent-actions">' +
+                        '<button type="button" class="agent-action">' + phoneIcon + "Call Agent</button>" +
+                        '<button type="button" class="agent-action">' + mailIcon + "Message Agent</button>" +
+                      "</div>" +
+                    "</div>" +
+                  "</div>" +
+                "</div>" +
+              "</div></article>"
+          );
+        }
+
+        /* Beside map: full horizontal tiles; below map: 2-up grid */
+        const railCount = window.matchMedia("(min-width: 900px)").matches ? Math.min(2, listings.length) : 0;
+        const railListings = listings.slice(0, railCount);
+        const gridListings = listings.slice(railCount);
+        if (els.listingRail) els.listingRail.innerHTML = railListings.map(listingCard).join("");
+        if (els.listingGrid) els.listingGrid.innerHTML = gridListings.map(listingCard).join("");
+
+        renderMapPins(listings);
+        if (show) showView("results");
+        requestAnimationFrame(fitResultsTitle);
+      }
+
+      function fitResultsTitle() {
+        const el = els.resultsTitle;
+        if (!el || !el.textContent) return;
+        el.style.fontSize = "";
+        const base = parseFloat(window.getComputedStyle(el).fontSize) || 16;
+        let size = base;
+        const min = 11;
+        while (el.scrollWidth > el.clientWidth + 1 && size > min) {
+          size -= 0.5;
+          el.style.fontSize = size + "px";
+        }
+      }
+
+      let resultsLayoutMode = window.matchMedia("(min-width: 900px)").matches ? "desktop" : "mobile";
+
+      function renderResults() {
+        syncDraftFromState();
+        setRefineOpen(false);
+        refreshResultsView(true);
+      }
+
+      (function setupCampusPages() {
+        const wrap = document.getElementById("campus-pages");
+        const btn = document.getElementById("campus-pages-btn");
+        const menu = document.getElementById("campus-pages-menu");
+        if (!wrap || !btn || !menu) return;
+
+        function setOpen(open) {
+          wrap.classList.toggle("is-open", open);
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+          menu.hidden = !open;
+        }
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setOpen(!wrap.classList.contains("is-open"));
+        });
+        document.addEventListener("click", (e) => {
+          if (!wrap.contains(e.target)) setOpen(false);
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setOpen(false);
+        });
+      })();
+
+      /* Events */
+      (function setupSiteNav() {
+        const header = document.getElementById("top");
+        const trigger = document.getElementById("site-nav-trigger");
+        const backdrop = document.getElementById("nav-backdrop");
+        const nav = document.getElementById("site-nav");
+        const wrap = document.getElementById("nav-commercial");
+        const commercialBtn = document.getElementById("nav-commercial-btn");
+        if (!header || !trigger || !nav) return;
+
+        function isMobileNav() {
+          return window.matchMedia("(max-width: 980px)").matches;
+        }
+
+        function setCommercialOpen(open) {
+          if (!wrap || !commercialBtn) return;
+          wrap.classList.toggle("is-open", open);
+          commercialBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
+        function setNavOpen(open) {
+          const mobile = isMobileNav();
+          header.classList.toggle("is-nav-open", open);
+          document.body.classList.toggle("is-nav-open", open && mobile);
+          trigger.setAttribute("aria-expanded", open ? "true" : "false");
+          trigger.setAttribute("aria-label", open ? "Close site navigation" : "Open site navigation");
+          if (backdrop) backdrop.hidden = !(open && mobile);
+          if (mobile) {
+            nav.setAttribute("aria-hidden", open ? "false" : "true");
+            if (open) nav.removeAttribute("inert");
+            else nav.setAttribute("inert", "");
+          } else {
+            nav.removeAttribute("aria-hidden");
+            nav.removeAttribute("inert");
+          }
+          document.body.style.overflow = open && mobile ? "hidden" : "";
+          if (!open) setCommercialOpen(false);
+        }
+
+        if (isMobileNav()) {
+          nav.setAttribute("aria-hidden", "true");
+          nav.setAttribute("inert", "");
+        }
+
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!isMobileNav()) return;
+          setNavOpen(!header.classList.contains("is-nav-open"));
+        });
+
+        if (backdrop) {
+          backdrop.addEventListener("click", () => setNavOpen(false));
+        }
+
+        if (commercialBtn && wrap) {
+          commercialBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setCommercialOpen(!wrap.classList.contains("is-open"));
+          });
+          wrap.addEventListener("mouseenter", () => {
+            if (!isMobileNav()) setCommercialOpen(true);
+          });
+          wrap.addEventListener("mouseleave", () => {
+            if (!isMobileNav()) setCommercialOpen(false);
+          });
+        }
+
+        nav.addEventListener("click", (e) => {
+          const link = e.target.closest("a");
+          if (!link || !isMobileNav()) return;
+          setNavOpen(false);
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!header.contains(e.target)) {
+            setNavOpen(false);
+            setCommercialOpen(false);
+          } else if (wrap && !wrap.contains(e.target) && !isMobileNav()) {
+            setCommercialOpen(false);
+          }
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setNavOpen(false);
+        });
+
+        window.addEventListener("resize", () => {
+          if (!isMobileNav()) setNavOpen(false);
+        });
+      })();
+
+      if (els.locationInput) {
+        els.locationInput.addEventListener("input", () => renderSuggestions(els.locationInput.value));
+        els.locationInput.addEventListener("focus", () => renderSuggestions(els.locationInput.value));
+        els.locationInput.addEventListener("blur", () => {
+          setTimeout(() => els.locationSuggest && els.locationSuggest.classList.remove("is-open"), 150);
+        });
+      }
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".campus-card-wrap")) closePickers();
+      });
+
+      els.btnSearch.addEventListener("click", () => {
+        if (!state.campusId) return;
+        saveState();
+        syncDraftFromState();
+        renderResults();
+      });
+
+      els.btnSkip.addEventListener("click", () => {
+        state.campusId = null;
+        state.openPickerId = null;
+        state.types = [];
+        state.budget = "any";
+        state.distance = "2";
+        state.distanceCustom = false;
+        state.customMiles = "";
+        if (els.locationInput) els.locationInput.value = "";
+        if (els.locationSuggest) els.locationSuggest.classList.remove("is-open");
+        syncDraftFromState();
+        saveState();
+        syncUI();
+      });
+
+      els.btnBack.addEventListener("click", () => showView("onboard"));
+      els.brandHome.addEventListener("click", (e) => {
+        e.preventDefault();
+        showView("onboard");
+      });
+
+      function setRefineOpen(open) {
+        if (!els.resultsFilters || !els.btnRefineToggle) return;
+        els.resultsFilters.classList.toggle("is-open", open);
+        if (els.resultsFiltersCollapse) {
+          els.resultsFiltersCollapse.classList.toggle("is-open", open);
+        }
+        els.btnRefineToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      }
+
+      if (els.btnRefineToggle) {
+        els.btnRefineToggle.addEventListener("click", () => {
+          const open = els.resultsFiltersCollapse
+            ? !els.resultsFiltersCollapse.classList.contains("is-open")
+            : !els.resultsFilters.classList.contains("is-open");
+          setRefineOpen(open);
+        });
+      }
+
+      if (els.btnResultsSearch) {
+        els.btnResultsSearch.addEventListener("click", () => {
+          applyDraftToState();
+          saveState();
+          setRefineOpen(false);
+          refreshResultsView(false);
+        });
+      }
+
+      if (els.resultsCampus) {
+        els.resultsCampus.addEventListener("change", () => {
+          draft.campusId = els.resultsCampus.value;
+        });
+      }
+
+      if (els.resultsCustomMiles) {
+        function commitResultsCustomMiles() {
+          const result = sanitizeCustomMiles(els.resultsCustomMiles.value, true);
+          if (!result.valid) {
+            draft.distanceCustom = false;
+            draft.customMiles = "";
+            draft.distance = PRESET_DISTANCES[String(draft.distance)] ? String(draft.distance) : "2";
+            els.resultsCustomMiles.value = "";
+          } else {
+            draft.distanceCustom = true;
+            draft.customMiles = result.display;
+            draft.distance = result.distance;
+            els.resultsCustomMiles.value = result.display;
+          }
+          renderResultsFilters();
+        }
+        els.resultsCustomMiles.addEventListener("focus", () => {
+          draft.distanceCustom = true;
+          const result = sanitizeCustomMiles(draft.customMiles, false);
+          if (result.distance) draft.distance = result.distance;
+          renderResultsFilters();
+          els.resultsCustomMiles.focus();
+        });
+        els.resultsCustomMiles.addEventListener("input", () => {
+          const result = sanitizeCustomMiles(els.resultsCustomMiles.value, false);
+          draft.customMiles = result.display;
+          draft.distanceCustom = true;
+          if (result.distance) draft.distance = result.distance;
+          els.resultsCustomMilesWrap.classList.add("is-active");
+        });
+        els.resultsCustomMiles.addEventListener("change", commitResultsCustomMiles);
+        els.resultsCustomMiles.addEventListener("blur", commitResultsCustomMiles);
+      }
+
+      if (els.customMiles) {
+        let customMilesCommitLock = false;
+        function commitCustomMilesFromInput() {
+          if (customMilesCommitLock) return;
+          customMilesCommitLock = true;
+          applyCustomMiles(els.customMiles.value, true);
+          setTimeout(() => { customMilesCommitLock = false; }, 0);
+        }
+        els.customMiles.addEventListener("focus", () => {
+          state.distanceCustom = true;
+          const result = sanitizeCustomMiles(state.customMiles, false);
+          if (result.distance) state.distance = result.distance;
+          syncDistanceUI();
+        });
+        els.customMiles.addEventListener("input", () => {
+          applyCustomMiles(els.customMiles.value, false);
+        });
+        els.customMiles.addEventListener("change", commitCustomMilesFromInput);
+        els.customMiles.addEventListener("blur", commitCustomMilesFromInput);
+        els.customMiles.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            commitCustomMilesFromInput();
+            els.customMiles.blur();
+          }
+        });
+      }
+
+      let resultsResizeTimer = null;
+      window.addEventListener("resize", () => {
+        clearTimeout(resultsResizeTimer);
+        resultsResizeTimer = setTimeout(() => {
+          syncCtaClearance();
+          fitResultsTitle();
+          const mode = window.matchMedia("(min-width: 900px)").matches ? "desktop" : "mobile";
+          /* Only rebuild listings when crossing desktop/mobile — avoids scroll chrome resize flicker */
+          if (mode !== resultsLayoutMode && els.results.classList.contains("is-active") && state.campusId) {
+            resultsLayoutMode = mode;
+            refreshResultsView(false);
+          } else {
+            resultsLayoutMode = mode;
+          }
+        }, 160);
+      });
+
+      function applyCampusDeepLink() {
+        const params = new URLSearchParams(window.location.search);
+        const campusId = params.get("campus");
+        if (!campusId || !CAMPUSES[campusId]) return false;
+        state.campusId = campusId;
+        state.openPickerId = null;
+        if (els.locationInput) els.locationInput.value = CAMPUSES[campusId].name;
+        saveState();
+        syncDraftFromState();
+        syncUI();
+        renderResults();
+        return true;
+      }
+
+      loadState();
+      normalizeDistanceState();
+      if (!applyCampusDeepLink()) {
+        syncUI();
+        document.body.classList.toggle("onboard-fit", els.onboard.classList.contains("is-active"));
+        syncCtaClearance();
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "id": "queens",
+  "slug": "queens-university-belfast",
+  "name": "Queen’s University Belfast",
+  "shortName": "Queen’s",
+  "type": "university",
+  "website": "https://www.qub.ac.uk/",
+  "summary": "Russell Group university in South Belfast — the main hub for student rentals around Botanic, the Holylands, Stranmillis, Malone and Ormeau.",
+  "intro": "Queen’s sits in Belfast’s university quarter, steps from Botanic Gardens and a dense pocket of shared houses, rooms and halls. Most students live in Botanic, the Holylands, Stranmillis, Malone, the Lisburn Road or Ormeau. Use Uni areas to search student rentals in those places, Search places for wider HomesNI property browse, and Area guides for local editorial context.",
+  "heroImage": "assets/unis/queens.jpg",
+  "campuses": [
+    {
+      "id": "queens-belfast",
+      "name": "Main campus",
+      "locationLabel": "University Road, Belfast BT7 1NN",
+      "lat": 54.5847,
+      "lng": -5.9349,
+      "website": "https://www.qub.ac.uk/",
+      "image": "assets/unis/campuses/queens-belfast.jpg",
+      "notes": "Primary teaching campus and Students’ Union / One Elmwood. Medical and hospital-linked teaching also draws students along the South Belfast / City Hospital corridor.",
+      "uniAreas": ["botanic", "holylands", "stranmillis", "malone", "lisburn-road", "ormeau"],
+      "searchPlaces": [
+        { "name": "Stranmillis", "path": "/properties-for-sale-stranmillis" },
+        { "name": "Malone", "path": "/properties-for-sale-malone" },
+        { "name": "Lisburn Road Area", "path": "/properties-for-sale-lisburn-road-area" },
+        { "name": "Ormeau", "path": "/properties-for-sale-ormeau" },
+        { "name": "South Belfast", "path": "/properties-for-sale-south-belfast" },
+        { "name": "Ravenhill", "path": "/properties-for-sale-ravenhill" },
+        { "name": "Finaghy", "path": "/properties-for-sale-finaghy" }
+      ],
+      "areaGuides": [
+        { "name": "Ormeau", "path": "/area/ormeau" }
+      ]
+    }
+  ],
+  "seo": {
+    "title": "Student rentals near Queen’s University Belfast | HomesNI",
+    "description": "Find student rooms, houses and halls near Queen’s. Search Uni areas like Botanic and the Holylands, browse HomesNI search places, and read local area guides.",
+    "h1": "Student rentals near Queen’s University Belfast",
+    "faqs": [
+      {
+        "question": "Where do Queen’s students usually live?",
+        "answer": "Most look first at Botanic, the Holylands, Stranmillis, Malone, the Lisburn Road and Ormeau. All are walkable or a short bus from campus."
+      },
+      {
+        "question": "When should I start looking for a student rental near Queen’s?",
+        "answer": "Many groups start looking from late autumn through spring for the next academic year. Popular streets near Queen’s go early, so it helps to search before summer if you want more choice."
+      }
+    ]
+  }
+}

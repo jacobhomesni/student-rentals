@@ -1,0 +1,218 @@
+{
+  "version": 1,
+  "label": "University Areas",
+  "searchPathTemplate": "/student-rentals?uni-area={slug}",
+  "identityPathTemplate": "/uni-area/{slug}",
+  "areas": [
+    {
+      "id": "botanic",
+      "slug": "botanic",
+      "name": "Botanic",
+      "summary": "Cafés and nightlife by Queen’s.",
+      "searchPath": "/student-rentals?uni-area=botanic",
+      "path": "/uni-area/botanic",
+      "campusIds": ["queens-belfast"],
+      "image": "assets/unis/uni-areas/botanic.jpg",
+      "seo": {
+        "title": "Student rentals in Botanic, Belfast | HomesNI",
+        "description": "Search student rooms and houses in Botanic near Queen’s University Belfast. Find shared homes steps from Botanic Avenue and campus.",
+        "h1": "Student rentals in Botanic"
+      }
+    },
+    {
+      "id": "holylands",
+      "slug": "holylands",
+      "name": "Holylands",
+      "summary": "Shared houses right behind campus.",
+      "searchPath": "/student-rentals?uni-area=holylands",
+      "path": "/uni-area/holylands",
+      "campusIds": ["queens-belfast"],
+      "image": "assets/unis/uni-areas/holylands.jpg",
+      "seo": {
+        "title": "Student rentals in the Holylands, Belfast | HomesNI",
+        "description": "Search student accommodation in Belfast’s Holylands — shared houses beside Queen’s University and the McClay Library.",
+        "h1": "Student rentals in the Holylands"
+      }
+    },
+    {
+      "id": "stranmillis",
+      "slug": "stranmillis",
+      "name": "Stranmillis",
+      "summary": "Leafy South Belfast near campus.",
+      "searchPath": "/student-rentals?uni-area=stranmillis",
+      "path": "/uni-area/stranmillis",
+      "campusIds": ["queens-belfast", "stranmillis"],
+      "image": "assets/unis/uni-areas/stranmillis.jpg",
+      "seo": {
+        "title": "Student rentals in Stranmillis, Belfast | HomesNI",
+        "description": "Search student rentals in Stranmillis near Queen’s University and Stranmillis University College.",
+        "h1": "Student rentals in Stranmillis"
+      }
+    },
+    {
+      "id": "malone",
+      "slug": "malone",
+      "name": "Malone",
+      "summary": "Between Queen’s and Lisburn Road.",
+      "searchPath": "/student-rentals?uni-area=malone",
+      "path": "/uni-area/malone",
+      "campusIds": ["queens-belfast", "stranmillis"],
+      "image": "assets/unis/uni-areas/malone.jpg",
+      "seo": {
+        "title": "Student rentals in Malone, Belfast | HomesNI",
+        "description": "Find student rooms and shared houses in Malone, Belfast — close to Queen’s University and Stranmillis.",
+        "h1": "Student rentals in Malone"
+      }
+    },
+    {
+      "id": "lisburn-road",
+      "slug": "lisburn-road",
+      "name": "Lisburn Road",
+      "summary": "Shops and cafés toward Queen’s.",
+      "searchPath": "/student-rentals?uni-area=lisburn-road",
+      "path": "/uni-area/lisburn-road",
+      "campusIds": ["queens-belfast"],
+      "image": "assets/unis/uni-areas/lisburn-road.jpg",
+      "seo": {
+        "title": "Student rentals on the Lisburn Road | HomesNI",
+        "description": "Search student accommodation around Belfast’s Lisburn Road — handy for Queen’s University and City Hospital.",
+        "h1": "Student rentals on the Lisburn Road"
+      }
+    },
+    {
+      "id": "ormeau",
+      "slug": "ormeau",
+      "name": "Ormeau",
+      "summary": "Park and cafés near Queen’s.",
+      "searchPath": "/student-rentals?uni-area=ormeau",
+      "path": "/uni-area/ormeau",
+      "campusIds": ["queens-belfast"],
+      "image": "assets/unis/uni-areas/ormeau.jpg",
+      "seo": {
+        "title": "Student rentals in Ormeau, Belfast | HomesNI",
+        "description": "Search student rooms and houses in Ormeau, Belfast — popular with Queen’s students who want park and café living.",
+        "h1": "Student rentals in Ormeau"
+      }
+    },
+    {
+      "id": "cathedral-quarter",
+      "slug": "cathedral-quarter",
+      "name": "Cathedral Quarter",
+      "summary": "Culture and nightlife next to Ulster’s Belfast campus.",
+      "searchPath": "/student-rentals?uni-area=cathedral-quarter",
+      "path": "/uni-area/cathedral-quarter",
+      "campusIds": ["ulster-belfast"],
+      "image": "assets/unis/uni-areas/cathedral-quarter.jpg",
+      "seo": {
+        "title": "Student rentals in Cathedral Quarter | HomesNI",
+        "description": "Search student accommodation in Belfast’s Cathedral Quarter near Ulster University Belfast campus.",
+        "h1": "Student rentals in Cathedral Quarter"
+      }
+    },
+    {
+      "id": "belfast-city-centre",
+      "slug": "belfast-city-centre",
+      "name": "Belfast City Centre",
+      "summary": "Central Belfast living for Ulster Belfast and The Open University students who want city access.",
+      "searchPath": "/student-rentals?uni-area=belfast-city-centre",
+      "path": "/uni-area/belfast-city-centre",
+      "campusIds": ["ulster-belfast", "open-university-belfast"],
+      "image": "assets/unis/uni-areas/belfast-city-centre.jpg",
+      "seo": {
+        "title": "Student rentals in Belfast City Centre | HomesNI",
+        "description": "Search student rentals in Belfast City Centre — ideal for Ulster University Belfast and The Open University students.",
+        "h1": "Student rentals in Belfast City Centre"
+      }
+    },
+    {
+      "id": "falls",
+      "slug": "falls",
+      "name": "Falls / West Belfast",
+      "summary": "West Belfast catchment around St Mary’s University College on the Falls Road.",
+      "searchPath": "/student-rentals?uni-area=falls",
+      "path": "/uni-area/falls",
+      "campusIds": ["st-marys"],
+      "image": "assets/unis/uni-areas/falls.jpg",
+      "seo": {
+        "title": "Student rentals near the Falls, West Belfast | HomesNI",
+        "description": "Search student accommodation in Falls / West Belfast near St Mary’s University College.",
+        "h1": "Student rentals in Falls / West Belfast"
+      }
+    },
+    {
+      "id": "jordanstown",
+      "slug": "jordanstown",
+      "name": "Jordanstown / Newtownabbey",
+      "summary": "North Belfast / Newtownabbey living tied to Ulster’s Jordanstown Sports Village.",
+      "searchPath": "/student-rentals?uni-area=jordanstown",
+      "path": "/uni-area/jordanstown",
+      "campusIds": ["ulster-jordanstown"],
+      "image": "assets/unis/uni-areas/jordanstown.jpg",
+      "seo": {
+        "title": "Student rentals in Jordanstown & Newtownabbey | HomesNI",
+        "description": "Search student rentals around Jordanstown and Newtownabbey for Ulster University Sports Village.",
+        "h1": "Student rentals in Jordanstown / Newtownabbey"
+      }
+    },
+    {
+      "id": "coleraine",
+      "slug": "coleraine",
+      "name": "Coleraine",
+      "summary": "Town living beside Ulster University’s Coleraine campus on the River Bann.",
+      "searchPath": "/student-rentals?uni-area=coleraine",
+      "path": "/uni-area/coleraine",
+      "campusIds": ["ulster-coleraine"],
+      "image": "assets/unis/uni-areas/coleraine.jpg",
+      "seo": {
+        "title": "Student rentals in Coleraine | HomesNI",
+        "description": "Search student rooms and houses in Coleraine near Ulster University Coleraine campus.",
+        "h1": "Student rentals in Coleraine"
+      }
+    },
+    {
+      "id": "portstewart",
+      "slug": "portstewart",
+      "name": "Portstewart",
+      "summary": "North Coast favourite for Ulster Coleraine students — beach town living a short trip from campus.",
+      "searchPath": "/student-rentals?uni-area=portstewart",
+      "path": "/uni-area/portstewart",
+      "campusIds": ["ulster-coleraine"],
+      "image": "assets/unis/uni-areas/portstewart.jpg",
+      "seo": {
+        "title": "Student rentals in Portstewart | HomesNI",
+        "description": "Search student accommodation in Portstewart for Ulster University Coleraine students.",
+        "h1": "Student rentals in Portstewart"
+      }
+    },
+    {
+      "id": "portrush",
+      "slug": "portrush",
+      "name": "Portrush",
+      "summary": "Seaside student living on the North Coast with easy reach of Ulster Coleraine.",
+      "searchPath": "/student-rentals?uni-area=portrush",
+      "path": "/uni-area/portrush",
+      "campusIds": ["ulster-coleraine"],
+      "image": "assets/unis/uni-areas/portrush.jpg",
+      "seo": {
+        "title": "Student rentals in Portrush | HomesNI",
+        "description": "Search student rentals in Portrush near Ulster University Coleraine and the North Coast.",
+        "h1": "Student rentals in Portrush"
+      }
+    },
+    {
+      "id": "magee-northland",
+      "slug": "magee-northland",
+      "name": "Magee / Northland",
+      "summary": "Derry~Londonderry student pocket around Ulster’s Magee campus on Northland Road.",
+      "searchPath": "/student-rentals?uni-area=magee-northland",
+      "path": "/uni-area/magee-northland",
+      "campusIds": ["ulster-magee"],
+      "image": "assets/unis/uni-areas/magee-northland.jpg",
+      "seo": {
+        "title": "Student rentals near Magee / Northland | HomesNI",
+        "description": "Search student accommodation around Magee and Northland for Ulster University Derry~Londonderry campus.",
+        "h1": "Student rentals near Magee / Northland"
+      }
+    }
+  ]
+}

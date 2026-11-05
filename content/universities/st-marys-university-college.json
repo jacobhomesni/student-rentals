@@ -1,0 +1,46 @@
+{
+  "id": "st-marys",
+  "slug": "st-marys-university-college",
+  "name": "St Mary’s University College",
+  "shortName": "St Mary’s",
+  "type": "university-college",
+  "website": "https://www.stmarys-belfast.ac.uk/",
+  "summary": "University college on the Falls Road in West Belfast — teacher education and liberal arts, with degrees awarded through Queen’s.",
+  "intro": "St Mary’s is based on the Falls Road. Start with the Falls / West Belfast Uni area for student rental search, then use Search places for HomesNI property browse across West Belfast and the city centre.",
+  "heroImage": "assets/unis/st-marys.jpg",
+  "campuses": [
+    {
+      "id": "st-marys",
+      "name": "Belfast campus",
+      "locationLabel": "191 Falls Road, Belfast BT12 6FE",
+      "lat": 54.595,
+      "lng": -5.961,
+      "website": "https://www.stmarys-belfast.ac.uk/",
+      "image": "assets/unis/campuses/st-marys.jpg",
+      "notes": "Single Belfast campus with a strong West Belfast identity.",
+      "uniAreas": ["falls"],
+      "searchPlaces": [
+        { "name": "Falls", "path": "/properties-for-sale-falls" },
+        { "name": "West Belfast", "path": "/properties-for-sale-west-belfast" },
+        { "name": "Andersonstown", "path": "/properties-for-sale-andersonstown" },
+        { "name": "Belfast City Centre", "path": "/properties-for-sale-belfast-city-centre" }
+      ],
+      "areaGuides": []
+    }
+  ],
+  "seo": {
+    "title": "Student rentals near St Mary’s University College | HomesNI",
+    "description": "Find student accommodation near St Mary’s on the Falls Road — Uni area search for Falls / West Belfast plus HomesNI Property Areas.",
+    "h1": "Student rentals near St Mary’s University College",
+    "faqs": [
+      {
+        "question": "Where do St Mary’s students usually live?",
+        "answer": "Many stay in Falls / West Belfast close to campus; others commute from Belfast City Centre or South Belfast."
+      },
+      {
+        "question": "When should I start looking for a student rental near St Mary’s?",
+        "answer": "Many students start looking from late autumn through spring for the next academic year. Popular streets near campus go early, so it helps to search before summer if you want more choice."
+      }
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "stranmillis",
+  "slug": "stranmillis-university-college",
+  "name": "Stranmillis University College",
+  "shortName": "Stranmillis",
+  "type": "university-college",
+  "website": "https://www.stran.ac.uk/",
+  "summary": "University college on Stranmillis Road in South Belfast — teacher education in one of the city’s most popular student residential areas.",
+  "intro": "Stranmillis College sits in the leafy Stranmillis corridor, minutes from Queen’s. Use Uni areas to search student rentals in Stranmillis and Malone, Search places for HomesNI property browse, and Area guides for local context.",
+  "heroImage": "assets/unis/stranmillis.jpg",
+  "campuses": [
+    {
+      "id": "stranmillis",
+      "name": "Belfast campus",
+      "locationLabel": "Stranmillis Road, Belfast BT9 5DY",
+      "lat": 54.571,
+      "lng": -5.937,
+      "website": "https://www.stran.ac.uk/",
+      "image": "assets/unis/campuses/stranmillis.jpg",
+      "notes": "Single campus overlooking the Lagan valley. Strong overlap with Queen’s student rental demand.",
+      "uniAreas": ["stranmillis", "malone"],
+      "searchPlaces": [
+        { "name": "Stranmillis", "path": "/properties-for-sale-stranmillis" },
+        { "name": "Malone", "path": "/properties-for-sale-malone" },
+        { "name": "Lisburn Road Area", "path": "/properties-for-sale-lisburn-road-area" },
+        { "name": "Ormeau", "path": "/properties-for-sale-ormeau" },
+        { "name": "South Belfast", "path": "/properties-for-sale-south-belfast" },
+        { "name": "Finaghy", "path": "/properties-for-sale-finaghy" }
+      ],
+      "areaGuides": [
+        { "name": "Ormeau", "path": "/area/ormeau" }
+      ]
+    }
+  ],
+  "seo": {
+    "title": "Student rentals near Stranmillis University College | HomesNI",
+    "description": "Browse student rooms and houses near Stranmillis University College — Uni area search for Stranmillis and Malone, plus HomesNI search places and guides.",
+    "h1": "Student rentals near Stranmillis University College",
+    "faqs": [
+      {
+        "question": "Is Stranmillis a good area for students?",
+        "answer": "Yes — it’s a core South Belfast student catchment for both Stranmillis College and Queen’s, with cafés, the Lyric and walkable campus links."
+      },
+      {
+        "question": "When should I start looking for a student rental near Stranmillis?",
+        "answer": "Many groups start looking from late autumn through spring for the next academic year. Popular streets near Stranmillis and Queen’s go early, so it helps to search before summer if you want more choice."
+      }
+    ]
+  }
+}

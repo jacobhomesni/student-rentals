@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Student rentals near St Mary’s University College | HomesNI</title>
+  <meta name="description" content="Explore student living near St Mary’s University College. University Areas like Botanic and the Holylands, HomesNI Property Areas, and local area guides." />
+  <link rel="canonical" href="https://homesni.com/university/st-marys-university-college" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="HomesNI" />
+  <meta property="og:title" content="Student rentals near St Mary’s University College | HomesNI" />
+  <meta property="og:description" content="University Areas, Property Areas and area guides for students at St Mary’s University College." />
+  <meta property="og:url" content="https://homesni.com/university/st-marys-university-college" />
+  <meta property="og:image" content="https://homesni.com/assets/unis/st-marys.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Student rentals near St Mary’s University College | HomesNI" />
+  <meta name="twitter:description" content="University Areas, Property Areas and area guides for St Mary’s University College students." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://homesni.com/university/st-marys-university-college#org",
+        "name": "St Mary’s University College",
+        "url": "https://www.stmarys-belfast.ac.uk/",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "191 Falls Road",
+          "addressLocality": "Belfast",
+          "postalCode": "BT12 6FE",
+          "addressCountry": "GB"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 54.595,
+          "longitude": -5.961
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://homesni.com/university/st-marys-university-college",
+        "url": "https://homesni.com/university/st-marys-university-college",
+        "name": "Student rentals near St Mary’s University College | HomesNI",
+        "description": "Explore student living near St Mary’s University College, including University Areas, Property Areas and area guides.",
+        "isPartOf": { "@type": "WebSite", "name": "HomesNI", "url": "https://homesni.com/" },
+        "about": { "@id": "https://homesni.com/university/st-marys-university-college#org" }
+      },
+      {
+        "@type": "ItemList",
+        "name": "University Areas near St Mary’s University College",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Falls / West Belfast", "url": "https://homesni.com/student-rentals?uni-area=falls" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Where do St Mary’s students usually live?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Many stay in Falls / West Belfast close to campus; others commute from Belfast City Centre or South Belfast."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When should I start looking near St Mary’s?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Many students start looking from late autumn through spring for the next academic year. Popular streets near campus go early, so it helps to search before summer if you want more choice."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+:root {
+      --brand: #0064e0;
+      --brand-hover: #0052b8;
+      --brand-dark: #021452;
+      --ink: #021452;
+      --selected: #00FFFF;
+      --muted: #5a6280;
+      --bg: #f5f4f2;
+      --white: #ffffff;
+      --line: #d8d6d1;
+      --radius: 4px;
+      --shadow: 0 2px 12px rgba(2, 20, 82, 0.08);
+      --inner: min(1180px, calc(100% - 32px));
+      --topbar-height: 100px;
+    }
+    @media (max-width: 980px) {
+      :root { --topbar-height: 80px; }
+    }
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+    body {
+      margin: 0;
+      font-family: Lato, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    #campus-map {
+      scroll-margin-top: calc(var(--topbar-height) + 16px);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: var(--brand); }
+    .inner {
+      width: var(--inner);
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    button, input, select { font-family: inherit; font-size: 16px; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+/* Header (match student onboarding) */
+    .site-header {
+      background: var(--brand);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      overflow: visible;
+      height: var(--topbar-height);
+    }
+    .site-header .topbar {
+      position: relative;
+      z-index: 999;
+      height: var(--topbar-height);
+      background: var(--brand);
+    }
+    .site-header .topbar > .inner {
+      width: var(--inner);
+      max-width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: visible;
+    }
+    .top-container {
+      display: flex;
+      height: var(--topbar-height);
+      align-items: center;
+      gap: 30px;
+    }
+    .logo-container {
+      display: flex;
+      flex: 1;
+      justify-content: flex-start;
+      align-items: center;
+      min-width: 0;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .brand-logo img {
+      height: calc(var(--topbar-height) / 2.2);
+      width: auto;
+      max-height: 50px;
+      margin-top: -7.5px;
+      display: block;
+    }
+    .brand-logo .logo-mark {
+      display: none;
+    }
+    .navigation-container {
+      display: flex;
+      justify-content: center;
+      min-width: 0;
+    }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      min-width: 0;
+      overflow: visible;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .site-nav > a,
+    .site-nav-body > a,
+    .nav-dropdown > .nav-trigger {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.5;
+      white-space: nowrap;
+      padding: 0;
+      border: none;
+      border-bottom: none;
+      transition: color 0.3s ease-in-out;
+      background: none;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+    .site-nav > a:hover,
+    .site-nav-body > a:hover,
+    .nav-dropdown > .nav-trigger:hover { color: var(--selected); }
+    .site-nav > a.is-active,
+    .site-nav-body > a.is-active {
+      color: var(--selected);
+    }
+    .site-nav-body > a:focus,
+    .site-nav-body > a:active {
+      color: var(--white);
+      text-decoration: none;
+    }
+    .site-nav-body > a.is-active:focus,
+    .site-nav-body > a.is-active:active {
+      color: var(--selected);
+    }
+    .nav-dropdown {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-dropdown > .nav-trigger {
+      display: inline-flex;
+      align-items: center;
+    }
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      min-width: 200px;
+      width: max-content;
+      background: var(--white);
+      border-radius: 5px;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      padding: 14px 20px;
+      z-index: 200;
+    }
+    .nav-dropdown-menu::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -20px;
+      height: 20px;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown.is-open .nav-dropdown-menu {
+      display: grid;
+    }
+    .nav-dropdown:hover > .nav-trigger,
+    .nav-dropdown:focus-within > .nav-trigger,
+    .nav-dropdown.is-open > .nav-trigger {
+      color: var(--selected);
+    }
+    .nav-dropdown-menu a {
+      display: grid;
+      padding: 8px 0;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 18px;
+      white-space: nowrap;
+      background: transparent;
+    }
+    .nav-dropdown-menu a:hover {
+      color: var(--brand);
+    }
+    .search-btns-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-shrink: 0;
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      padding-left: 30px;
+      margin-left: auto;
+    }
+    .my-homes {
+      display: inline-flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 10px;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.5;
+      white-space: nowrap;
+      padding: 0;
+      transition: color 0.3s ease-in-out;
+    }
+    .my-homes:hover { color: var(--selected); }
+    .my-homes .homesni-small-logo {
+      width: 24px;
+      height: 24px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+/* Mobile header (match student onboarding <=980px) */
+    @media (max-width: 980px) {
+      .site-header {
+        height: auto;
+        min-height: var(--topbar-height);
+      }
+      .site-header .topbar {
+        height: auto;
+        min-height: var(--topbar-height);
+      }
+      .site-header .topbar > .inner {
+        position: relative;
+        height: auto;
+        min-height: var(--topbar-height);
+      }
+      .top-container {
+        gap: 0;
+        position: relative;
+        height: var(--topbar-height);
+      }
+      .logo-container {
+        flex: 0 0 auto;
+        z-index: 1;
+      }
+      .brand-logo .logo-wordmark {
+        display: none;
+      }
+      .brand-logo .logo-mark {
+        display: block;
+        height: calc(var(--topbar-height) / 2.2);
+        width: auto;
+        max-height: 50px;
+        margin-top: -7.5px;
+      }
+      .site-header.is-nav-open {
+        overflow: visible;
+      }
+      .site-header.is-nav-open .topbar,
+      .site-header.is-nav-open .topbar > .inner,
+      .site-header.is-nav-open .top-container {
+        overflow: visible;
+      }
+      .navigation-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: var(--topbar-height);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        box-sizing: border-box;
+        /* Keep trigger vertically centred; shell grows downward when open */
+        padding-top: calc((var(--topbar-height) - 51px) / 2);
+        pointer-events: none;
+        z-index: 20;
+        overflow: visible;
+      }
+      .site-nav-shell {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content;
+        max-width: calc(100vw - 24px);
+        pointer-events: auto;
+        z-index: 10060;
+        overflow: hidden;
+        background: transparent;
+        border-radius: 8px;
+        box-shadow: none;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+      }
+      .site-header.is-nav-open .site-nav-shell {
+        background: var(--brand);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+      }
+      .site-nav-trigger {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin: 0;
+        padding: 12px 14px;
+        pointer-events: auto;
+        color: var(--selected);
+        background: none;
+        border: none;
+        border-bottom: 1px solid transparent;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.5;
+        white-space: nowrap;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+      }
+      .site-header.is-nav-open .site-nav-trigger {
+        border-bottom-color: rgba(255, 255, 255, 0.28);
+      }
+      .site-nav-trigger-caret {
+        width: 5px;
+        height: 5px;
+        margin-left: 2px;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        box-sizing: content-box;
+        transform: rotate(45deg);
+        transform-origin: center;
+        transition: transform 0.28s ease;
+        flex-shrink: 0;
+      }
+      .site-header.is-nav-open .site-nav-trigger-caret {
+        transform: rotate(225deg);
+      }
+      .site-nav {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        display: grid;
+        grid-template-rows: 0fr;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        pointer-events: none;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          grid-template-rows 0.3s ease,
+          opacity 0.2s ease;
+        z-index: 1;
+      }
+      .site-header.is-nav-open .site-nav {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .site-nav-body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        overflow: hidden;
+        padding: 0 0 6px;
+      }
+      .site-nav-body > a,
+      .site-nav-body > .nav-dropdown {
+        display: flex;
+        width: 100%;
+        pointer-events: auto;
+      }
+      .site-nav-body > a.nav-student {
+        display: none;
+      }
+      .site-nav-body > a,
+      .nav-dropdown > .nav-trigger {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 14px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+        box-sizing: border-box;
+      }
+      .site-nav-body > a:last-child {
+        border-bottom: none;
+      }
+      .site-nav-body > a:hover,
+      .site-nav-body > a:focus,
+      .site-nav-body > a:active,
+      .nav-dropdown-menu a:hover,
+      .nav-dropdown-menu a:focus,
+      .nav-dropdown-menu a:active {
+        text-decoration: none;
+      }
+      .site-nav-body > a.is-active,
+      .site-nav-body > a:hover,
+      .nav-dropdown > .nav-trigger:hover,
+      .nav-dropdown.is-open > .nav-trigger {
+        color: var(--selected);
+      }
+      .nav-dropdown {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+      .nav-dropdown-menu {
+        position: static;
+        display: grid;
+        grid-template-rows: 0fr;
+        min-width: 0;
+        width: 100%;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition:
+          grid-template-rows 0.3s ease,
+          opacity 0.2s ease;
+      }
+      .nav-dropdown-menu::before {
+        display: none;
+      }
+      .nav-dropdown-menu-body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu {
+        grid-template-rows: 0fr;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .nav-dropdown.is-open .nav-dropdown-menu,
+      .nav-dropdown.is-open:hover .nav-dropdown-menu,
+      .nav-dropdown.is-open:focus-within .nav-dropdown-menu {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-dropdown-menu a {
+        display: flex;
+        color: var(--white);
+        font-size: 16px;
+        padding: 12px 14px;
+        text-align: center;
+        justify-content: center;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+      }
+      .nav-dropdown-menu a:last-child {
+        border-bottom: none;
+      }
+      .nav-dropdown-menu a:hover {
+        color: var(--selected);
+      }
+      .site-nav-myhomes {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 14px;
+        color: var(--white);
+        text-decoration: none !important;
+        font-size: 18px;
+        font-weight: 500;
+        box-sizing: border-box;
+        border-bottom: none;
+      }
+      .site-nav-myhomes img {
+        display: none;
+      }
+      .search-btns-container {
+        display: none;
+      }
+      .nav-backdrop {
+        display: block;
+        position: fixed;
+        top: var(--topbar-height);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 42, 0.35);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 900;
+      }
+      .site-header.is-nav-open ~ .nav-backdrop,
+      body.is-nav-open .nav-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    @media (min-width: 981px) {
+      .site-nav-shell {
+        display: contents;
+      }
+      .site-nav-body {
+        display: contents;
+      }
+      .nav-dropdown-menu-body {
+        display: contents;
+      }
+      .site-nav-trigger,
+      .site-nav-myhomes,
+      .nav-backdrop {
+        display: none !important;
+      }
+      .site-nav,
+      .site-nav-body {
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+      }
+      .site-nav > a,
+      .site-nav-body > a,
+      .nav-dropdown > .nav-trigger {
+        width: auto;
+        justify-content: center;
+        text-align: left;
+        padding: 0;
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: none;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .site-nav > a.is-active,
+      .site-nav-body > a.is-active {
+        color: var(--selected);
+      }
+      .nav-dropdown {
+        flex-direction: row;
+        width: auto;
+      }
+      .nav-dropdown-menu {
+        position: absolute;
+        display: none;
+        grid-template-rows: none;
+        opacity: 1;
+        pointer-events: auto;
+        overflow: visible;
+        background: var(--white);
+        border-radius: 5px;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        padding: 14px 20px;
+        min-width: 200px;
+        width: max-content;
+      }
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu,
+      .nav-dropdown.is-open .nav-dropdown-menu {
+        display: grid;
+        grid-template-rows: none;
+        opacity: 1;
+      }
+      .nav-dropdown-menu a {
+        display: grid;
+        padding: 8px 0;
+        color: var(--ink);
+        text-align: left;
+        justify-content: start;
+        border-bottom: none;
+        font-size: 18px;
+      }
+      .nav-dropdown-menu a:hover {
+        color: var(--brand);
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 280px;
+      display: flex;
+      align-items: flex-end;
+      color: var(--white);
+      background:
+        linear-gradient(180deg, rgba(2, 20, 82, 0.15), rgba(2, 20, 82, 0.88)),
+        #021452 url("../../assets/unis/st-marys.jpg") center / cover no-repeat;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 28px 0 24px;
+    }
+    .hero-topline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .hero-topline .campus-back {
+      flex: 0 0 auto;
+      padding: 6px 11px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.2;
+      background: var(--brand);
+      color: var(--white);
+      border-color: transparent;
+    }
+    .hero-topline .campus-back:hover {
+      background: #0050b3;
+      color: var(--white);
+    }
+    .eyebrow {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.35rem);
+      font-weight: 900;
+      line-height: 1.15;
+      max-width: none;
+      white-space: nowrap;
+    }
+    .hero .lede {
+      margin: 12px 0 0;
+      font-size: 1.05rem;
+      opacity: 0.95;
+      max-width: 42rem;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--white);
+      color: var(--ink);
+    }
+    .btn-primary:hover { background: #f0efec; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+    .btn-ghost:hover { border-color: var(--white); }
+
+    .meta-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .meta-bar strong { color: var(--ink); }
+    .meta-bar a {
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .meta-bar a:hover { text-decoration: underline; }
+
+    .content-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      grid-template-rows: minmax(0, auto) minmax(220px, 1fr);
+      gap: 22px 28px;
+      align-items: stretch;
+      padding: 20px 0 8px;
+    }
+    .content-split .col {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 0;
+    }
+    .content-split .col-main {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .content-split .col-side {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .content-split .col-main #university-areas {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+      height: 100%;
+    }
+    .content-split .col-side #property-areas {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    .content-split #campus-map {
+      grid-column: 1;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      height: 100%;
+    }
+    .content-split #faqs {
+      grid-column: 2;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      height: 100%;
+    }
+    /* Scale page body when fewer uni areas so cards fill, not float in empty space */
+    .content-split[data-uni-count="1"],
+    .content-split[data-uni-count="2"],
+    .content-split[data-uni-count="3"] {
+      min-height: min(720px, 75vh);
+      grid-template-rows: minmax(220px, 1.15fr) minmax(200px, 0.85fr);
+    }
+    /* Few uni areas + no guides: balanced square */
+    /* No guides: FAQs stack under Property Areas in the side column (no empty band) */
+    .content-split[data-has-guides="0"] {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      grid-template-rows: minmax(280px, 1fr) minmax(220px, auto);
+      min-height: min(680px, 72vh);
+    }
+    .content-split[data-has-guides="0"] .col-side {
+      gap: 18px;
+    }
+    .content-split[data-has-guides="0"] .col-side #property-areas {
+      flex: 0 0 auto;
+    }
+    .content-split[data-has-guides="0"] .col-side #faqs {
+      grid-column: unset;
+      grid-row: unset;
+      flex: 1 1 auto;
+      height: auto;
+      min-height: 0;
+      margin-top: 0;
+    }
+    .content-split[data-has-guides="0"] #campus-map {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    section.block { padding: 0; }
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 900;
+    }
+    .section-head .hint {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    /* Uni-area grid scales with count — cards fill leftover height */
+    .campus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      flex: 1 1 auto;
+      min-height: 0;
+      align-content: stretch;
+      grid-auto-rows: 1fr;
+    }
+    .campus-grid[data-count="1"] { grid-template-columns: minmax(0, 1fr); }
+    .campus-grid[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .campus-grid[data-count="3"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: 1fr auto;
+    }
+    .campus-grid[data-count="3"] .campus-card-wrap:nth-child(3) {
+      grid-column: 1 / -1;
+      height: 120px;
+    }
+    .campus-grid[data-count="3"] .campus-card-wrap:nth-child(3) .campus-card {
+      height: 120px;
+      min-height: 120px;
+      aspect-ratio: auto;
+    }
+    .campus-grid[data-count="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .campus-card-wrap {
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+    }
+    .campus-card {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 180px;
+      aspect-ratio: auto;
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .campus-card:hover { transform: translateY(-2px); }
+    .campus-card:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+    .campus-card .img {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .campus-card .img img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 108%;
+      height: 108%;
+      max-width: none;
+      object-fit: cover;
+      opacity: 0.88;
+      transform: translate3d(-50%, -50%, 0);
+      transform-origin: center center;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.35s ease;
+    }
+    .campus-card:hover .img img {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1.04);
+    }
+    .campus-card .info {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 28px 12px 12px;
+      background: linear-gradient(transparent, rgba(2, 20, 82, 0.88));
+      color: var(--white);
+    }
+    .campus-card .title {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 900;
+      display: block;
+      line-height: 1.25;
+    }
+    .campus-card .title > span { display: block; }
+    .campus-card .uni {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      opacity: 0.85;
+      line-height: 1.25;
+      min-height: calc(1.25em * 2);
+    }
+    .campus-card .uni-label {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .campus-map {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      flex: 1 1 auto;
+      min-height: 240px;
+      position: relative;
+    }
+    .campus-map iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 240px;
+      border: 0;
+      position: absolute;
+      inset: 0;
+    }
+
+    .campus-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .campus-switcher .chip {
+      appearance: none;
+      border: 1px solid var(--neutral, #CCC9C3);
+      background: var(--white);
+      color: var(--ink);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    .campus-switcher .chip:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .campus-switcher .chip.is-active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: var(--white);
+    }
+    .campus-switcher .chip:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    .chip-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      flex: 1 1 auto;
+      align-content: start;
+    }
+    .chip-list[data-count="2"],
+    .chip-list[data-count="3"],
+    .chip-list[data-count="4"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .chip-list[data-count="1"] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .chip-link {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      min-height: 44px;
+      box-sizing: border-box;
+      padding: 8px 6px;
+      background: var(--white);
+      border: 1px solid var(--neutral, #CCC9C3);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.78rem;
+      line-height: 1.2;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    .chip-link:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .chip-link:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .guide-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 120px;
+      background: #021452;
+      text-decoration: none;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .guide-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .guide-card .info {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 16px;
+      background: linear-gradient(transparent, rgba(2, 20, 82, 0.92));
+    }
+    .guide-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .guide-card span {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .faq {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 8px 18px 18px;
+      flex: 1 1 auto;
+      min-height: 0;
+      box-sizing: border-box;
+    }
+    .faq details {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+    }
+    .faq details:last-child { border-bottom: 0; }
+    .faq summary {
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+    .faq p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .site-footer {
+      margin-top: 32px;
+      padding: 24px 0;
+      background: var(--ink);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+    .site-footer a { color: #fff; }
+
+    @media (max-width: 980px) {
+      .content-split,
+      .content-split[data-uni-count="1"],
+      .content-split[data-uni-count="2"],
+      .content-split[data-uni-count="3"],
+      .content-split[data-uni-count="4"],
+      .content-split[data-uni-count="5"],
+      .content-split[data-uni-count="6"],
+      .content-split[data-has-guides="0"] {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        min-height: 0;
+        gap: 22px;
+        padding-top: 16px;
+        align-items: start;
+      }
+      .content-split .col {
+        gap: 22px;
+        min-height: 0;
+      }
+      .content-split .col-main,
+      .content-split .col-side,
+      .content-split #campus-map,
+      .content-split #faqs,
+      .content-split[data-has-guides="0"] #campus-map,
+      .content-split[data-has-guides="0"] .col-side #faqs {
+        grid-column: 1;
+        grid-row: auto;
+        height: auto;
+        min-height: 0;
+        flex: none;
+      }
+      .content-split .col-main #university-areas,
+      .content-split .col-side #property-areas,
+      .content-split[data-has-guides="0"] .col-side #property-areas {
+        height: auto;
+        flex: none;
+        min-height: 0;
+      }
+      .campus-grid {
+        flex: none;
+        grid-auto-rows: auto;
+        min-height: 0;
+      }
+      .campus-card-wrap {
+        height: auto;
+      }
+      .campus-card {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 16 / 11;
+      }
+      .content-split .col-side #area-guides:not([hidden]),
+      .content-split .col-side #property-areas {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .content-split .col-side .section-head {
+        margin-bottom: 0;
+        gap: 6px;
+      }
+      .content-split .col-side .guide-card {
+        min-height: 140px;
+      }
+      .chip-list {
+        gap: 10px;
+      }
+      .chip-link {
+        padding: 12px 10px;
+      }
+      .campus-map {
+        flex: none;
+        height: 220px;
+        min-height: 220px;
+      }
+      .campus-map iframe {
+        height: 220px;
+        min-height: 220px;
+      }
+      .faq { flex: none; }
+      .faq summary { white-space: normal; }
+      .campus-card .title { font-size: 0.92rem; }
+      .campus-card .uni { font-size: 0.7rem; }
+      .campus-card .info { padding: 20px 10px 10px; }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: 260px; }
+      .hero-inner { padding: 24px 0 20px; }
+      .hero h1 { white-space: normal; }
+      .campus-grid[data-count="3"],
+      .campus-grid[data-count="4"],
+      .campus-grid:not([data-count]) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .campus-grid { gap: 10px; }
+      .campus-card { aspect-ratio: 4 / 3; }
+      .chip-link { font-size: 0.85rem; padding: 10px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="topbar">
+      <div class="inner">
+        <div class="top-container">
+          <div class="logo-container">
+            <a class="brand-logo" href="https://homesni.com/" aria-label="HomesNI home">
+              <img class="logo-wordmark" src="https://homesni.com/images/logo-landscape-white.svg?ver=1.1" alt="HomesNI" title="HomesNI" width="120" height="60" />
+              <img class="logo-mark" src="../../assets/homesni-small-logo.jpg" alt="HomesNI" width="36" height="36" />
+            </a>
+          </div>
+          <div class="navigation-container">
+            <div class="site-nav-shell" id="site-nav-shell">
+              <button
+                type="button"
+                class="site-nav-trigger"
+                id="site-nav-trigger"
+                aria-expanded="false"
+                aria-controls="site-nav"
+                aria-label="Open site navigation"
+              >
+                <span>Student Rentals</span>
+                <span class="site-nav-trigger-caret" aria-hidden="true"></span>
+              </button>
+              <nav class="site-nav navigation" id="site-nav" aria-label="Primary">
+                <div class="site-nav-body">
+                  <a href="https://homesni.com/property-for-sale" target="_blank" rel="noopener">For Sale</a>
+                  <a href="https://homesni.com/property-for-rent" target="_blank" rel="noopener">For Rent</a>
+                  <div class="nav-dropdown" id="nav-commercial">
+                    <button type="button" class="nav-trigger" id="nav-commercial-btn" aria-expanded="false" aria-haspopup="true">Commercial</button>
+                    <div class="nav-dropdown-menu" role="menu">
+                      <div class="nav-dropdown-menu-body">
+                        <a href="https://homesni.com/commercial-sales" target="_blank" rel="noopener" role="menuitem">Sales</a>
+                        <a href="https://homesni.com/commercial-rentals" target="_blank" rel="noopener" role="menuitem">Rent</a>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="/student-rentals" class="nav-student is-active" aria-current="page">Student Rentals</a>
+                  <a href="https://homesni.com/area-guides/" target="_blank" rel="noopener">Area Guides</a>
+                  <a class="site-nav-myhomes" href="https://homesni.com/members" target="_blank" rel="noopener">
+                    <img class="homesni-small-logo" src="../../assets/homesni-small-logo.jpg" alt="" width="24" height="24" />
+                    <span>My Homes</span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </div>
+          <div class="search-btns-container">
+            <a class="my-homes" href="https://homesni.com/members" target="_blank" rel="noopener">
+              <img class="homesni-small-logo" src="../../assets/homesni-small-logo.jpg" alt="" width="24" height="24" />
+              <span>My Homes</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
+  <header class="hero" role="banner">
+    <div class="inner hero-inner">
+      <div class="hero-topline">
+        <a class="btn btn-primary campus-back" href="../../HomesNI-Student-Rentals-Onboarding.html">← Back</a>
+        <p class="eyebrow">University campus</p>
+      </div>
+      <h1>Student rentals near St Mary’s University College</h1>
+      <p class="lede">St Mary’s is based on the Falls Road in West Belfast. This page covers the student places near campus, plus nearby HomesNI property areas.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="../../HomesNI-Student-Rentals-Onboarding.html?campus=st-marys">Search student rentals near St Mary’s</a>
+        <a class="btn btn-ghost" href="https://www.stmarys-belfast.ac.uk/" rel="noopener noreferrer" target="_blank">Official St Mary’s website</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="meta-bar">
+    <div class="inner">
+      <strong>Belfast campus</strong> · 191 Falls Road, Belfast BT12 6FE
+        · <a href="#campus-map">Map</a>
+      </div>
+  </div>
+
+  <main>
+    <div class="inner content-split" data-uni-count="1" data-has-guides="0">
+      <div class="col col-main">
+        <section class="block" id="university-areas" aria-labelledby="university-areas-heading">
+          <div class="section-head">
+            <h2 id="university-areas-heading">University Areas</h2>
+            <span class="hint">This is the well known student place near St Mary’s for student rentals.</span>
+          </div>
+          <div class="campus-grid" data-count="1" role="list">
+            <div class="campus-card-wrap">
+              <a class="campus-card" href="/student-rentals?uni-area=falls" role="listitem">
+                <div class="img"><img loading="lazy" src="../../assets/unis/uni-areas/falls.jpg" alt="" onerror="this.remove()" /></div>
+                <div class="info">
+                  <h3 class="title">
+                    <span>Falls / West Belfast</span>
+                    <span class="uni"><span class="uni-label">West Belfast living around St Mary’s on the Falls Road.</span></span>
+                  </h3>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="col col-side">
+        <section class="block" id="property-areas" aria-labelledby="property-areas-heading">
+          <div class="section-head">
+            <h2 id="property-areas-heading">Property Areas</h2>
+            <span class="hint">Browse HomesNI property search around St Mary’s.</span>
+          </div>
+          <div class="chip-list">
+            <a class="chip-link" href="/properties-for-sale-falls">Falls</a>
+            <a class="chip-link" href="/properties-for-sale-west-belfast">West Belfast</a>
+            <a class="chip-link" href="/properties-for-sale-andersonstown">Andersonstown</a>
+            <a class="chip-link" href="/properties-for-sale-belfast-city-centre">Belfast City Centre</a>
+          </div>
+        </section>
+
+        <section class="block" id="faqs" aria-labelledby="faqs-heading">
+          <div class="section-head">
+            <h2 id="faqs-heading">FAQs</h2>
+          </div>
+          <div class="faq">
+            <details open>
+              <summary>Where do St Mary’s students usually live?</summary>
+              <p>Many stay in Falls / West Belfast close to campus; others commute from Belfast City Centre or South Belfast.</p>
+            </details>
+            <details open>
+              <summary>When should I start looking near St Mary’s?</summary>
+              <p>Many students start looking from late autumn through spring for the next academic year. Popular streets near campus go early, so it helps to search before summer if you want more choice.</p>
+            </details>
+          </div>
+        </section>
+      </aside>
+
+      <section class="block" id="campus-map" aria-labelledby="campus-map-heading">
+        <div class="section-head">
+          <h2 id="campus-map-heading">Campus Map</h2>
+        </div>
+        <div class="campus-map">
+          <iframe
+            title="Google Map of St Mary’s University College"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            src="https://maps.google.com/maps?q=54.595,-5.961&amp;z=16&amp;output=embed"
+          ></iframe>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      Campus page prototype · St Mary’s University College ·
+      <a href="https://homesni.com/">HomesNI</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const header = document.getElementById("site-header");
+      const trigger = document.getElementById("site-nav-trigger");
+      const backdrop = document.getElementById("nav-backdrop");
+      const wrap = document.getElementById("nav-commercial");
+      const btn = document.getElementById("nav-commercial-btn");
+
+      function isMobileNav() {
+        return window.matchMedia("(max-width: 980px)").matches;
+      }
+
+      function setNavOpen(open) {
+        if (!header || !trigger) return;
+        header.classList.toggle("is-nav-open", open);
+        document.body.classList.toggle("is-nav-open", open);
+        trigger.setAttribute("aria-expanded", open ? "true" : "false");
+        trigger.setAttribute("aria-label", open ? "Close site navigation" : "Open site navigation");
+        if (backdrop) backdrop.hidden = !open;
+      }
+
+      function setCommercialOpen(open) {
+        if (!wrap || !btn) return;
+        wrap.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      }
+
+      if (trigger) {
+        trigger.addEventListener("click", () => {
+          if (!isMobileNav()) return;
+          setNavOpen(!header.classList.contains("is-nav-open"));
+        });
+      }
+      if (backdrop) backdrop.addEventListener("click", () => setNavOpen(false));
+      if (btn && wrap) {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          setCommercialOpen(!wrap.classList.contains("is-open"));
+        });
+      }
+      document.addEventListener("click", (e) => {
+        if (!header.contains(e.target)) {
+          setNavOpen(false);
+          setCommercialOpen(false);
+        } else if (wrap && !wrap.contains(e.target) && !isMobileNav()) {
+          setCommercialOpen(false);
+        }
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setNavOpen(false);
+      });
+      window.addEventListener("resize", () => {
+        if (!isMobileNav()) setNavOpen(false);
+      });
+
+      function scrollToCampusMap(e) {
+        const map = document.getElementById("campus-map");
+        if (!map) return;
+        if (e) e.preventDefault();
+        setNavOpen(false);
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const headerH = header ? header.getBoundingClientRect().height : 0;
+        const top = map.getBoundingClientRect().top + window.pageYOffset - headerH - 16;
+        window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? "auto" : "smooth" });
+        if (history.replaceState) {
+          history.replaceState(null, "", "#campus-map");
+        }
+      }
+
+      document.querySelectorAll('a[href="#campus-map"]').forEach((link) => {
+        link.addEventListener("click", scrollToCampusMap);
+      });
+    })();
+  </script>
+</body>
+</html>

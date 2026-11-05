@@ -1,0 +1,106 @@
+{
+  "id": "ulster",
+  "slug": "ulster-university",
+  "name": "Ulster University",
+  "shortName": "Ulster",
+  "type": "university",
+  "website": "https://www.ulster.ac.uk/",
+  "summary": "Multi-campus university across Belfast, Coleraine and Derry~Londonderry, plus Jordanstown Sports Village — each with its own Uni areas and HomesNI search places.",
+  "intro": "Pick your Ulster campus first, then use Uni areas for student rental search, Search places for HomesNI property browse, and Area guides where available. Belfast suits city living; Coleraine pairs with the North Coast; Magee anchors Derry~Londonderry; Jordanstown sits in the Newtownabbey corridor.",
+  "heroImage": "assets/unis/ulster.jpg",
+  "campuses": [
+    {
+      "id": "ulster-belfast",
+      "name": "Belfast campus",
+      "locationLabel": "York Street / Cathedral Quarter, Belfast",
+      "lat": 54.60361,
+      "lng": -5.92861,
+      "website": "https://www.ulster.ac.uk/campuses/belfast",
+      "image": "assets/unis/campuses/ulster-belfast.jpg",
+      "notes": "City campus in and around the Cathedral Quarter.",
+      "uniAreas": ["cathedral-quarter", "belfast-city-centre"],
+      "searchPlaces": [
+        { "name": "Belfast City Centre", "path": "/properties-for-sale-belfast-city-centre" },
+        { "name": "North Belfast", "path": "/properties-for-sale-north-belfast" },
+        { "name": "Antrim Road", "path": "/properties-for-sale-antrim-road" },
+        { "name": "Belfast", "path": "/properties-for-sale-belfast" }
+      ],
+      "areaGuides": [
+        { "name": "North Belfast", "path": "/area/north-belfast" }
+      ]
+    },
+    {
+      "id": "ulster-coleraine",
+      "name": "Coleraine campus",
+      "locationLabel": "Cromore Road, Coleraine BT52 1SA",
+      "lat": 55.14778,
+      "lng": -6.67222,
+      "website": "https://www.ulster.ac.uk/campuses/coleraine",
+      "image": "assets/unis/campuses/ulster-coleraine.jpg",
+      "notes": "Riverside campus with strong North Coast student living in Portstewart and Portrush.",
+      "uniAreas": ["coleraine", "portstewart", "portrush"],
+      "searchPlaces": [
+        { "name": "Coleraine Area", "path": "/properties-for-sale-coleraine-area" },
+        { "name": "Portstewart", "path": "/properties-for-sale-portstewart" },
+        { "name": "Portrush", "path": "/properties-for-sale-portrush" },
+        { "name": "North Coast Area", "path": "/properties-for-sale-north-coast-area" }
+      ],
+      "areaGuides": [
+        { "name": "Coleraine", "path": "/area/coleraine" },
+        { "name": "Portstewart", "path": "/area/portstewart" }
+      ]
+    },
+    {
+      "id": "ulster-magee",
+      "name": "Derry~Londonderry campus (Magee)",
+      "locationLabel": "Northland Road, Derry~Londonderry BT48 7JL",
+      "lat": 55.00639,
+      "lng": -7.32417,
+      "website": "https://www.ulster.ac.uk/campuses/derry-londonderry",
+      "image": "assets/unis/campuses/ulster-magee.jpg",
+      "notes": "Magee campus on the city’s north side; student demand concentrates around Northland and the wider city.",
+      "uniAreas": ["magee-northland"],
+      "searchPlaces": [
+        { "name": "Derry / Londonderry", "path": "/properties-for-sale-derry-londonderry" },
+        { "name": "County Londonderry", "path": "/properties-for-sale-county-londonderry" }
+      ],
+      "areaGuides": []
+    },
+    {
+      "id": "ulster-jordanstown",
+      "name": "Jordanstown Sports Village",
+      "locationLabel": "Shore Road, Newtownabbey BT37 0QB",
+      "lat": 54.68611,
+      "lng": -5.88194,
+      "website": "https://www.ulster.ac.uk/campuses",
+      "image": "assets/unis/campuses/ulster-jordanstown.jpg",
+      "notes": "Ulster Sports Village at Jordanstown — its own Shore Road / Newtownabbey facility for sport and related student living.",
+      "uniAreas": ["jordanstown"],
+      "searchPlaces": [
+        { "name": "Newtownabbey Area", "path": "/properties-for-sale-newtownabbey-area" },
+        { "name": "Greenisland", "path": "/properties-for-sale-greenisland" },
+        { "name": "Carrickfergus", "path": "/properties-for-sale-carrickfergus" },
+        { "name": "East Antrim Area", "path": "/properties-for-sale-east-antrim-area" }
+      ],
+      "areaGuides": [
+        { "name": "Newtownabbey Area", "path": "/area/newtownabbey-area" },
+        { "name": "Carrickfergus", "path": "/area/carrickfergus" }
+      ]
+    }
+  ],
+  "seo": {
+    "title": "Student rentals near Ulster University campuses | HomesNI",
+    "description": "Browse student rentals near Ulster University in Belfast, Coleraine, Derry~Londonderry and Jordanstown — Uni areas, HomesNI search places and area guides.",
+    "h1": "Student rentals near Ulster University",
+    "faqs": [
+      {
+        "question": "Which Ulster campus should I choose housing for?",
+        "answer": "Match housing to the campus you attend: Belfast (city / Cathedral Quarter), Coleraine (town and North Coast), Magee (Derry~Londonderry), or Jordanstown Sports Village (Newtownabbey)."
+      },
+      {
+        "question": "When should I start looking for a student rental near campus?",
+        "answer": "Many groups start looking from late autumn through spring for the next academic year. Popular areas near each Ulster campus go early, so it helps to search before summer if you want more choice."
+      }
+    ]
+  }
+}

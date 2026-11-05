@@ -1,0 +1,49 @@
+{
+  "id": "open-university-ni",
+  "slug": "open-university-ni",
+  "name": "The Open University",
+  "shortName": "The Open University",
+  "type": "university",
+  "website": "https://university.open.ac.uk/northern-ireland/",
+  "summary": "Distance-learning university with a Belfast regional office on Victoria Street — students live across NI, with a city-centre base for support.",
+  "intro": "The Open University is mostly supported distance learning. The Belfast office is the local hub. Use the Belfast City Centre Uni area if you want student rental search near that base, then Search places and Area guides for wider HomesNI browsing.",
+  "heroImage": "assets/unis/open-university-ni.jpg",
+  "campuses": [
+    {
+      "id": "open-university-belfast",
+      "name": "Belfast regional office",
+      "locationLabel": "110 Victoria Street, Belfast BT1 3GN",
+      "lat": 54.5964,
+      "lng": -5.9235,
+      "website": "https://university.open.ac.uk/northern-ireland/",
+      "image": "assets/unis/campuses/open-university-belfast.jpg",
+      "notes": "Regional office and student support base — not a conventional teaching campus.",
+      "uniAreas": ["belfast-city-centre"],
+      "searchPlaces": [
+        { "name": "Belfast City Centre", "path": "/properties-for-sale-belfast-city-centre" },
+        { "name": "Belfast", "path": "/properties-for-sale-belfast" },
+        { "name": "South Belfast", "path": "/properties-for-sale-south-belfast" },
+        { "name": "North Belfast", "path": "/properties-for-sale-north-belfast" }
+      ],
+      "areaGuides": [
+        { "name": "North Belfast", "path": "/area/north-belfast" },
+        { "name": "Ormeau", "path": "/area/ormeau" }
+      ]
+    }
+  ],
+  "seo": {
+    "title": "Student rentals near The Open University | HomesNI",
+    "description": "Explore HomesNI for The Open University students — Belfast City Centre Uni area search plus Property Areas and nearby area guides.",
+    "h1": "Student rentals near The Open University",
+    "faqs": [
+      {
+        "question": "Do Open University students need to live near a campus?",
+        "answer": "Most study remotely. The Belfast office on Victoria Street is a support base — city-centre housing is optional, not required for study."
+      },
+      {
+        "question": "When should I start looking if I want a home near the Belfast office?",
+        "answer": "If you want somewhere near Victoria Street, treat it like any Belfast rental search — popular streets go early, so looking from late autumn through spring for the next year gives more choice."
+      }
+    ]
+  }
+}
