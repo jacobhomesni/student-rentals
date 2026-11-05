@@ -868,6 +868,24 @@
         margin-bottom: 4px;
         gap: 2px;
       }
+      /* Don't stretch area cards to the side column height — that left a huge empty image box under the description */
+      .content-split .col-main #university-areas {
+        height: auto;
+        flex: 0 1 auto;
+      }
+      .content-split .col-main #university-areas .campus-grid {
+        flex: none;
+        align-content: start;
+        grid-auto-rows: auto;
+      }
+      .content-split .col-main #university-areas .campus-card-wrap {
+        height: auto;
+      }
+      .content-split .col-main #university-areas .campus-card {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 16 / 11;
+      }
     }
     .section-head h2 {
       margin: 0;
