@@ -794,55 +794,48 @@
     }
 
     .content-split {
+      --bento-gap: 16px;
       display: grid;
-      /* Match University Areas column width to Area Guides / Property Areas column */
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      grid-template-rows: auto;
-      gap: 22px 28px;
-      align-items: start;
+      gap: var(--bento-gap);
+      align-items: stretch;
       padding: 20px 0 8px;
     }
     .content-split .col {
       min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
       min-height: 0;
+      display: grid;
+      gap: var(--bento-gap);
+      align-content: stretch;
     }
     .content-split .col-main {
       grid-column: 1;
       grid-row: 1;
+      grid-template-rows: auto minmax(200px, 1fr);
     }
     .content-split .col-side {
       grid-column: 2;
       grid-row: 1;
+      grid-template-rows: auto auto minmax(0, 1fr);
     }
-    .content-split .col-main #university-areas {
-      display: flex;
-      flex-direction: column;
-      flex: 1 1 auto;
-      min-height: 0;
-      height: 100%;
+    .content-split[data-has-guides="0"] .col-side {
+      grid-template-rows: auto minmax(0, 1fr);
     }
-    .content-split .col-side #property-areas {
-      display: flex;
-      flex-direction: column;
-      flex: 1 1 auto;
-      min-height: 0;
-    }
+    .content-split .col-main #university-areas,
+    .content-split .col-side #property-areas,
+    .content-split .col-side #area-guides,
+    .content-split .col-main #campus-map,
+    .content-split .col-side #faqs,
     .content-split #campus-map,
     .content-split #faqs {
       display: flex;
       flex-direction: column;
+      gap: 10px;
       min-height: 0;
+      margin: 0;
     }
-    .content-split[data-uni-count="1"],
-    .content-split[data-uni-count="2"],
-    .content-split[data-uni-count="3"],
-    .content-split[data-has-guides="0"] {
+    .content-split .col-main #campus-map {
       min-height: 0;
-      grid-template-rows: auto;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
     section.block { padding: 0; }
     .section-head {
@@ -850,153 +843,7 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 4px;
-      margin-bottom: 10px;
-    }
-    @media (min-width: 981px) {
-      .content-split {
-        grid-template-rows: auto auto;
-      }
-      .content-split .col-main {
-        grid-column: 1;
-        grid-row: 1;
-        min-height: 0;
-      }
-      .content-split .col-side {
-        grid-column: 2;
-        grid-row: 1;
-        min-height: 0;
-      }
-      /* Default: map full-width under both columns */
-      .content-split #campus-map {
-        grid-column: 1 / -1;
-        grid-row: 2;
-      }
-      /* Map sits in the left-column gap under University Areas (Queen’s / UU campuses) */
-      .content-split[data-map-slot="left-gap"],
-      .content-split[data-uni-count="4"],
-      .content-split[data-uni-count="5"],
-      .content-split[data-uni-count="6"] {
-        align-items: stretch;
-        grid-template-rows: auto minmax(240px, 1fr);
-      }
-      .content-split[data-map-slot="left-gap"] .col-main,
-      .content-split[data-uni-count="4"] .col-main,
-      .content-split[data-uni-count="5"] .col-main,
-      .content-split[data-uni-count="6"] .col-main {
-        grid-row: 1;
-      }
-      .content-split[data-map-slot="left-gap"] .col-side,
-      .content-split[data-uni-count="4"] .col-side,
-      .content-split[data-uni-count="5"] .col-side,
-      .content-split[data-uni-count="6"] .col-side {
-        grid-row: 1 / 3;
-      }
-      .content-split[data-map-slot="left-gap"] #campus-map,
-      .content-split[data-uni-count="4"] #campus-map,
-      .content-split[data-uni-count="5"] #campus-map,
-      .content-split[data-uni-count="6"] #campus-map {
-        grid-column: 1;
-        grid-row: 2;
-        display: flex;
-        flex-direction: column;
-        min-height: 240px;
-        height: 100%;
-      }
-      .content-split[data-map-slot="left-gap"] #campus-map .campus-map,
-      .content-split[data-uni-count="4"] #campus-map .campus-map,
-      .content-split[data-uni-count="5"] #campus-map .campus-map,
-      .content-split[data-uni-count="6"] #campus-map .campus-map,
-      .content-split[data-map-slot="left-gap"] #campus-map .campus-map iframe,
-      .content-split[data-uni-count="4"] #campus-map .campus-map iframe,
-      .content-split[data-uni-count="5"] #campus-map .campus-map iframe,
-      .content-split[data-uni-count="6"] #campus-map .campus-map iframe {
-        flex: 1 1 auto;
-        height: 100%;
-        min-height: 240px;
-      }
-      /* Compact uni cards when map fills the gap underneath */
-      .content-split[data-map-slot="left-gap"] .col-main #university-areas {
-        flex: 0 1 auto;
-        height: auto;
-      }
-      .content-split[data-map-slot="left-gap"] .col-main #university-areas .campus-grid {
-        flex: none;
-        align-content: start;
-        grid-auto-rows: auto;
-        margin-top: 0 !important;
-        height: auto !important;
-      }
-      .content-split[data-map-slot="left-gap"] .col-main #university-areas .campus-card-wrap {
-        height: auto;
-      }
-      .content-split[data-map-slot="left-gap"] .col-main #university-areas .campus-card {
-        height: auto;
-        min-height: 0;
-        aspect-ratio: 2 / 1;
-      }
-      .content-split .col-main #university-areas .section-head {
-        margin-bottom: 4px;
-        gap: 2px;
-      }
-      /* Template: uni-area cards align to Property Areas chips (top/bottom), not full side column */
-      .content-split[data-uni-count="1"],
-      .content-split[data-uni-count="2"],
-      .content-split[data-uni-count="3"] {
-        align-items: start;
-      }
-      .content-split[data-uni-count="1"] .col-main #university-areas,
-      .content-split[data-uni-count="2"] .col-main #university-areas,
-      .content-split[data-uni-count="3"] .col-main #university-areas {
-        flex: 0 1 auto;
-        height: auto;
-      }
-      .content-split .campus-grid.is-chip-aligned {
-        flex: none;
-        align-content: stretch;
-        grid-auto-rows: 1fr;
-        min-height: 0;
-      }
-      .content-split .campus-grid.is-chip-aligned .campus-card-wrap {
-        height: 100%;
-        min-height: 0;
-      }
-      .content-split .campus-grid.is-chip-aligned .campus-card {
-        height: 100%;
-        min-height: 0;
-        aspect-ratio: auto;
-      }
-      /* Many uni areas (e.g. Queen’s): keep compact cards */
-      .content-split[data-uni-count="4"] .col-main #university-areas,
-      .content-split[data-uni-count="5"] .col-main #university-areas,
-      .content-split[data-uni-count="6"] .col-main #university-areas {
-        height: auto;
-        flex: 0 1 auto;
-      }
-      .content-split[data-uni-count="4"] .col-main #university-areas .campus-grid,
-      .content-split[data-uni-count="5"] .col-main #university-areas .campus-grid,
-      .content-split[data-uni-count="6"] .col-main #university-areas .campus-grid {
-        flex: none;
-        align-content: start;
-        grid-auto-rows: auto;
-      }
-      .content-split[data-uni-count="4"] .col-main #university-areas .campus-card-wrap,
-      .content-split[data-uni-count="5"] .col-main #university-areas .campus-card-wrap,
-      .content-split[data-uni-count="6"] .col-main #university-areas .campus-card-wrap {
-        height: auto;
-      }
-      .content-split[data-uni-count="4"] .col-main #university-areas .campus-card,
-      .content-split[data-uni-count="5"] .col-main #university-areas .campus-card,
-      .content-split[data-uni-count="6"] .col-main #university-areas .campus-card {
-        height: auto;
-        min-height: 0;
-        aspect-ratio: 2 / 1;
-      }
-      .content-split .col-main #university-areas .campus-card .info {
-        padding: 18px 12px 8px;
-      }
-      .content-split .col-main #university-areas .campus-card .uni {
-        min-height: 0;
-      }
+      margin-bottom: 0;
     }
     .section-head h2 {
       margin: 0;
@@ -1009,45 +856,35 @@
       line-height: 1.35;
     }
 
-    /* Uni-area grid scales with count — cards fill leftover height */
+    /* Bento uni-area cards — equal cells, shared gap */
     .campus-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      flex: 1 1 auto;
+      gap: var(--bento-gap, 16px);
+      flex: none;
       min-height: 0;
-      align-content: stretch;
-      grid-auto-rows: 1fr;
+      align-content: start;
+      grid-auto-rows: auto;
     }
     .campus-grid[data-count="1"] { grid-template-columns: minmax(0, 1fr); }
     .campus-grid[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .campus-grid[data-count="3"] {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-rows: 1fr auto;
-    }
-    .campus-grid[data-count="3"] .campus-card-wrap:nth-child(3) {
-      grid-column: 1 / -1;
-      height: 120px;
-    }
-    .campus-grid[data-count="3"] .campus-card-wrap:nth-child(3) .campus-card {
-      height: 120px;
-      min-height: 120px;
-      aspect-ratio: auto;
-    }
+    .campus-grid[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .campus-grid[data-count="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .campus-grid[data-count="5"],
+    .campus-grid[data-count="6"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .campus-card-wrap {
       position: relative;
       min-width: 0;
       min-height: 0;
-      height: 100%;
+      height: auto;
     }
     .campus-card {
       position: relative;
       display: block;
       width: 100%;
-      height: 100%;
-      min-height: 180px;
-      aspect-ratio: auto;
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 16 / 10;
       margin: 0;
       padding: 0;
       border: 1px solid var(--line);
@@ -1130,14 +967,15 @@
       background: var(--white);
       box-shadow: var(--shadow);
       flex: 1 1 auto;
-      min-height: 240px;
+      min-height: 220px;
+      height: 100%;
       position: relative;
     }
     .campus-map iframe {
       display: block;
       width: 100%;
       height: 100%;
-      min-height: 240px;
+      min-height: 220px;
       border: 0;
       position: absolute;
       inset: 0;
@@ -1179,7 +1017,7 @@
     .chip-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 8px;
+      gap: var(--bento-gap, 16px);
       flex: 1 1 auto;
       align-content: start;
     }
@@ -1223,13 +1061,14 @@
     .guide-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 10px;
+      gap: var(--bento-gap, 16px);
     }
     .guide-card {
       position: relative;
       border-radius: var(--radius);
       overflow: hidden;
-      min-height: 120px;
+      min-height: 0;
+      aspect-ratio: 16 / 10;
       background: #021452;
       text-decoration: none;
       color: #fff;
@@ -1313,8 +1152,11 @@
         align-items: start;
       }
       .content-split .col {
-        gap: 22px;
+        gap: var(--bento-gap, 16px);
         min-height: 0;
+        display: flex;
+        flex-direction: column;
+        grid-template-rows: none;
       }
       .content-split .col-main,
       .content-split .col-side,
@@ -1327,6 +1169,7 @@
         height: auto;
         min-height: 0;
         flex: none;
+        grid-template-rows: none;
       }
       .content-split .col-main #university-areas,
       .content-split .col-side #property-areas,
@@ -1359,7 +1202,8 @@
         gap: 6px;
       }
       .content-split .col-side .guide-card {
-        min-height: 140px;
+        min-height: 0;
+        aspect-ratio: 16 / 10;
       }
       .chip-list {
         gap: 10px;
@@ -1518,7 +1362,7 @@
   </div>
 
   <main>
-    <div class="inner content-split" data-uni-count="2" data-has-guides="1" data-align-chip="south-belfast">
+    <div class="inner content-split" data-uni-count="2" data-has-guides="1">
       <div class="col col-main">
         <section class="block" id="university-areas" aria-labelledby="university-areas-heading">
           <div class="section-head">
@@ -1550,6 +1394,20 @@
             </div>
           </div>
         </section>
+      <section class="block" id="campus-map" aria-labelledby="campus-map-heading">
+        <div class="section-head">
+          <h2 id="campus-map-heading">Campus Map</h2>
+        </div>
+        <div class="campus-map">
+          <iframe
+            title="Google Map of Stranmillis University College"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            src="https://maps.google.com/maps?q=54.571,-5.937&amp;z=16&amp;output=embed"
+          ></iframe>
+        </div>
+      </section>
       </div>
 
       <aside class="col col-side">
@@ -1600,20 +1458,6 @@
         </div>
       </section>
       </aside>
-      <section class="block" id="campus-map" aria-labelledby="campus-map-heading">
-        <div class="section-head">
-          <h2 id="campus-map-heading">Campus Map</h2>
-        </div>
-        <div class="campus-map">
-          <iframe
-            title="Google Map of Stranmillis University College"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-            src="https://maps.google.com/maps?q=54.571,-5.937&amp;z=16&amp;output=embed"
-          ></iframe>
-        </div>
-      </section>
 
 
     </div>
@@ -1704,71 +1548,11 @@
   <script>
     (function () {
       function syncUniCardsToPropertyChips() {
-        var split = document.querySelector(".content-split");
         var grid = document.querySelector("#university-areas .campus-grid");
-        var chipList = document.querySelector("#property-areas .chip-list");
-        if (!split || !grid || !chipList) return;
-
-        function clear() {
-          grid.style.marginTop = "";
-          grid.style.height = "";
-          grid.classList.remove("is-chip-aligned");
-        }
-
-        if (!window.matchMedia("(min-width: 981px)").matches) {
-          clear();
-          return;
-        }
-
-        var uniCount = parseInt(split.getAttribute("data-uni-count") || "0", 10);
-        if (uniCount > 3 || split.getAttribute("data-map-slot") === "left-gap") {
-          clear();
-          return;
-        }
-
-        var chips = chipList.querySelectorAll(".chip-link");
-        if (!chips.length) {
-          clear();
-          return;
-        }
-
-        grid.style.marginTop = "0px";
-        grid.style.height = "auto";
+        if (!grid) return;
+        grid.style.marginTop = "";
+        grid.style.height = "";
         grid.classList.remove("is-chip-aligned");
-
-        var alignKey = split.getAttribute("data-align-chip") || "";
-        var bottomEl = chipList;
-        if (alignKey) {
-          for (var i = 0; i < chips.length; i++) {
-            var href = chips[i].getAttribute("href") || "";
-            if (href.indexOf(alignKey) !== -1) {
-              bottomEl = chips[i];
-              break;
-            }
-          }
-        }
-
-        var hasGuides = split.getAttribute("data-has-guides") === "1";
-        var gridTop = grid.getBoundingClientRect().top;
-        var bottom = bottomEl.getBoundingClientRect().bottom;
-
-        /* With area guides on the right, keep cards at the natural top (same row as guides).
-           Only push down when there are no guides (e.g. Magee / St Mary’s). */
-        if (!hasGuides) {
-          var listTop = chipList.getBoundingClientRect().top;
-          var margin = Math.round(listTop - gridTop);
-          if (margin > 0) {
-            grid.style.marginTop = margin + "px";
-            gridTop = grid.getBoundingClientRect().top;
-            bottom = bottomEl.getBoundingClientRect().bottom;
-          }
-        }
-
-        var height = Math.round(bottom - gridTop);
-        if (height > 0) {
-          grid.style.height = height + "px";
-          grid.classList.add("is-chip-aligned");
-        }
       }
 
       window.syncUniCardsToPropertyChips = syncUniCardsToPropertyChips;
