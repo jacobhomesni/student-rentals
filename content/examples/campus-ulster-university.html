@@ -897,6 +897,13 @@
         min-height: 0;
         aspect-ratio: 2 / 1;
       }
+      /* Coleraine: nudge Portrush strip up to meet the Portrush property chip */
+      .content-split[data-map-slot="left-gap"] .campus-grid[data-count="3"] .campus-card-wrap:nth-child(3),
+      .content-split[data-map-slot="left-gap"] .campus-grid[data-count="3"] .campus-card-wrap:nth-child(3) .campus-card {
+        height: 100px;
+        min-height: 100px;
+        aspect-ratio: auto;
+      }
       .content-split .col-main #university-areas .section-head {
         margin-bottom: 4px;
         gap: 2px;
