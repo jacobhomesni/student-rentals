@@ -1,6 +1,6 @@
 # HomesNI university + uni areas content
 
-Structured content for every NI university/campus, plus **Uni areas**, wired for campus pages with three separate sections.
+Structured content for NI universities with physical campuses, plus **Uni areas**, wired for campus pages with three separate sections.
 
 ## Campus page model (locked)
 
@@ -26,7 +26,6 @@ This pack is the full NI university / university-college set (FE colleges deferr
 | Ulster University | `universities/ulster-university.json` | Belfast, Coleraine, Magee, Jordanstown |
 | St Mary’s University College | `universities/st-marys-university-college.json` | Belfast |
 | Stranmillis University College | `universities/stranmillis-university-college.json` | Belfast |
-| Open University NI | `universities/open-university-ni.json` | Belfast office |
 
 ### Uni areas
 
@@ -38,7 +37,6 @@ Catalog: [`areas/uni-areas.json`](areas/uni-areas.json) — Botanic, Holylands, 
 - [`examples/campus-ulster-university.html`](examples/campus-ulster-university.html) — Ulster multi-campus switcher
 - [`examples/campus-st-marys-university-college.html`](examples/campus-st-marys-university-college.html)
 - [`examples/campus-stranmillis-university-college.html`](examples/campus-stranmillis-university-college.html)
-- [`examples/campus-open-university-ni.html`](examples/campus-open-university-ni.html)
 
 ### Images
 

@@ -113,14 +113,14 @@
       "id": "belfast-city-centre",
       "slug": "belfast-city-centre",
       "name": "Belfast City Centre",
-      "summary": "Central Belfast living for Ulster Belfast and The Open University students who want city access.",
+      "summary": "Central Belfast living for Ulster Belfast students who want city access.",
       "searchPath": "/student-rentals?uni-area=belfast-city-centre",
       "path": "/uni-area/belfast-city-centre",
-      "campusIds": ["ulster-belfast", "open-university-belfast"],
+      "campusIds": ["ulster-belfast"],
       "image": "assets/unis/uni-areas/belfast-city-centre.jpg",
       "seo": {
         "title": "Student rentals in Belfast City Centre | HomesNI",
-        "description": "Search student rentals in Belfast City Centre — ideal for Ulster University Belfast and The Open University students.",
+        "description": "Search student rentals in Belfast City Centre — ideal for Ulster University Belfast students.",
         "h1": "Student rentals in Belfast City Centre"
       }
     },

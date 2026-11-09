@@ -2,7 +2,7 @@
 
 Please supply **one unique photo per row**. Prefer landscape hero crops (roughly 1600×900 or wider). Filenames below match the content JSON paths.
 
-## University heroes (5)
+## University heroes (4)
 
 | # | Save as | Subject |
 |---:|---|---|
@@ -10,9 +10,8 @@ Please supply **one unique photo per row**. Prefer landscape hero crops (roughly
 | 2 | `assets/unis/ulster.jpg` | Ulster University — institution brand hero (not a single campus only) |
 | 3 | `assets/unis/st-marys.jpg` | St Mary’s University College — Falls Road campus exterior |
 | 4 | `assets/unis/stranmillis.jpg` | Stranmillis University College — campus exterior |
-| 5 | `assets/unis/open-university-ni.jpg` | Open University NI — 110 Victoria Street / Belfast office · **DONE** |
 
-## Campus images (8) — unique per campus
+## Campus images (7) — unique per campus
 
 | # | Save as | Subject |
 |---:|---|---|
@@ -23,7 +22,6 @@ Please supply **one unique photo per row**. Prefer landscape hero crops (roughly
 | 10 | `assets/unis/campuses/ulster-jordanstown.jpg` | Ulster Jordanstown Sports Village · **DONE** |
 | 11 | `assets/unis/campuses/st-marys.jpg` | St Mary’s campus · **DONE** (reuse hero) |
 | 12 | `assets/unis/campuses/stranmillis.jpg` | Stranmillis campus · **DONE** (reuse hero) |
-| 13 | `assets/unis/campuses/open-university-belfast.jpg` | OU NI Belfast regional office · **DONE** (same as hero) |
 
 ## Uni area images (14) — main student catchments
 

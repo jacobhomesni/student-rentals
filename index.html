@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -2675,7 +2675,6 @@
                 <a href="content/examples/campus-ulster-university.html" role="menuitem">Ulster University</a>
                 <a href="content/examples/campus-st-marys-university-college.html" role="menuitem">St Mary’s University College</a>
                 <a href="content/examples/campus-stranmillis-university-college.html" role="menuitem">Stranmillis University College</a>
-                <a href="content/examples/campus-open-university-ni.html" role="menuitem">The Open University</a>
               </div>
             </div>
           </div>
@@ -2860,13 +2859,6 @@
           lat: 54.571,
           lng: -5.937,
           image: "assets/unis/stranmillis.jpg"
-        },
-        "open-university-belfast": {
-          id: "open-university-belfast",
-          name: "The Open University",
-          lat: 54.5964,
-          lng: -5.9235,
-          image: "assets/unis/open-university-ni.jpg"
         }
       };
 
@@ -2911,16 +2903,6 @@
           campusIds: ["stranmillis"],
           lat: 54.571,
           lng: -5.937
-        },
-        {
-          id: "open-university",
-          name: "The Open University",
-          subtitle: "Belfast office",
-          search: "open university ou distance learning belfast",
-          image: "assets/unis/open-university-ni.jpg",
-          campusIds: ["open-university-belfast"],
-          lat: 54.5964,
-          lng: -5.9235
         }
       ];
 
@@ -2933,8 +2915,7 @@
         { name: "Ulster University — Magee", aliases: "uu ulster magee derry londonderry", lat: 55.006, lng: -7.323, campusId: "ulster-magee" },
         { name: "Ulster University", aliases: "uu ulster university", lat: 54.65, lng: -5.95, tileId: "ulster" },
         { name: "St Mary’s University College", aliases: "st marys st mary's university college belfast", lat: 54.595, lng: -5.961, campusId: "st-marys" },
-        { name: "Stranmillis University College", aliases: "stranmillis university college belfast", lat: 54.571, lng: -5.937, campusId: "stranmillis" },
-        { name: "The Open University", aliases: "open university ou distance learning ou ni northern ireland", lat: 54.5964, lng: -5.9235, campusId: "open-university-belfast" }
+        { name: "Stranmillis University College", aliases: "stranmillis university college belfast", lat: 54.571, lng: -5.937, campusId: "stranmillis" }
       ];
 
       const STAY_TYPES = [
@@ -3306,7 +3287,7 @@
 
         tiles.forEach((tile) => {
           const wrap = document.createElement("div");
-          wrap.className = "campus-card-wrap" + (tile.id === "open-university" ? " is-full-row" : "");
+          wrap.className = "campus-card-wrap";
           wrap.dataset.tileId = tile.id;
 
           const selected = isTileSelected(tile);
