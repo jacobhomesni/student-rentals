@@ -821,9 +821,9 @@
     }
     .content-split .col-main #university-areas,
     .content-split .side-top #property-areas,
-    .content-split .side-top #area-guides,
+    .content-split .side-top #area-guides:not([hidden]),
     .content-split .col-side #property-areas,
-    .content-split .col-side #area-guides,
+    .content-split .col-side #area-guides:not([hidden]),
     .content-split .col-main #campus-map,
     .content-split .col-side #faqs,
     .content-split #campus-map,
@@ -833,6 +833,9 @@
       gap: 10px;
       min-height: 0;
       margin: 0;
+    }
+    .content-split #area-guides[hidden] {
+      display: none !important;
     }
     .content-split .col-main #university-areas {
       height: 100%;
@@ -1433,10 +1436,10 @@
             <span class="hint">Browse HomesNI property search around St Mary’s.</span>
           </div>
           <div class="chip-list" data-count="4">
-            <a class="chip-link" href="/properties-for-sale-falls">Falls</a>
-            <a class="chip-link" href="/properties-for-sale-west-belfast">West Belfast</a>
-            <a class="chip-link" href="/properties-for-sale-andersonstown">Andersonstown</a>
-            <a class="chip-link" href="/properties-for-sale-belfast-city-centre">Belfast City Centre</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-falls">Falls</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-west-belfast">West Belfast</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-andersonstown">Andersonstown</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-belfast-city-centre">Belfast City Centre</a>
           </div>
         </section>
         </div>

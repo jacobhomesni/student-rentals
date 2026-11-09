@@ -20,13 +20,13 @@
       "notes": "Primary teaching campus and Students’ Union / One Elmwood. Medical and hospital-linked teaching also draws students along the South Belfast / City Hospital corridor.",
       "uniAreas": ["botanic", "holylands", "stranmillis", "malone", "lisburn-road", "ormeau"],
       "searchPlaces": [
-        { "name": "Stranmillis", "path": "/properties-for-sale-stranmillis" },
-        { "name": "Malone", "path": "/properties-for-sale-malone" },
-        { "name": "Lisburn Road Area", "path": "/properties-for-sale-lisburn-road-area" },
-        { "name": "Ormeau", "path": "/properties-for-sale-ormeau" },
-        { "name": "South Belfast", "path": "/properties-for-sale-south-belfast" },
-        { "name": "Ravenhill", "path": "/properties-for-sale-ravenhill" },
-        { "name": "Finaghy", "path": "/properties-for-sale-finaghy" }
+        { "name": "Stranmillis", "path": "https://homesni.com/properties-for-sale-stranmillis" },
+        { "name": "Malone", "path": "https://homesni.com/properties-for-sale-malone" },
+        { "name": "Lisburn Road Area", "path": "https://homesni.com/properties-for-sale-lisburn-road-area" },
+        { "name": "Ormeau", "path": "https://homesni.com/properties-for-sale-ormeau" },
+        { "name": "South Belfast", "path": "https://homesni.com/properties-for-sale-south-belfast" },
+        { "name": "Ravenhill", "path": "https://homesni.com/properties-for-sale-ravenhill" },
+        { "name": "Finaghy", "path": "https://homesni.com/properties-for-sale-finaghy" }
       ],
       "areaGuides": [
         { "name": "Ormeau", "path": "/area/ormeau" }

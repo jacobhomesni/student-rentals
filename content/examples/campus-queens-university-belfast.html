@@ -826,9 +826,9 @@
     }
     .content-split .col-main #university-areas,
     .content-split .side-top #property-areas,
-    .content-split .side-top #area-guides,
+    .content-split .side-top #area-guides:not([hidden]),
     .content-split .col-side #property-areas,
-    .content-split .col-side #area-guides,
+    .content-split .col-side #area-guides:not([hidden]),
     .content-split .col-main #campus-map,
     .content-split .col-side #faqs,
     .content-split #campus-map,
@@ -838,6 +838,9 @@
       gap: 10px;
       min-height: 0;
       margin: 0;
+    }
+    .content-split #area-guides[hidden] {
+      display: none !important;
     }
     .content-split .col-main #university-areas {
       height: 100%;
@@ -1535,14 +1538,14 @@
             <span class="hint">Browse HomesNI property search around Queen’s.</span>
           </div>
           <div class="chip-list">
-            <a class="chip-link" href="/properties-for-sale-stranmillis">Stranmillis</a>
-            <a class="chip-link" href="/properties-for-sale-malone">Malone</a>
-            <a class="chip-link" href="/properties-for-sale-lisburn-road-area">Lisburn Road Area</a>
-            <a class="chip-link" href="/properties-for-sale-ormeau">Ormeau</a>
-            <a class="chip-link" href="/properties-for-sale-south-belfast">South Belfast</a>
-            <a class="chip-link" href="/properties-for-sale-belfast-city-centre">Belfast City Centre</a>
-            <a class="chip-link" href="/properties-for-sale-ravenhill">Ravenhill</a>
-            <a class="chip-link" href="/properties-for-sale-finaghy">Finaghy</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-stranmillis">Stranmillis</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-malone">Malone</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-lisburn-road-area">Lisburn Road Area</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-ormeau">Ormeau</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-south-belfast">South Belfast</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-belfast-city-centre">Belfast City Centre</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-ravenhill">Ravenhill</a>
+            <a class="chip-link" href="https://homesni.com/properties-for-sale-finaghy">Finaghy</a>
           </div>
         </section>
         </div>

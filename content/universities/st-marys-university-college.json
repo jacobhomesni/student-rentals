@@ -20,10 +20,10 @@
       "notes": "Single Belfast campus with a strong West Belfast identity.",
       "uniAreas": ["falls"],
       "searchPlaces": [
-        { "name": "Falls", "path": "/properties-for-sale-falls" },
-        { "name": "West Belfast", "path": "/properties-for-sale-west-belfast" },
-        { "name": "Andersonstown", "path": "/properties-for-sale-andersonstown" },
-        { "name": "Belfast City Centre", "path": "/properties-for-sale-belfast-city-centre" }
+        { "name": "Falls", "path": "https://homesni.com/properties-for-sale-falls" },
+        { "name": "West Belfast", "path": "https://homesni.com/properties-for-sale-west-belfast" },
+        { "name": "Andersonstown", "path": "https://homesni.com/properties-for-sale-andersonstown" },
+        { "name": "Belfast City Centre", "path": "https://homesni.com/properties-for-sale-belfast-city-centre" }
       ],
       "areaGuides": []
     }

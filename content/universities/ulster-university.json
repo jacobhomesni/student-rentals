@@ -20,10 +20,10 @@
       "notes": "City campus in and around the Cathedral Quarter.",
       "uniAreas": ["cathedral-quarter", "belfast-city-centre"],
       "searchPlaces": [
-        { "name": "Belfast City Centre", "path": "/properties-for-sale-belfast-city-centre" },
-        { "name": "North Belfast", "path": "/properties-for-sale-north-belfast" },
-        { "name": "Antrim Road", "path": "/properties-for-sale-antrim-road" },
-        { "name": "Belfast", "path": "/properties-for-sale-belfast" }
+        { "name": "Belfast City Centre", "path": "https://homesni.com/properties-for-sale-belfast-city-centre" },
+        { "name": "North Belfast", "path": "https://homesni.com/properties-for-sale-north-belfast" },
+        { "name": "Antrim Road", "path": "https://homesni.com/properties-for-sale-antrim-road" },
+        { "name": "Belfast", "path": "https://homesni.com/properties-for-sale-belfast" }
       ],
       "areaGuides": [
         { "name": "North Belfast", "path": "/area/north-belfast" }
@@ -40,10 +40,10 @@
       "notes": "Riverside campus with strong North Coast student living in Portstewart and Portrush.",
       "uniAreas": ["coleraine", "portstewart", "portrush"],
       "searchPlaces": [
-        { "name": "Coleraine Area", "path": "/properties-for-sale-coleraine-area" },
-        { "name": "Portstewart", "path": "/properties-for-sale-portstewart" },
-        { "name": "Portrush", "path": "/properties-for-sale-portrush" },
-        { "name": "North Coast Area", "path": "/properties-for-sale-north-coast-area" }
+        { "name": "Coleraine Area", "path": "https://homesni.com/properties-for-sale-coleraine-area" },
+        { "name": "Portstewart", "path": "https://homesni.com/properties-for-sale-portstewart" },
+        { "name": "Portrush", "path": "https://homesni.com/properties-for-sale-portrush" },
+        { "name": "North Coast Area", "path": "https://homesni.com/properties-for-sale-north-coast-area" }
       ],
       "areaGuides": [
         { "name": "Coleraine", "path": "/area/coleraine" },
@@ -61,8 +61,8 @@
       "notes": "Magee campus on the city’s north side; student demand concentrates around Northland and the wider city.",
       "uniAreas": ["magee-northland"],
       "searchPlaces": [
-        { "name": "Derry / Londonderry", "path": "/properties-for-sale-derry-londonderry" },
-        { "name": "County Londonderry", "path": "/properties-for-sale-county-londonderry" }
+        { "name": "Derry / Londonderry", "path": "https://homesni.com/properties-for-sale-derry-londonderry" },
+        { "name": "County Londonderry", "path": "https://homesni.com/properties-for-sale-county-londonderry" }
       ],
       "areaGuides": []
     },
@@ -77,10 +77,10 @@
       "notes": "Ulster Sports Village at Jordanstown — its own Shore Road / Newtownabbey facility for sport and related student living.",
       "uniAreas": ["jordanstown"],
       "searchPlaces": [
-        { "name": "Newtownabbey Area", "path": "/properties-for-sale-newtownabbey-area" },
-        { "name": "Greenisland", "path": "/properties-for-sale-greenisland" },
-        { "name": "Carrickfergus", "path": "/properties-for-sale-carrickfergus" },
-        { "name": "East Antrim Area", "path": "/properties-for-sale-east-antrim-area" }
+        { "name": "Newtownabbey Area", "path": "https://homesni.com/properties-for-sale-newtownabbey-area" },
+        { "name": "Greenisland", "path": "https://homesni.com/properties-for-sale-greenisland" },
+        { "name": "Carrickfergus", "path": "https://homesni.com/properties-for-sale-carrickfergus" },
+        { "name": "East Antrim Area", "path": "https://homesni.com/properties-for-sale-east-antrim-area" }
       ],
       "areaGuides": [
         { "name": "Newtownabbey Area", "path": "/area/newtownabbey-area" },
