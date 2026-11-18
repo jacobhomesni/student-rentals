@@ -2823,28 +2823,28 @@
           name: "Ulster University — Belfast",
           lat: 54.603,
           lng: -5.93,
-          image: "assets/unis/ulster.jpg"
+          image: "assets/unis/campuses/ulster-belfast.jpg"
         },
         "ulster-jordanstown": {
           id: "ulster-jordanstown",
           name: "Ulster University — Jordanstown",
           lat: 54.688,
           lng: -5.822,
-          image: "assets/unis/ulster.jpg"
+          image: "assets/unis/campuses/ulster-jordanstown.jpg"
         },
         "ulster-coleraine": {
           id: "ulster-coleraine",
           name: "Ulster University — Coleraine",
           lat: 55.148,
           lng: -6.675,
-          image: "assets/unis/ulster.jpg"
+          image: "assets/unis/campuses/ulster-coleraine.jpg"
         },
         "ulster-magee": {
           id: "ulster-magee",
           name: "Ulster University — Magee",
           lat: 55.006,
           lng: -7.323,
-          image: "assets/unis/ulster.jpg"
+          image: "assets/unis/campuses/ulster-magee.jpg"
         },
         "st-marys": {
           id: "st-marys",
@@ -3293,9 +3293,11 @@
           const selected = isTileSelected(tile);
           const pickerOpen = tile.multi && state.openPickerId === tile.id;
           if (pickerOpen) wrap.classList.add("is-picker-open");
-          const uniText = selected && tile.multi
-            ? campusShortLabel(campusById(state.campusId)) + " campus"
+          const selectedCampus = selected && tile.multi ? campusById(state.campusId) : null;
+          const uniText = selectedCampus
+            ? campusShortLabel(selectedCampus) + " campus"
             : tile.subtitle;
+          const cardImage = (selectedCampus && selectedCampus.image) ? selectedCampus.image : tile.image;
           const uniArrow = tile.multi ? '<span class="uni-arrow" aria-hidden="true"></span>' : "";
           const btn = document.createElement("button");
           btn.type = "button";
@@ -3305,7 +3307,7 @@
           if (tile.multi) btn.setAttribute("aria-haspopup", "listbox");
           btn.innerHTML =
             '<span class="check" aria-hidden="true">✓</span>' +
-            '<div class="img"><img loading="lazy" src="' + tile.image + '" alt="" /></div>' +
+            '<div class="img"><img loading="lazy" src="' + cardImage + '" alt="" /></div>' +
             '<div class="info"><h3 class="title"><span>' + tile.name +
             '</span><span class="uni"><span class="uni-label">' + uniText + "</span>" + uniArrow + "</span></h3></div>";
 
